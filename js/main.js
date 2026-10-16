@@ -1187,7 +1187,7 @@
     var totalEl = root.querySelector("[data-proj-total]");
     if (totalEl) totalEl.textContent = total;
     var footer = root.querySelector(".projSlider__footer");
-    var cardW = 0, setW = 0, startX = 0, target = 0, pos = 0;
+    var cardW = 0, setW = 0, startX = 0, target = 0, pos = 0, dirty = true;
     function measure() {
       // 사진 3장과 간격 2개(카드 폭의 7%)가 본문 폭에 딱 맞도록 카드 폭을 정한다
       if (footer) root.style.setProperty("--projCardW", footer.getBoundingClientRect().width / 3.14 + "px");
@@ -1199,7 +1199,7 @@
     }
     function mod(n, m) { return ((n % m) + m) % m; }
     measure();
-    window.addEventListener("resize", measure);
+    window.addEventListener("resize", function () { measure(); dirty = true; });
 
     // 휠 횡스크롤은 뺐다. 휠은 페이지 세로 스크롤로 그대로 넘긴다
 
@@ -1237,6 +1237,9 @@
 
     gsap.ticker.add(function () {
       if (!setW) return;
+      // 멈춰 있으면 매 프레임 다시 그리지 않는다 (세로 스크롤 버벅임 방지)
+      if (Math.abs(target - pos) < 0.05 && !dirty) return;
+      dirty = false;
       pos += (target - pos) * 0.12;
       var m = mod(pos, setW);
       track.style.transform = "translate3d(" + (startX - setW - m) + "px,0,0)";
