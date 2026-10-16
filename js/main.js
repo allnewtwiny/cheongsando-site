@@ -532,17 +532,25 @@
         try { sessionStorage.setItem("preloaderShow", "true"); } catch (x) {}
         if (window.__replayLogo) { ev.preventDefault(); window.__replayLogo(); }
       });
+      // 숨김 상태가 바뀔 때만 한 번 움직인다 (스크롤마다 애니메이션이 쌓여 버벅이던 것 방지)
+      var logoHidden = null;
       window.addEventListener("scroll", function () {
-        if (window.scrollY > 10) gsap.to(logo, { opacity: 0, duration: 0.2, pointerEvents: "none" });
-        else gsap.to(logo, { opacity: 1, duration: 0.2, pointerEvents: "auto" });
+        var h = window.scrollY > 10;
+        if (h === logoHidden) return;
+        logoHidden = h;
+        gsap.to(logo, { opacity: h ? 0 : 1, duration: 0.2, pointerEvents: h ? "none" : "auto", overwrite: true });
       });
     }
 
     function marketsOnScroll() {
       var present = !!document.querySelector("[data-marketsmenu='1']");
+      var menuHidden = null;
       window.addEventListener("scroll", function () {
-        if (window.scrollY > 10 && present) gsap.to(".marketsMenu", { opacity: 0, duration: 0.2, display: "none" });
-        else if (window.scrollY <= 10 && present) gsap.to(".marketsMenu", { opacity: 1, duration: 0.2, display: "flex" });
+        if (!present) return;
+        var h = window.scrollY > 10;
+        if (h === menuHidden) return;
+        menuHidden = h;
+        gsap.to(".marketsMenu", { opacity: h ? 0 : 1, duration: 0.2, display: h ? "none" : "flex", overwrite: true });
       });
     }
 
