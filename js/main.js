@@ -1112,6 +1112,43 @@
     };
   }
 
+  /* ---------- BlockProcessCardSlider module (swiper 대신 가로 스크롤) ---------- */
+  function BlockProcessCardSlider(root) {
+    return {
+      init: function () {
+        var track = root.querySelector(".blockProcessCardSlider__contentSectionWrapper");
+        if (!track) return;
+        var cards = Array.from(track.querySelectorAll(".cardItem"));
+        var items = Array.from(root.querySelectorAll(".blockProcessCardSlider__listItem"));
+        track.style.overflowX = "auto";
+        track.style.scrollSnapType = "x mandatory";
+        track.style.scrollBehavior = "smooth";
+        cards.forEach(function (c) { c.style.scrollSnapAlign = "start"; });
+        function pos(c) { return c.getBoundingClientRect().left - track.getBoundingClientRect().left; }
+        function current() {
+          var best = 0;
+          cards.forEach(function (c, i) { if (Math.abs(pos(c)) < Math.abs(pos(cards[best]))) best = i; });
+          return best;
+        }
+        function go(i) {
+          i = Math.max(0, Math.min(cards.length - 1, i));
+          track.scrollLeft += pos(cards[i]);
+        }
+        function mark() {
+          var c = current();
+          items.forEach(function (li, i) { li.classList.toggle("is-active", i === c); });
+        }
+        var back = root.querySelector(".buttonCircle--back");
+        var fwd = root.querySelector(".buttonCircle--forward");
+        if (back) back.addEventListener("click", function () { go(current() - 1); });
+        if (fwd) fwd.addEventListener("click", function () { go(current() + 1); });
+        items.forEach(function (li, i) { li.style.cursor = "pointer"; li.addEventListener("click", function () { go(i); }); });
+        track.addEventListener("scroll", mark, { passive: true });
+        mark();
+      }
+    };
+  }
+
   /* ---------- module loader (main.js: Qi) ---------- */
   var registry = {
     Preloader: Preloader,
@@ -1122,7 +1159,8 @@
     GlobalLatestOverview: GlobalLatestOverview,
     NavigationFooter: NavigationFooter,
     BlockHeaderMarkets: BlockHeaderMarkets,
-    BlockIntroDouble: BlockIntroDouble
+    BlockIntroDouble: BlockIntroDouble,
+    BlockProcessCardSlider: BlockProcessCardSlider
   };
   document.querySelectorAll("[data-control]").forEach(function (el) {
     var name = el.getAttribute("data-control");

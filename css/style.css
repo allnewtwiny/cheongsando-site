@@ -114,3 +114,17 @@ html.vt-market::view-transition-new(vtMarkets){animation:vtFadeIn .5s cubic-bezi
 .projKeymap.sale .projKeymap__badge--sale{transform:translate(-50%,-100%) scale(1)}
 .projKeymap.sale .projKeymap__badge.hasSale{transform:translate(-50%,-100%) scale(0)}
 .portfolioFilter__item.is-active{color:#262626}
+
+/* 자식 페이지 보정 (2026-10-16): 카드 슬라이더 위치, 전체 보기 겹침 */
+.blockProcessCardSlider__contentSection{grid-column:2/-1;grid-row:3;min-width:0;overflow:hidden;padding:3rem 0 0}
+.blockProcessCardSlider__contentSectionWrapper{display:flex;flex-direction:row;gap:1rem;scrollbar-width:none}
+.blockProcessCardSlider__contentSectionWrapper::-webkit-scrollbar{display:none}
+.blockProcessCardSlider__contentSectionWrapper .cardItem{flex:0 0 auto;height:60vh;max-height:56rem}
+.blockProcessCardSlider__listItem{opacity:.45;transition:opacity .3s}
+.blockProcessCardSlider__listItem.is-active{opacity:1}
+@media (min-width: 992px){
+.blockProcessCardSlider__contentSection{grid-column:7/-1;grid-row:2;align-self:center;padding:5rem 0;z-index:1}
+.blockProcessCardSlider__headerTitle{margin-top:10rem}
+.blockProjectsHighlight__layoutThree{grid-template-rows:1fr auto}
+.blockProjectsHighlight__layoutThreeContent{align-self:start;margin-top:4rem}
+}
