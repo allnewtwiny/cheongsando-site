@@ -27,7 +27,8 @@
   var lenis = null;
   var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   if (!(isSafari && isTouch) && window.Lenis) {
-    lenis = new window.Lenis({ autoRaf: false });
+    // lerp를 기본 0.1보다 낮춰 스크롤이 더 길고 부드럽게 미끄러지도록 한다
+    lenis = new window.Lenis({ autoRaf: false, lerp: 0.07, wheelMultiplier: 0.9 });
     if (document.body.classList.contains("preloaderActive")) lenis.stop();
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(function (t) {
@@ -89,11 +90,15 @@
     var self = this;
     this.distX = this.mouseX - this.blobX;
     this.distY = this.mouseY - this.blobY;
-    this.blobX = this.blobX + this.distX * this.speed;
-    this.blobY = this.blobY + this.distY * this.speed;
-    this.blob.style.left = this.blobX - this.offsetX + "px";
-    this.blob.style.top = this.blobY - this.offsetY + "px";
-    this.blob.style.position = "fixed";
+    // 마우스가 멈춰 있으면 위치를 다시 쓰지 않는다 (스크롤 중 매 프레임 다시 그리던 것 방지)
+    if (Math.abs(this.distX) > 0.1 || Math.abs(this.distY) > 0.1 || !this.placed) {
+      this.placed = true;
+      this.blobX = this.blobX + this.distX * this.speed;
+      this.blobY = this.blobY + this.distY * this.speed;
+      this.blob.style.position = "fixed";
+      this.blob.style.left = this.blobX - this.offsetX + "px";
+      this.blob.style.top = this.blobY - this.offsetY + "px";
+    }
     this.lastFrame = requestAnimationFrame(function () { self.animate(); });
   };
   BlobCursor.prototype.updatePosition = function (e) {
