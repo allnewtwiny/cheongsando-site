@@ -1,6 +1,8 @@
 /* 하위 페이지 스크롤 연출. css/sub.css 11번 이후 블록, css/apple.css와 짝을 이룬다. main.js 다음에 로드.
    v2 (2026-10-22): 숫자 카운트업, 어두운 섹션 전환(is-dark), 화면 고정 장면(.chqPin, gsap ScrollTrigger), 막대 차트 추가.
-   v3 (2026-10-23): 고정 장면 안 그림 교차(.chqPin__fig[data-step]), 요소 등장(.chqPop[data-at]), 선과 막대 자람(.chqGrowLine/.chqGrowY/.chqGrowX[data-at]), 단계별 어두워짐(data-dark-at). */
+   v3 (2026-10-23): 고정 장면 안 그림 교차(.chqPin__fig[data-step]), 요소 등장(.chqPop[data-at]), 선과 막대 자람(.chqGrowLine/.chqGrowY/.chqGrowX[data-at]), 단계별 어두워짐(data-dark-at).
+   v4 (2026-10-23): [data-parallax] 패럴랙스, 고정 장면 안 모든 [data-count] 진행도 구동.
+   v5 (2026-10-23): 메인 상단바 톤(is-pastHero 대행), 모바일 그림 끼워 넣기(.chqPin--interleave). */
 (function () {
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -198,6 +200,48 @@
     } else {
       darks.forEach(function (s) { s.classList.add('is-dark'); });
     }
+  }
+
+  /* 8. 패럴랙스: [data-parallax] 안의 이미지가 스크롤에 따라 천천히 움직인다 (v4, 2026-10-23 메인) */
+  if (gsap && ST && !reduce) {
+    $$('[data-parallax]').forEach(function (box) {
+      var img = box.querySelector('img');
+      if (!img) return;
+      gsap.fromTo(img, { yPercent: 7 }, { yPercent: -7, ease: 'none', scrollTrigger: { trigger: box, start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
+  }
+
+  /* 9. 메인 상단바 톤 (v5): .homeHero가 없는 메인(data-page=home)은 main.js topBarTone이 멈추므로 여기서 맡는다.
+        상단바 아래(y=30px)가 사진 히어로나 어두운 섹션이면 투명 바에 흰 글자, 밝은 섹션이면 is-pastHero(반투명 흰 바에 검정 글자, apple.css). */
+  if (document.body.getAttribute('data-page') === 'home' && !document.querySelector('.homeHero')) {
+    var darkSel = '.chqHero--photo,.chqSec--darkFixed,.chqSec--photo,.chqSec.is-dark';
+    var toneRaf = 0;
+    var tone = function () {
+      toneRaf = 0;
+      var dark = $$(darkSel).some(function (el) { var r = el.getBoundingClientRect(); return r.top <= 30 && r.bottom > 30; });
+      document.body.classList.toggle('is-pastHero', window.scrollY > 10 && !dark);
+    };
+    var toneQ = function () { if (!toneRaf) toneRaf = requestAnimationFrame(tone); };
+    window.addEventListener('scroll', toneQ, { passive: true });
+    window.addEventListener('resize', toneQ);
+    if (ST) ST.addEventListener('refresh', toneQ);
+    tone();
+  }
+
+  /* 10. 모바일(1023px 이하): .chqPin--interleave 고정 장면의 그림을 각 단계 글 앞에 끼워 넣는다 (사진, 글, 버튼 순). 데스크톱 폭으로 돌아오면 원래 자리로. */
+  if (gsap && typeof gsap.matchMedia === 'function') {
+    gsap.matchMedia().add('(max-width: 1023px)', function () {
+      var moved = [];
+      $$('.chqPin--interleave').forEach(function (pin) {
+        var steps = $$('.chqPin__step', pin), figs = $$('.chqPin__fig', pin);
+        figs.forEach(function (f, i) {
+          if (!steps[i]) return;
+          moved.push({ f: f, parent: f.parentNode, next: f.nextSibling });
+          steps[i].insertBefore(f, steps[i].firstChild);
+        });
+      });
+      return function () { moved.reverse().forEach(function (m) { m.parent.insertBefore(m.f, m.next); }); };
+    });
   }
 
   /* 7. 이미지와 글꼴이 다 실린 뒤 위치 다시 계산 */

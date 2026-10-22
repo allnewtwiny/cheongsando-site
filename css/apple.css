@@ -354,3 +354,55 @@ tr.chqPop{transition:opacity .45s ease;transition-delay:var(--d,0s)}
   .chqGrowLine,.chqGrowY,.chqGrowX{--g:1;transition:none}
   .chqPin__fig{transition:none}
 }
+
+/* 메인(index) 애플 스타일 2026-10-23: 전면 사진 히어로, 장면 사진, 패럴랙스 */
+.chqApple .chqHero--photo{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;padding:0 0 8rem;text-align:left;overflow:hidden;background:#000;--fg:#f5f5f7;--fg2:#d2d2d7;--fg3:#a1a1a6;--acc:#30d158;--accT:#30d158;--line:#424245;color:var(--fg)}
+.chqHero__bg{position:absolute;inset:-2%;background-size:cover;background-position:center;transform:scale(1.1);animation:chqHeroZoom 8s cubic-bezier(.2,.6,.2,1) forwards}
+@keyframes chqHeroZoom{to{transform:scale(1)}}
+.chqApple .chqHero--photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,.22) 40%,rgba(0,0,0,.74) 100%);pointer-events:none}
+.chqApple .chqHero--photo .chqWrap{position:relative;z-index:1;width:100%}
+.chqApple .chqHero--photo .chqLabel{justify-content:flex-start}
+.chqApple .chqHero--photo .chqHero__title{margin:2.4rem 0 0;max-width:12ch;font-size:clamp(5.2rem,9vw,13rem);line-height:1;font-weight:700;letter-spacing:-.045em}
+.chqApple .chqHero--photo .chqHero__title span{display:inline-block;background:linear-gradient(180deg,#ffffff 36%,#9a9a9e 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.1em;margin-bottom:-.1em}
+.chqApple .chqHero--photo .chqHero__sub{margin:3.2rem 0 0;max-width:54rem;font-size:2rem;line-height:1.55;color:var(--fg2)}
+.chqApple .chqHero--photo .chqBtns{justify-content:flex-start;margin-top:4rem}
+.chqHero__scroll{position:absolute;right:6rem;bottom:3.2rem;z-index:1;margin:0;font-family:var(--mono);font-size:1.2rem;letter-spacing:.24em;color:var(--fg3)}
+.chqHero__scroll::after{content:"";display:block;width:1px;height:4.8rem;margin:1.2rem auto 0;background:linear-gradient(180deg,var(--fg3),transparent);animation:chqScrollHint 2.2s ease-in-out infinite}
+@keyframes chqScrollHint{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.chqPin__fig .chqPhoto{display:block;width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:2.8rem;background:var(--card)}
+.chqPin__step .chqBtns{justify-content:flex-start;margin-top:2.8rem}
+.chqPin__step .chqBtn{padding:1.2rem 2.2rem;font-size:1.5rem}
+[data-parallax]{overflow:hidden}
+[data-parallax] img{transform:scale(1.18);will-change:transform}
+.chqApple .chqChapters .chqPin__copy .chqSec__title{font-size:clamp(3.2rem,4vw,5.2rem)}
+@media (max-width:767px){
+  .chqApple .chqHero--photo{min-height:92svh;padding:0 0 5rem}
+  .chqApple .chqHero--photo .chqHero__title{font-size:clamp(4.4rem,13vw,6.4rem);max-width:none}
+  .chqApple .chqHero--photo .chqHero__sub{font-size:1.6rem;margin-top:2rem}
+  .chqHero__scroll{display:none}
+  .chqPin__fig .chqPhoto{border-radius:2rem;aspect-ratio:4/3}
+}
+
+/* 메인 보강 (2026-10-23 v2): 사진 히어로 라벨과 버튼, 유형 사진 카드, 반투명 상단바, 모바일 그림 끼워 넣기 (js/sub.js 9, 10번) */
+.chqApple .chqHero--photo .chqLabel{color:#d2d2d7}
+.chqApple .chqHero--photo .chqBtn--fill{background:#fff;border-color:#fff;color:#1d1d1f}
+.chqApple .chqHero--photo .chqBtn--fill:hover{background:transparent;color:#fff}
+.chqTypes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem}
+.chqType{position:relative;aspect-ratio:3/4;border-radius:3.2rem;overflow:hidden;background:#1d1d1f;isolation:isolate}
+.chqType__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.chqType:hover .chqType__img{transform:scale(1.06)}
+.chqType::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(0,0,0,.8) 100%);pointer-events:none}
+.chqType__body{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:3.6rem;color:#f5f5f7}
+.chqType__body .chqCell__k{color:#d2d2d7}
+.chqType__t{margin:1rem 0 0;font-size:2.6rem;font-weight:600;letter-spacing:-.02em;line-height:1.2;color:#f5f5f7}
+.chqType__d{margin:.8rem 0 0;font-size:1.6rem;line-height:1.5;color:#d2d2d7}
+body.chqApple.is-pastHero[data-page=home] .navigationMain__topBar{background:rgba(255,255,255,.72)!important;-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:inset 0 -1px 0 rgba(0,0,0,.08)}
+@media (max-width:1023px){
+  .chqPin--interleave .chqPin__step>.chqPin__fig{margin:0 0 2.4rem}
+  .chqChapters .chqPin__steps{gap:5.6rem}
+  .chqTypes{grid-template-columns:1fr;gap:1.6rem}
+  .chqType{aspect-ratio:4/5;border-radius:2.4rem}
+  .chqType__body{padding:2.8rem}
+  .chqType__t{font-size:2.2rem}
+}
+@media (max-width:1023px){html{overflow-x:clip}} /* 푸터 큰 사진(546px)이 가로 스크롤을 만들던 문제, 전 페이지 공통 (2026-10-23) */
