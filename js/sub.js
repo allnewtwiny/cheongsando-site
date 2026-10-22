@@ -139,7 +139,7 @@
           });
         };
         created.push(ST.create({
-          trigger: pin, start: 'top top', end: '+=' + (n * 90) + '%', pin: stage, scrub: 0.4, anticipatePin: 1,
+          trigger: pin, start: 'top top', end: '+=' + (parseInt(pin.getAttribute('data-len'), 10) || n * 90) + '%', pin: stage, scrub: 0.4, anticipatePin: 1,
           onUpdate: function (self) { render(self.progress); },
           onRefresh: function (self) { render(self.progress); }
         }));
@@ -186,7 +186,7 @@
     if (ST && !reduce) {
       darks.forEach(function (sec) {
         ST.create({
-          trigger: sec, start: 'top 70%', end: 'bottom 30%',
+          trigger: sec, start: 'top 70%', end: sec.classList.contains('chqSec--darkStay') ? 'bottom top' : 'bottom 30%',
           onToggle: function (self) { sec.classList.toggle('is-dark', self.isActive); }
         });
       });
