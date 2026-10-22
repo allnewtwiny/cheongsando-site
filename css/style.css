@@ -43,8 +43,8 @@ https://flickity.metafizzy.co
 @view-transition{navigation:auto}
 html.vt-fade::view-transition-old(root){animation:vtFadeOut .25s ease both}
 html.vt-fade::view-transition-new(root){animation:vtFadeIn .25s ease .4s both}
-html.vt-market::view-transition-old(root){animation:vtHomeBack 1s cubic-bezier(.25,.46,.45,.94) both;transform-origin:center 50vh}
-html.vt-market::view-transition-new(root){animation:vtSlideUp 1.5s cubic-bezier(.215,.61,.355,1) both}
+html.vt-market::view-transition-old(root){animation:vtHomeBack .7s cubic-bezier(.25,.46,.45,.94) both;transform-origin:center 50vh}
+html.vt-market::view-transition-new(root){animation:vtSlideUp 1s cubic-bezier(.215,.61,.355,1) both}
 @keyframes vtFadeOut{to{opacity:0}}
 @keyframes vtFadeIn{from{opacity:0}}
 @keyframes vtHomeBack{to{transform:scale(.8);opacity:.5;filter:blur(50px) brightness(.3)}}
@@ -61,7 +61,7 @@ html.vt-market::view-transition-group(vtNav){animation:none;z-index:2}
 html.vt-market::view-transition-old(vtNav){animation:none;opacity:0}
 html.vt-market::view-transition-new(vtNav){animation:none}
 html.vt-market::view-transition-old(vtMarkets){animation:none;opacity:0}
-html.vt-market::view-transition-new(vtMarkets){animation:vtFadeIn .5s cubic-bezier(.215,.61,.355,1) 1s both}
+html.vt-market::view-transition-new(vtMarkets){animation:vtFadeIn .5s cubic-bezier(.215,.61,.355,1) .7s both}
 @media (prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
 
 /* 시작 로고 액션 */
