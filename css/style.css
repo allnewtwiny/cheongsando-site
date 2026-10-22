@@ -72,9 +72,9 @@ html.vt-market::view-transition-new(vtMarkets){animation:vtFadeIn .5s cubic-bezi
 .projSlider__track{display:flex;width:max-content;will-change:transform;user-select:none;-webkit-user-select:none}
 .projSlider__card{flex:0 0 auto;width:min(56rem,80vw);margin-right:calc(min(56rem,80vw)*.07)}
 .projSlider__shape{width:100%;aspect-ratio:560/440;background:#c9c9c9}
-.projSlider__card--s1 .projSlider__shape{clip-path:polygon(91.2% 45.9%,45.6% 0.0%,31.3% 0.0%,0.0% 55.4%,0.0% 100.0%,33.4% 100.0%,100.0% 81.9%,100.0% 66.9%)}
-.projSlider__card--s2 .projSlider__shape{clip-path:polygon(93.8% 0.0%,18.3% 0.0%,4.7% 19.0%,0.0% 34.8%,0.0% 81.9%,40.8% 100.0%,100.0% 100.0%,100.0% 19.0%)}
-.projSlider__card--s3 .projSlider__shape{clip-path:polygon(86.2% 0.0%,23.4% 0.0%,0.0% 56.3%,0.0% 100.0%,41.2% 100.0%,100.0% 81.9%,100.0% 33.1%)}
+.projSlider__card--s1 .projSlider__shape{aspect-ratio:141.27/107.29;clip-path:polygon(91.2% 45.9%,45.6% 0.0%,31.3% 0.0%,0.0% 55.4%,0.0% 100.0%,33.4% 100.0%,100.0% 81.9%,100.0% 66.9%)}
+.projSlider__card--s2 .projSlider__shape{width:91.15%;aspect-ratio:128.76/107.30;clip-path:polygon(93.8% 0.0%,18.3% 0.0%,4.7% 19.0%,0.0% 34.8%,0.0% 81.9%,40.8% 100.0%,100.0% 100.0%,100.0% 19.0%)}
+.projSlider__card--s3 .projSlider__shape{width:97.2%;aspect-ratio:137.31/107.30;clip-path:polygon(86.2% 0.0%,23.4% 0.0%,0.0% 56.3%,0.0% 100.0%,41.2% 100.0%,100.0% 81.9%,100.0% 33.1%)}
 .projSlider__footer{grid-column:2/-2;margin-top:2rem}
 .projSlider__bar{position:relative;height:.5rem;background:rgb(214,214,214);overflow:hidden}
 .projSlider__barFill{position:absolute;left:0;top:0;height:100%;width:10%;background:#0e0e0e}
@@ -128,3 +128,142 @@ html.vt-market::view-transition-new(vtMarkets){animation:vtFadeIn .5s cubic-bezi
 .blockProjectsHighlight__layoutThree{grid-template-rows:1fr auto}
 .blockProjectsHighlight__layoutThreeContent{align-self:start;margin-top:4rem}
 }
+
+/* 카드 섹션, 자식 페이지 배경 = 푸터 배경색 (2026-10-16) */
+body[data-marketsmenu] .mainContent{background-color:#262626;color:#fff}
+.navigationFooter{background-color:#262626}
+/* 취향섬 유닛과 필지 섹션 흰 배경 (2026-10-16 사용자 요청) */
+.blockProjectsHighlight{background-color:#fff;color:#0e0e0e}
+.blockProjectsHighlight .projSlider__line polygon{stroke:#0e0e0e}
+.blockProjectsHighlight .projSlider__bar{background:rgb(214,214,214)}
+.blockProjectsHighlight .projSlider__barFill{background:#0e0e0e}
+.blockProjectsHighlight .button__title{color:#0e0e0e}
+.blockProjectsHighlight .portfolioFilter__wrapperOverflow:before{background:linear-gradient(to right,#fff,transparent)}
+.blockProjectsHighlight .portfolioFilter__wrapperOverflow:after{background:linear-gradient(to left,#fff,transparent)}
+.blockProjectsHighlight .portfolioFilter__item{color:#9a9a9a}
+.blockProjectsHighlight .portfolioFilter__item:hover,.blockProjectsHighlight [data-filterActive] .portfolioFilter__item,.blockProjectsHighlight .portfolioFilter__item.is-active{color:#0e0e0e}
+.blockProcessCardSlider__header,.blockProcessCardSlider__main{background-color:#262626}
+.blockProcessCardSlider__header:after{background-color:#262626}
+.blockProcessCardSlider__headerTagline,.blockProcessCardSlider__listLabel,.blockProcessCardSlider__listItemNumber{color:#b5b5b5}
+.blockProcessCardSlider__headerTagline{border-bottom-color:rgba(255,255,255,.3)}
+.blockProcessCardSlider__headerTitle{color:#d6d6d6}
+.blockProcessCardSlider__listItem,.blockProcessCardSlider__sliderButtons{color:#fff}
+.blockIntroDouble__headerButton{color:#9a9a9a}
+.blockIntroDouble__headerButton[data-tab=active]{color:#fff}
+.blockIntroDouble__headerLine{background-color:#fff}
+.blockIntroDouble__header,.blockProjectsHighlight__header,.blockWysiwyg__tagline{border-bottom-color:rgba(255,255,255,.3)}
+.blockWysiwyg__tagline,.blockWysiwyg__title p{color:#b5b5b5}
+.blockProjectsHighlight{margin-bottom:0;padding-bottom:10rem}
+
+/* 메인화면 개편 2026-10-16: 헤더(메뉴 좌, 로고 도형 중앙, 메시지 우) */
+.topBarMark,.buttonChat{display:none}
+[data-page=home] .navigationMain__topBar{grid-column:full;width:auto;margin:0;padding:3rem 4rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+[data-page=home] .navigationMain__topBarItems{display:contents}
+[data-page=home] .navigationMain__subItems{display:none}
+[data-page=home] .navigationMain__topBarLogo{grid-column:2;grid-row:1;width:auto;height:auto;background:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+[data-page=home] .navigationMain__topBarLogo .icon-logo{display:none!important}
+[data-page=home] .navigationMain__topBarLogo .topBarMark{display:block;width:11.2rem;height:auto}
+[data-page=home] .buttonMenu{grid-column:1;grid-row:1;justify-self:start;flex-direction:row-reverse;gap:.4rem;padding:0;background:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;color:#fff!important;pointer-events:all}
+[data-page=home] .buttonMenu .menuLine{width:2.9rem;height:2.9rem}
+[data-page=home] .buttonMenu__text{background:none;padding:0;margin:0;height:auto;font-size:1.2rem;letter-spacing:.04em;text-transform:uppercase;color:#fff}
+[data-page=home] .buttonChat{grid-column:3;grid-row:1;justify-self:end;display:flex;align-items:center;justify-content:center;width:2.9rem;height:2.9rem;padding:0;border:0;background:none;color:#fff;cursor:pointer;pointer-events:all}
+[data-page=home] .buttonChat svg{width:100%;height:100%}
+
+/* 메인 히어로: 좌하단 메뉴 리스트, 우상단 문구, 우하단 화살표 */
+.homeHero{display:block!important;margin-bottom:0!important;height:100vh}
+.homeHero__main{display:block!important;padding:0!important;height:100vh!important;max-width:100%!important;width:100%;position:relative!important;overflow:hidden}
+.homeHero__mainBackground,.homeHero__bg{position:absolute;inset:0;width:100%;height:100%;-o-object-fit:cover;object-fit:cover;filter:brightness(.5)}
+.homeHero__mainBackground{z-index:0}
+.homeHero__bg{z-index:1;opacity:0;transition:opacity .8s ease}
+.homeHero__bg.is-on{opacity:1}
+.homeHero__mainOverlay{z-index:2}
+.homeHero__title{position:absolute!important;top:11rem;left:4rem;right:auto;z-index:3;width:auto!important;max-width:none!important;margin:0!important;text-align:left}
+.homeHero__title h1.font-3XL,.homeHero__listItem{font-family:"Noto Sans KR",var(--font-main);font-size:6.4rem;line-height:1.12;letter-spacing:-.01em;font-weight:400;color:#fff;word-break:keep-all}
+.homeHero__list{position:absolute;left:4rem;bottom:4rem;z-index:3}
+.homeHero__list ul{list-style:none;margin:0;padding:0}
+.homeHero__listItem{display:inline-block;text-decoration:none;transition:filter .3s ease,opacity .3s ease}
+.homeHero__list[data-blurred=true] .homeHero__listItem:not(.is-hover){filter:blur(.2rem);opacity:.6}
+.homeHero__down{position:absolute;right:4rem;bottom:4rem;z-index:3;width:2rem;height:7.2rem;padding:0;border:0;background:none;color:#fff;cursor:pointer}
+.homeHero__down svg{width:100%;height:100%;display:block;animation:heroDown 1.8s ease-in-out infinite}
+@keyframes heroDown{0%{transform:translateY(-.8rem);opacity:0}30%{opacity:1}70%{opacity:1}100%{transform:translateY(1.2rem);opacity:0}}
+@media (max-width: 767px){
+[data-page=home] .navigationMain__topBar{padding:2rem 1.6rem}
+.homeHero__title{top:8rem;left:1.6rem}
+.homeHero__title h1.font-3XL,.homeHero__listItem{font-size:3.4rem}
+.homeHero__list{left:1.6rem;bottom:3rem}
+.homeHero__down{right:1.6rem;bottom:3rem;height:5.6rem}
+}
+/* 메인 리스트 상담 신청 호버 시 브랜드 컨설팅 표시 (메뉴화면과 동일) */
+.homeHero__listItem:hover .navigationMain__hoverExtra,.homeHero__listItem:focus-visible .navigationMain__hoverExtra{opacity:1;transform:translateX(0)}
+@media (max-width:767px){[data-page=home] .navigationMain__topBarLogo .topBarMark{width:6.4rem}}
+/* 히어로 지나면 상단바 어둡게 (흰 섹션 위 가독성) */
+[data-page=home] .navigationMain__topBar{transition:background-color .3s ease}
+body.is-pastHero[data-page=home] .navigationMain__topBar{background:#fff!important}
+body.is-pastHero[data-page=home] .buttonMenu,body.is-pastHero[data-page=home] .topBarMark,body.is-pastHero[data-page=home] .buttonChat{filter:invert(1)}
+/* 섬 모양 테두리 선도 모양 비율에 맞춤 */
+.projSlider__card--s1 .projSlider__line{aspect-ratio:141.27/107.29}
+.projSlider__card--s2 .projSlider__line{width:91.15%;aspect-ratio:128.76/107.30}
+.projSlider__card--s3 .projSlider__line{width:97.2%;aspect-ratio:137.31/107.30}
+/* 채팅 버튼 호버 시 아이콘 내부 채움 */
+[data-page=home] .buttonChat path{fill:transparent;transition:fill .25s ease}
+[data-page=home] .buttonChat:hover path,[data-page=home] .buttonChat:focus-visible path{fill:currentColor}
+[data-page=home] .buttonChat{transition:transform .25s ease}
+[data-page=home] .buttonChat:hover,[data-page=home] .buttonChat:focus-visible{transform:translateY(-.2rem)}
+/* 스크롤 후 상단바: 얇은 흰 바, 검정 로고 유지, 하단 검정 라인 */
+[data-page=home] .navigationMain__topBar{transition:background-color .3s ease,padding .3s ease,box-shadow .3s ease}
+body.is-pastHero[data-page=home] .navigationMain__topBar{padding:1.2rem 4rem;box-shadow:inset 0 -1px 0 #0e0e0e}
+body.is-pastHero[data-page=home] .navigationMain__topBarLogo .topBarMark{display:block!important;width:8.4rem}
+@media (max-width:767px){body.is-pastHero[data-page=home] .navigationMain__topBar{padding:1rem 1.6rem}body.is-pastHero[data-page=home] .navigationMain__topBarLogo .topBarMark{width:5.6rem}}
+body.is-pastHero[data-page=home] .navigationMain__topBar{border-radius:0!important}
+body.is-pastHero[data-page=home] .topBarMark{filter:brightness(0)!important;opacity:1!important}
+
+/* 유닛과 필지: 상단 패널바와 키맵 사이 구분선 (흰 배경용) */
+.blockProjectsHighlight .blockProjectsHighlight__header{border-bottom-color:rgba(14,14,14,.3)!important}
+body.is-pastHero[data-page=home] .navigationMain__topBarLogo .topBarMark{content:url(../img/logo_black_mark.png);filter:none!important}
+/* 스크롤 시 로고 숨김(main.js logoOnScroll)보다 우선: 흰 바에서는 로고 표시 */
+body.is-pastHero[data-page=home] .navigationMain__topBarLogo{opacity:1!important;pointer-events:auto!important}
+/* 사파리에서 aspect-ratio가 무시되어 도형이 세로로 늘어나던 문제: 높이를 카드 폭 기준 padding으로 고정 (세 도형 모두 카드 폭의 75.95%) */
+.projSlider__card .projSlider__shape{aspect-ratio:auto!important;height:0!important;padding-bottom:75.95%}
+/* 키맵 클릭 시 좌측 정사각 피드 + 하단 4x3 액자 (2026-10-16) */
+.projKeymap{overflow:hidden}
+.projKeymap__feed{position:absolute;left:3%;top:6%;height:88%;aspect-ratio:1/1;background:#fff;box-shadow:0 10px 40px rgba(0,0,0,.12);display:flex;flex-direction:column;padding:1.6rem;gap:1.2rem;opacity:0;transform:translateX(-24px);pointer-events:none;transition:opacity .35s,transform .35s}
+.projKeymap__feed.is-open{opacity:1;transform:none;pointer-events:auto}
+.projKeymap__feedImgs{flex:1;display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:.8rem;min-height:0}
+.projKeymap__feedImgs>div{background:#d4d4d4}
+.projKeymap__feedImgs>div:first-child{grid-row:1/3}
+.projKeymap__feedText{display:flex;flex-direction:column;gap:.4rem}
+.projKeymap__feedTitle{font-size:1.8rem;font-weight:600}
+.projKeymap__feedDesc{color:#777}
+.projGrid{grid-column:2/-2;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2rem;margin-bottom:12rem;width:100%;min-width:0;max-width:100%;box-sizing:border-box;overflow:hidden}
+.projGrid__frame{min-width:0;width:100%;height:0;padding-bottom:75%;background:#d9d9d9}
+@media (max-width:767px){.projGrid{gap:.6rem;margin-bottom:6rem}.projKeymap__feed{padding:.8rem;gap:.6rem}.projKeymap__feedTitle{font-size:1.3rem}}
+.projKeymap__sum{overflow:auto;gap:1rem}
+.projKeymap__sumLead{margin:0;color:#555;line-height:1.6}
+.projKeymap__sumSpec{margin:0;display:grid;grid-template-columns:auto 1fr;border-top:1px solid #111}
+.projKeymap__sumSpec dt,.projKeymap__sumSpec dd{margin:0;padding:.7rem 0;border-bottom:1px solid #ddd;font-size:1.3rem}
+.projKeymap__sumSpec dt{color:#777;padding-right:2rem}
+.projKeymap__sumList{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem 1rem;font-size:1.3rem}
+
+/* 10/16 푸터 위 여백 흰색, 하단 메뉴 둘째 열을 사진 2번째 칸 왼쪽 선에 맞춤, 10/20 Explore our 와 Company 는 호버 부제와 겹쳐 3번째 칸 선으로 이동 */
+.navigationFooter{background:#fff linear-gradient(#262626,#262626) 0 0/100% 100% no-repeat content-box border-box}
+@media (min-width:768px){
+.navigationFooter__mainMenu{width:fit-content}
+.navigationFooter__subMenu{grid-column:2/-2;grid-row:1;justify-self:start;margin-left:calc((100% - 6rem)/2 + 4rem)}
+.chqFooterSub__group:first-child>.chqFooterSub__title{padding-top:0}
+.navigationFooter__contactOne{grid-row:1}
+.navigationFooter__contactTwo{grid-column:2/-2;grid-row:1;justify-self:start;width:fit-content;margin-left:calc((100% - 6rem)/4 + 2rem)}
+.navigationFooter__social--sm{grid-row:1}
+}
+@media (min-width:768px) and (max-width:1279px){
+.navigationFooter__subMenu{margin-left:calc((100% - 6rem)*3/4 + 6rem)}
+}
+@media (min-width:768px){.navigationFooter__buttonTitle{padding-left:0}.navigationFooter__bottomMenu:before{display:none}}
+/* 메인 로고를 메뉴바 로고 크기로 통일, 메뉴바 두께 축소 */
+[data-page=home] .navigationMain__topBarLogo .topBarMark{width:8.4rem}
+body.is-pastHero[data-page=home] .navigationMain__topBar{padding:.6rem 4rem}
+@media (max-width:767px){[data-page=home] .navigationMain__topBarLogo .topBarMark{width:5.6rem}body.is-pastHero[data-page=home] .navigationMain__topBar{padding:.5rem 1.6rem}}
+/* 메인 헤더 높이를 메뉴바와 같게, 전환은 즉시(중간 형태 깜빡임 방지) */
+[data-page=home] .navigationMain__topBar{padding:.6rem 4rem;transition:none!important}
+[data-page=home] .navigationMain__topBarLogo{opacity:1!important;pointer-events:auto!important}
+[data-page=home] .buttonMenu,[data-page=home] .buttonMenu *,[data-page=home] .topBarMark,[data-page=home] .navigationMain__topBarLogo img{transition:none!important}
+@media (max-width:767px){[data-page=home] .navigationMain__topBar{padding:.5rem 1.6rem}}

@@ -1,0 +1,108 @@
+/* 자식 페이지 공통: 화이트 배경 본문 (상단바, 하단메뉴, 푸터 제외). html 기준 글자 10px */
+body.chqSub{background:#fff}
+body.chqSub[data-marketsmenu] .mainContent{background:#fff;color:#141414}
+.chqSub .navigationMain__topBarLogo img{filter:invert(1)}
+.chqSub:has(.buttonMenu[aria-expanded="true"]) .navigationMain__topBarLogo img{filter:none}
+.chqSub .navigationMain__topBar{color:#141414}
+.chqWrap{max-width:1440px;margin:0 auto;padding:0 6rem}
+@media (max-width:767px){.chqWrap{padding:0 2rem}}
+
+.chqLabel{display:flex;gap:1.2rem;align-items:baseline;margin:0;font-size:1.3rem;letter-spacing:.08em;text-transform:uppercase;color:#8a8a8a}
+.chqLabel b{font-weight:500;color:#141414;letter-spacing:0;text-transform:none;font-size:1.5rem}
+
+/* 1. 머리 영역 */
+.chqHero{padding:18rem 0 8rem}
+.chqHero__title{margin:4rem 0 0;font-size:clamp(3.2rem,4.4vw,6.4rem);line-height:1.3;font-weight:400;letter-spacing:-.02em;word-break:keep-all;max-width:20ch}
+.chqHero__sub{margin:3.2rem 0 0;max-width:64rem;font-size:1.8rem;line-height:1.75;color:#555;word-break:keep-all}
+.chqBtns{display:flex;flex-wrap:wrap;gap:1.2rem;margin-top:4.4rem}
+.chqBtn{display:inline-flex;align-items:center;padding:1.7rem 2.8rem;border:1px solid #141414;border-radius:999px;font-size:1.5rem;color:#141414;text-decoration:none;transition:background .25s,color .25s}
+.chqBtn:hover,.chqBtn--fill{background:#141414;color:#fff}
+.chqBtn--fill:hover{background:#fff;color:#141414}
+.chqHero__img{margin-top:8rem;aspect-ratio:16/8;overflow:hidden;background:#f2f2f0}
+.chqHero__img img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* 섹션 공통 */
+.chqSec{padding:12rem 0;border-top:1px solid #e6e6e6}
+.chqSec__head{display:grid;grid-template-columns:1fr 2fr;gap:3.2rem;margin-bottom:6.4rem}
+.chqSec__title{margin:0;font-size:clamp(2.4rem,2.6vw,3.8rem);line-height:1.4;font-weight:400;letter-spacing:-.01em;word-break:keep-all}
+@media (max-width:767px){.chqHero{padding:13rem 0 5rem}.chqHero__img{margin-top:5rem;aspect-ratio:4/3}.chqSec{padding:7rem 0}.chqSec__head{grid-template-columns:1fr;gap:2rem;margin-bottom:4rem}}
+
+/* 2. 가치 3열 */
+.chqValues{display:grid;grid-template-columns:repeat(3,1fr);gap:4rem;list-style:none;margin:0;padding:0}
+.chqValue__img{aspect-ratio:4/5;overflow:hidden;background:#f2f2f0}
+.chqValue__img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.chqValue:hover .chqValue__img img{transform:scale(1.04)}
+.chqValue__no{display:block;margin-top:2.8rem;font-size:1.3rem;color:#8a8a8a}
+.chqValue__tag{display:block;margin-top:.8rem;font-size:1.5rem;color:#141414;font-weight:500}
+.chqValue__title{margin:1.2rem 0 0;font-size:2.4rem;line-height:1.45;font-weight:400;word-break:keep-all}
+.chqValue__text{margin:1.6rem 0 0;font-size:1.6rem;line-height:1.8;color:#555;word-break:keep-all}
+@media (max-width:1023px){.chqValues{grid-template-columns:1fr;gap:6rem}.chqValue__img{aspect-ratio:16/10}}
+
+/* 3. 본문 글 */
+.chqText{margin:2.4rem 0 0;font-size:1.8rem;line-height:1.85;color:#555;word-break:keep-all;max-width:70rem}
+
+/* 4. 이미지 자리 */
+.chqGallery{display:grid;grid-template-columns:repeat(2,1fr);gap:2.4rem}
+.chqGallery__item{aspect-ratio:4/3;background:#f2f2f0;display:flex;align-items:center;justify-content:center;color:#a0a0a0;font-size:1.4rem}
+.chqGallery__item--wide{grid-column:1/-1;aspect-ratio:16/7}
+@media (max-width:767px){.chqGallery{grid-template-columns:1fr}.chqGallery__item--wide{aspect-ratio:4/3}}
+
+/* 5. 필지 현황 보드 */
+.chqLots{display:grid;grid-template-columns:repeat(5,1fr);gap:1.6rem;list-style:none;margin:0;padding:0}
+.chqLot{border:1px solid #e6e6e6;padding:2.4rem;transition:border-color .25s}
+.chqLot:hover{border-color:#141414}
+.chqLot__no{display:block;font-size:3.2rem;line-height:1;color:#141414}
+.chqLot dl{margin:2.4rem 0 0;display:grid;gap:1.2rem}
+.chqLot dt{font-size:1.2rem;color:#8a8a8a}
+.chqLot dd{margin:.4rem 0 0;font-size:1.4rem;color:#141414;word-break:keep-all}
+@media (max-width:1023px){.chqLots{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:767px){.chqLots{grid-template-columns:repeat(2,1fr)}.chqLot{padding:1.6rem}}
+
+/* 6. POINT 목록 */
+.chqPoints{list-style:none;margin:0;padding:0;border-top:1px solid #141414}
+.chqPoint{display:grid;grid-template-columns:1fr 2fr;gap:3.2rem;padding:4rem 0;border-bottom:1px solid #e6e6e6}
+.chqPoint__no{font-size:1.4rem;letter-spacing:.08em;color:#8a8a8a}
+.chqPoint__text{margin:0;font-size:clamp(2rem,2vw,2.8rem);line-height:1.5;word-break:keep-all}
+@media (max-width:767px){.chqPoint{grid-template-columns:1fr;gap:1.2rem;padding:3rem 0}}
+
+/* 7. 파트너, 예약 옵션 */
+.chqPartners{display:grid;grid-template-columns:repeat(3,1fr);gap:4rem;list-style:none;margin:0;padding:0}
+.chqPartners--two{grid-template-columns:repeat(2,1fr)}
+.chqPartners li{border-top:1px solid #141414;padding-top:2.4rem}
+.chqPartners .chqValue__no,.chqPartners .chqValue__tag{margin-top:0}
+@media (max-width:1023px){.chqPartners,.chqPartners--two{grid-template-columns:1fr;gap:4rem}}
+
+/* 8. 영상 카드 */
+.chqEps{display:grid;grid-template-columns:repeat(5,1fr);gap:2.4rem;list-style:none;margin:0;padding:0}
+.chqEp__thumb{aspect-ratio:16/9;background:#f2f2f0;display:flex;align-items:center;justify-content:center;color:#a0a0a0;font-size:1.3rem}
+.chqEp__no{display:block;margin-top:1.6rem;font-size:1.6rem;color:#141414}
+@media (max-width:1023px){.chqEps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:767px){.chqEps{grid-template-columns:1fr}}
+
+/* 9. 상담 폼 */
+.chqForm{display:grid;gap:3.2rem;max-width:80rem}
+.chqField{display:grid;gap:1.2rem;border:0;margin:0;padding:0;min-width:0}
+.chqField>span,.chqField legend{font-size:1.4rem;color:#141414;padding:0;margin-bottom:1.2rem}
+.chqField input[type=text],.chqField input[type=tel],.chqField textarea{width:100%;box-sizing:border-box;border:0;border-bottom:1px solid #c8c8c8;padding:1.2rem 0;font:inherit;font-size:1.7rem;color:#141414;background:transparent;border-radius:0;outline:0;resize:vertical}
+.chqField input:focus,.chqField textarea:focus{border-bottom-color:#141414}
+.chqChips{display:flex;flex-wrap:wrap;gap:1rem}
+.chqChip input{position:absolute;opacity:0;pointer-events:none}
+.chqChip span{display:inline-flex;padding:1.2rem 2rem;border:1px solid #c8c8c8;border-radius:999px;font-size:1.4rem;color:#555;cursor:pointer;transition:all .2s}
+.chqChip input:checked+span{background:#141414;border-color:#141414;color:#fff}
+.chqChip input:focus-visible+span{outline:2px solid #141414;outline-offset:2px}
+.chqForm .chqBtn{justify-self:start;cursor:pointer;font:inherit;font-size:1.5rem}
+
+/* 10. 가독성 보정: 제목과 본문을 같은 세로줄에 맞춤 */
+.chqSec__head{grid-template-columns:1fr;gap:1.6rem;margin-bottom:5.6rem}
+.chqLabel{font-size:1.4rem;color:#5a5a5a}
+.chqLabel b{font-size:1.6rem}
+.chqValue__no,.chqEp__thumb,.chqLot dt{font-size:1.4rem;color:#5a5a5a}
+.chqValue__text{font-size:1.7rem;color:#444}
+.chqText{color:#444;max-width:76rem}
+.chqHero__sub{color:#444;font-size:1.9rem}
+.chqLot dd{font-size:1.5rem}
+.chqField>span,.chqField legend{font-size:1.5rem}
+.chqChip span{font-size:1.5rem}
+/* 본문이 없는 섹션은 여백 축소 */
+.chqSec:has(.chqSec__head:only-child){padding:8rem 0}
+.chqSec .chqSec__head:only-child{margin-bottom:0}

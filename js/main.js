@@ -679,6 +679,7 @@
         mm.add("(min-width: 768px) and (pointer: fine)", function () {
           initBlob();
           var panels = gsap.utils.toArray(".homeHero__categories > div");
+          if (!panels.length) return; /* 카드섹션 삭제 후에는 가로 스크롤 고정 없음 */
           var fadeMain = main ? gsap.quickTo(main, "opacity", { duration: 0.3, ease: "power1.out" }) : null;
           var dimmed = false, videoDropped = false;
 
@@ -758,16 +759,46 @@
     }
 
     function detailScroll() {
-      var btn = document.querySelector(".homeHero__detail--three");
+      var btn = document.querySelector(".homeHero__down");
       if (!btn) return;
       btn.addEventListener("click", function (ev) {
         ev.preventDefault();
-        if (touch === "true" || window.innerWidth < BREAK) {
-          window.scrollBy({ top: window.innerHeight * 0.6, behavior: "smooth" });
-        } else {
-          var card = cards[0];
-          window.scrollBy({ top: card ? card.offsetWidth : window.innerWidth, behavior: "smooth" });
-        }
+        window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
+      });
+    }
+
+    /* 스크롤을 시작하면 바로 얇은 흰 상단바로 (중간에 넓은 투명 바가 보이던 현상 방지) */
+    function topBarTone() {
+      var hero = document.querySelector(".homeHero");
+      if (!hero) return;
+      var update = function () {
+        document.body.classList.toggle("is-pastHero", window.scrollY > 10);
+      };
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    }
+
+    /* 메뉴 리스트 호버: 다른 항목만 흐리게, 해당 카드 사진으로 배경 전환 */
+    function listHover() {
+      var list = document.querySelector(".homeHero__list");
+      if (!list) return;
+      var items = list.querySelectorAll(".homeHero__listItem");
+      var bgs = document.querySelectorAll(".homeHero__bg");
+      function show(i) {
+        bgs.forEach(function (b) { b.classList.toggle("is-on", b.getAttribute("data-bg") === i); });
+      }
+      items.forEach(function (a) {
+        a.addEventListener("mouseenter", function () {
+          items.forEach(function (o) { o.classList.toggle("is-hover", o === a); });
+          list.setAttribute("data-blurred", "true");
+          show(a.getAttribute("data-bg"));
+        });
+      });
+      list.addEventListener("mouseleave", function () {
+        items.forEach(function (o) { o.classList.remove("is-hover"); });
+        list.removeAttribute("data-blurred");
+        show(null);
       });
     }
 
@@ -826,6 +857,8 @@
       init: function () {
         splitSubtitles();
         detailScroll();
+        listHover();
+        topBarTone();
         titleHover();
         selectedImages();
         playBackground();

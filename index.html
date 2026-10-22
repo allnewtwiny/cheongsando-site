@@ -8,7 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261016150000">
+<link rel="stylesheet" href="css/style.css?v=20261016210242">
+<link rel="stylesheet" href="css/fix.css?v=20261022120000">
 <style>
   @media screen { html { margin-top: 0 !important; } }
 /* 푸터 보조메뉴: 메뉴 패널(navigationMain__subMenu)과 같은 구성과 세로 간격 */
@@ -40,11 +41,22 @@
 }
 /* 주소 한 줄 처리 */
 .contactInfo a p{white-space:nowrap}
+/* 메뉴 6개: 상단바 한 줄 메뉴와 마켓 메뉴 폭 */
+.marketsMenu__wrapper{width:23.8rem!important;grid-template-columns:13rem 2rem 2rem 2rem 2rem 2rem}
+.topBarMenu{display:none}
+@media (min-width:1360px){
+body.is-pastHero[data-page=home] .topBarMenu{display:block;grid-column:3;grid-row:1;justify-self:end;margin-right:5rem;pointer-events:all}
+.topBarMenu ul{display:flex;gap:2rem;margin:0;padding:0;list-style:none}
+.topBarMenu a{font-size:1.3rem;letter-spacing:.02em;color:#0e0e0e;text-decoration:none;white-space:nowrap;opacity:.6;transition:opacity .25s}
+.topBarMenu a:hover,.topBarMenu a:focus-visible{opacity:1}
+}
+body,h1,h2,h3,p,a,li,span{word-break:keep-all;overflow-wrap:break-word}
+.navigationFooter__menuItem,.buttonLine .font-s{white-space:nowrap}
 </style>
 <script>
 /* 페이지 전환 종류 결정: 홈에서 Our Focus 페이지로 갈 때(PC 1024 이상)는 아래에서 올라오는 효과, 그 외는 페이드 */
 (function(){
-  var KEY="vtType",MARKETS=["cheongsando.html","stay.html","operation.html","sale.html","consult.html"];
+  var KEY="vtType",MARKETS=["cheongsando.html","masterplan.html","invest.html","ecosystem.html","archive.html","consult.html"];
   try{window.__vtIncoming=sessionStorage.getItem(KEY);}catch(e){}
   function file(p){return p.split("/").pop()||"index.html";}
   function store(v){try{v?sessionStorage.setItem(KEY,v):sessionStorage.removeItem(KEY);}catch(e){}}
@@ -77,7 +89,7 @@
 })();
 </script>
 </head>
-	<body data-logoColor="light">
+	<body data-logoColor="light" data-page="home">
 <svg id="sprite" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position:absolute;width:0;height:0" aria-hidden="true"><symbol fill="none"  viewBox="0 0 19 19" id="icon-Arrow"><path d="m13.731 10.498-4.23 3.328M13.731 8.506l-4.23-3.328M10.5 9.5h-6" stroke="currentColor" stroke-linecap="round" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-Chevron"><path d="M11.23 10.498 7 13.826M11.23 8.506 7 5.178" stroke="currentColor" stroke-linecap="round" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-arrowOut"><path d="M7.026 5.611h6.364v6.364M5.611 13.39l7.425-7.425" stroke="currentColor" stroke-linecap="round" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-close"><path d="m14.096 4.904-9.192 9.192M14.096 14.096l-2.298-2.298-.884-.884m-6.01-6.01 2.298 2.298.884.884" stroke="currentColor" stroke-linecap="round" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-eye"><mask id="icon-eye_a" fill="#fff"><path d="M9.423 5c3.248 0 6.17 1.51 8.208 3.917a.901.901 0 0 1 0 1.166C15.593 12.491 12.671 14 9.423 14s-6.17-1.51-8.208-3.917a.901.901 0 0 1 0-1.166C3.253 6.51 6.175 5 9.423 5Z" /></mask><path d="M9.423 5V4v1Zm0 9v1-1Zm8.208-5.083.763-.647-.763.647Zm0 1.166-.763-.646.763.646ZM9.423 5v1C12.349 6 15 7.358 16.868 9.563l.763-.646.763-.647C16.185 5.661 12.993 4 9.423 4v1Zm8.208 5.083-.763-.646C15.001 11.642 12.348 13 9.423 13v2c3.57 0 6.762-1.661 8.971-4.27l-.763-.647ZM9.423 14v-1c-2.926 0-5.578-1.358-7.445-3.563l-.763.646-.764.647C2.661 13.339 5.853 15 9.423 15v-1ZM1.215 8.917l.763.646C3.845 7.358 6.497 6 9.423 6V4C5.853 4 2.66 5.661.45 8.27l.764.647Zm0 1.166.763-.646c.03.036.03.09 0 .126l-.763-.646L.45 8.27a1.901 1.901 0 0 0 0 2.46l.764-.647ZM17.63 8.917l-.763.646a.099.099 0 0 1 0-.126l.763.646.763.647a1.901 1.901 0 0 0 0-2.46l-.763.647Z" fill="currentColor" mask="url(#icon-eye_a)" /><circle cx="9.501" cy="8" r="2.5" stroke="currentColor" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-insta"><path d="M11.776 6.564a.66.66 0 1 1 1.32 0 .66.66 0 0 1-1.32 0Z" fill="currentColor" /><path fill-rule="evenodd" clip-rule="evenodd" d="M7.008 9.586a2.578 2.578 0 1 1 5.156 0 2.578 2.578 0 0 1-5.156 0Zm4.25 0a1.66 1.66 0 1 1-3.321 0 1.66 1.66 0 0 1 3.322 0Z" fill="currentColor" /><path fill-rule="evenodd" clip-rule="evenodd" d="M9.5 4c-1.493 0-1.68.007-2.267.033-.586.027-.986.12-1.335.256-.362.14-.669.328-.975.634a2.7 2.7 0 0 0-.634.974c-.137.35-.23.75-.256 1.335C4.007 7.819 4 8.006 4 9.5c0 1.494.007 1.68.033 2.267.027.586.12.985.256 1.335.14.362.328.669.634.974.306.306.613.495.974.635.35.136.75.229 1.335.256.587.026.774.033 2.268.033 1.494 0 1.68-.007 2.267-.033.586-.027.986-.12 1.336-.256.361-.14.668-.329.973-.635.306-.305.494-.612.635-.974.136-.35.228-.75.256-1.335.026-.586.033-.773.033-2.267 0-1.494-.007-1.681-.033-2.268-.028-.585-.12-.985-.256-1.335a2.698 2.698 0 0 0-.635-.974 2.687 2.687 0 0 0-.974-.634c-.35-.136-.75-.229-1.336-.256C11.18 4.007 10.993 4 9.5 4H9.5Zm-.183.991h.184c1.468 0 1.642.005 2.222.032.536.024.827.114 1.021.19.257.099.44.218.632.41.193.193.312.376.412.633.075.194.165.485.19 1.021.026.58.031.754.031 2.222 0 1.467-.005 1.642-.032 2.221-.024.537-.114.828-.19 1.021a1.7 1.7 0 0 1-.41.632 1.702 1.702 0 0 1-.633.412c-.193.075-.485.165-1.021.19-.58.026-.754.031-2.222.031-1.47 0-1.643-.005-2.223-.032-.536-.025-.827-.114-1.021-.19-.257-.1-.44-.218-.633-.41a1.704 1.704 0 0 1-.411-.633c-.076-.194-.165-.485-.19-1.021-.026-.58-.031-.754-.031-2.223 0-1.468.005-1.642.031-2.221.025-.537.114-.828.19-1.022.1-.256.219-.44.411-.632.193-.193.376-.312.633-.412.194-.075.485-.165 1.021-.19.507-.022.704-.03 1.73-.03v.001h.31Z" fill="currentColor" /></symbol><symbol fill="none"  viewBox="0 0 78 26" id="icon-logo"><path d="M2.516 23.907h14.276V26H0V.035h2.516v23.872ZM68.752 0c1.406 0 2.679.194 3.746.584 1.067.388 1.952.92 2.655 1.595a6.576 6.576 0 0 1 1.583 2.35c.353.89.527 1.84.527 2.845h-2.286c0-.937-.171-1.748-.51-2.436a4.611 4.611 0 0 0-1.39-1.68 6.016 6.016 0 0 0-2.005-.961 8.767 8.767 0 0 0-2.322-.309c-1.22 0-2.246.167-3.078.497-.832.331-1.496.76-1.988 1.287a4.32 4.32 0 0 0-1.02 1.749 4.103 4.103 0 0 0-.106 1.92c.14.8.468 1.439.985 1.92.515.48 1.149.874 1.9 1.183.75.309 1.577.56 2.479.754.902.194 1.823.4 2.762.617.938.218 1.846.475 2.725.77.88.298 1.659.697 2.339 1.2a5.578 5.578 0 0 1 1.636 1.937c.41.79.616 1.778.616 2.966 0 2.286-.809 4.059-2.428 5.316-1.618 1.256-3.894 1.886-6.824 1.886-1.313 0-2.532-.166-3.658-.497-1.126-.33-2.098-.833-2.92-1.508a6.935 6.935 0 0 1-1.915-2.505c-.457-.996-.687-2.165-.687-3.514h2.323l.002.008c.093 1.097.344 2.029.755 2.794a5.51 5.51 0 0 0 1.583 1.868c.645.48 1.39.83 2.233 1.046.843.218 1.746.326 2.709.326 1.126 0 2.098-.138 2.919-.413.82-.274 1.49-.645 2.006-1.114a4.362 4.362 0 0 0 1.142-1.629c.247-.617.37-1.269.37-1.954 0-.962-.224-1.738-.668-2.334a5.105 5.105 0 0 0-1.74-1.458c-.717-.377-1.537-.68-2.464-.909-.927-.229-1.876-.45-2.848-.669a32.416 32.416 0 0 1-2.849-.77 9.01 9.01 0 0 1-2.463-1.201 5.845 5.845 0 0 1-1.741-1.938c-.446-.789-.67-1.789-.67-3 0-.845.182-1.67.546-2.47.364-.8.902-1.508 1.619-2.126.716-.617 1.613-1.108 2.691-1.474C66.102.183 67.346 0 68.752 0ZM29.341.035c1.717 0 3.134.192 4.253.574 1.116.383 2.002.91 2.652 1.58a5.538 5.538 0 0 1 1.362 2.317c.258.874.387 1.789.387 2.746 0 1.436-.301 2.62-.902 3.554a6.614 6.614 0 0 1-2.34 2.209c-.956.537-2.043.914-3.258 1.13a20.885 20.885 0 0 1-3.664.324h-5.67v11.418h-2.507V.035h9.687Zm18.755 0 .798 2.085-5.192 13.57h10.385l.798 2.082h-12.03l-3.13 8.115h-2.578L47.569.035h.528ZM22.16 12.385h5.741c1.18 0 2.234-.07 3.168-.215.933-.144 1.725-.412 2.375-.808a4.051 4.051 0 0 0 1.511-1.615c.356-.682.534-1.575.534-2.675 0-1.628-.546-2.86-1.637-3.697-1.094-.837-2.83-1.257-5.211-1.257h-6.48v10.268Z" fill="currentcolor" /></symbol><symbol class="menuLine" viewBox="0 0 29 29" fill="none"  id="icon-menu"><path class="menuLineTwo" d="M4 18h21" stroke="currentColor" stroke-linecap="round" /><g class="menuLinesGroup" stroke="currentColor" stroke-linecap="round"><path class="menuLineOne" d="M4 11h21" /><path class="menuLineThree" d="M4 11h21" /></g></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-plus"><path d="M16 9.5H3M9.5 16v-4m0-9v4" stroke="currentColor" stroke-linecap="round" /></symbol></svg>
 		
 		
@@ -117,8 +129,9 @@
 									<div class="navigationMain" data-control="NavigationMain" data-grid="grid-template">
     <div class="navigationMain__topBar">
         <a href="index.html" class="navigationMain__topBarLogo" aria-label="청산도 취향섬 홈으로">
-            <img class="icon icon-logo" src="img/logo_white_wide.png" alt="청산도 취향섬">
+            <img class="icon icon-logo" src="img/logo_white_wide.png" alt="청산도 취향섬"><img class="topBarMark" src="img/logo_white_mark.png" alt="청산도 취향섬">
         </a>
+        <nav class="topBarMenu" aria-label="상단 메뉴"><ul><li><a href="cheongsando.html">청산도 취향섬</a></li><li><a href="masterplan.html">마스터플랜</a></li><li><a href="invest.html">투자의 이유</a></li><li><a href="ecosystem.html">건축과 운영</a></li><li><a href="archive.html">설계 노트</a></li><li><a href="consult.html">분양 문의</a></li></ul></nav>
         <div class="navigationMain__topBarItems">
             <div class="navigationMain__subItems">
                 <div class="navigationMain__projects">
@@ -135,29 +148,34 @@ focusable="false">
     <span class="marketsMenu__text font-S" >Shift your focus</span>
     <nav aria-label="Markets navigation">
         <ul class="marketsMenu__wrapper" >
-                            <li class="marketsMenu__item" data-marketcolor="housing" data-marketindex="1">
-                    <a href="cheongsando.html" aria-label="청산도 페이지로 이동">
-                        <span class="marketsMenu__itemTitle font-S">청산도</span>
+                <li class="marketsMenu__item" data-marketcolor="housing" data-marketindex="1">
+                    <a href="cheongsando.html" aria-label="청산도 취향섬 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">청산도 취향섬</span>
                     </a>
                 </li>
-                            <li class="marketsMenu__item" data-marketcolor="interiors" data-marketindex="2">
-                    <a href="stay.html" aria-label="스테이 안내 페이지로 이동">
-                        <span class="marketsMenu__itemTitle font-S">스테이 안내</span>
+                <li class="marketsMenu__item" data-marketcolor="interiors" data-marketindex="2">
+                    <a href="masterplan.html" aria-label="마스터플랜 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">마스터플랜</span>
                     </a>
                 </li>
-                            <li class="marketsMenu__item" data-marketcolor="higherEducation" data-marketindex="3">
-                    <a href="operation.html" aria-label="운영 안내 페이지로 이동">
-                        <span class="marketsMenu__itemTitle font-S">운영 안내</span>
+                <li class="marketsMenu__item" data-marketcolor="civic" data-marketindex="3">
+                    <a href="invest.html" aria-label="투자의 이유 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">투자의 이유</span>
                     </a>
                 </li>
-                            <li class="marketsMenu__item" data-marketcolor="civic" data-marketindex="4">
-                    <a href="sale.html" aria-label="분양 안내 페이지로 이동">
-                        <span class="marketsMenu__itemTitle font-S">분양 안내</span>
+                <li class="marketsMenu__item" data-marketcolor="higherEducation" data-marketindex="4">
+                    <a href="ecosystem.html" aria-label="건축과 운영 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">건축과 운영</span>
                     </a>
                 </li>
-                            <li class="marketsMenu__item" data-marketcolor="commercial" data-marketindex="5">
-                    <a href="consult.html" aria-label="상담 신청 페이지로 이동">
-                        <span class="marketsMenu__itemTitle font-S">상담 신청</span>
+                <li class="marketsMenu__item" data-marketcolor="sand" data-marketindex="5">
+                    <a href="archive.html" aria-label="설계 노트 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">설계 노트</span>
+                    </a>
+                </li>
+                <li class="marketsMenu__item" data-marketcolor="commercial" data-marketindex="6">
+                    <a href="consult.html" aria-label="분양 문의 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">분양 문의</span>
                     </a>
                 </li>
                     </ul>
@@ -178,6 +196,9 @@ focusable="false">
         </g>
     </svg>
 </button>
+            <button type="button" class="buttonChat" aria-label="챗봇 상담 (준비 중)">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5h16v10H9.5L5.5 19v-3.5H4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+            </button>
         </div>
     </div>
 
@@ -187,19 +208,22 @@ focusable="false">
                             <ul class="navigationMain__mainMenu">
                     <li class="font-S--Semibold navigationMain__mainMenuTitle">Our Focus</li>
                                             <li class="font-XL navigationMain__mainMenuWrapper">
-                            <a class="navigationMain__mainMenuItem" href="cheongsando.html" target="_self">청산도</a>
+                            <a class="navigationMain__mainMenuItem" href="cheongsando.html" target="_self">청산도 취향섬<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>취향섬 소개</span></a>
                         </li>
                                             <li class="font-XL navigationMain__mainMenuWrapper">
-                            <a class="navigationMain__mainMenuItem" href="stay.html" target="_self">스테이 안내</a>
+                            <a class="navigationMain__mainMenuItem" href="masterplan.html" target="_self">마스터플랜<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>15 Islands</span></a>
                         </li>
                                             <li class="font-XL navigationMain__mainMenuWrapper">
-                            <a class="navigationMain__mainMenuItem" href="operation.html" target="_self">운영 안내</a>
+                            <a class="navigationMain__mainMenuItem" href="invest.html" target="_self">투자의 이유<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Why Buy</span></a>
                         </li>
                                             <li class="font-XL navigationMain__mainMenuWrapper">
-                            <a class="navigationMain__mainMenuItem" href="sale.html" target="_self">분양 안내</a>
+                            <a class="navigationMain__mainMenuItem" href="ecosystem.html" target="_self">건축과 운영<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Ecosystem</span></a>
                         </li>
                                             <li class="font-XL navigationMain__mainMenuWrapper">
-                            <a class="navigationMain__mainMenuItem" href="consult.html" target="_self">상담 신청<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>브랜드 컨설팅</span></a>
+                            <a class="navigationMain__mainMenuItem" href="archive.html" target="_self">설계 노트<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Archive</span></a>
+                        </li>
+                                            <li class="font-XL navigationMain__mainMenuWrapper">
+                            <a class="navigationMain__mainMenuItem" href="consult.html" target="_self">분양 문의<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Contact us</span></a>
                         </li>
                                             </ul>
                         <div class="navigationMain__subMenu">
@@ -299,200 +323,69 @@ focusable="false">
 									    <section  class="homeHero" data-control="HomeHero">
     <div class="homeHero__main">
         <div class="homeHero__mainOverlay" aria-hidden="true"></div>
-                            <img class="homeHero__mainBackground" src="img/hero.jpg" alt="청산도 취향섬 전경 렌더링">
-        
-        <span class="font-S homeHero__detail homeHero__detail--one">세컨하우스 마을 + 위탁 운영 스테이</span>
-        <span class="homeHero__detail homeHero__detail--two font-S">전라남도 완도군 청산도</span>
-
-        <div class="homeHero__detail homeHero__detail--three font-S">
-            <span id="m">위로 밀어 둘러보기</span>
-            <span id="d">스크롤하여 둘러보기</span>
-            <button
-   type="button"  data-color="white"
-  data-open=""
-  data-border  
-    class="buttonArrow buttonArrow--no-title"
-              aria-label="Explore page"  >
-    <span class="button__arrow">
-  <svg class="icon icon-Arrow
- icon--Arrow1 "
-aria-hidden="true"
-focusable="false">
-    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use>
-</svg>
-     <svg class="icon icon-Arrow
- icon--Arrow2 "
-aria-hidden="true"
-focusable="false">
-    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use>
-</svg>
-
-      </span>
-</button>
-        </div>
+        <img class="homeHero__mainBackground" src="img/hero.jpg" alt="청산도 취향섬 전경 렌더링">
+        <img class="homeHero__bg" data-bg="0" src="img/card1_cheongsando.jpg" alt="" aria-hidden="true" decoding="async">
+        <img class="homeHero__bg" data-bg="1" src="img/card2_stay_v4.jpg" alt="" aria-hidden="true" decoding="async">
+        <img class="homeHero__bg" data-bg="2" src="img/card4_sale_v4.jpg" alt="" aria-hidden="true" decoding="async">
+        <img class="homeHero__bg" data-bg="3" src="img/card3_operation_v4.jpg" alt="" aria-hidden="true" decoding="async">
+        <img class="homeHero__bg" data-bg="4" src="img/hero.jpg" alt="" aria-hidden="true" decoding="async">
+        <img class="homeHero__bg" data-bg="5" src="img/card5_consult_v4.jpg" alt="" aria-hidden="true" decoding="async">
 
         <header class="homeHero__title">
-            <h1 class="font-3XL" aria-label="메인 제목">섬 하나를 나누어 갖는<br>세컨하우스 마을,<br>청산도 취향섬
-                <span class="homeHero__titleButton" tabindex="0" >
-                    
-<button
-   type="button"  data-color="white"
-  data-open=""
-    
-  class="buttonCircle buttonCircle--plus buttonCircle--icon buttonCircle--no-title"
-              aria-label="Hover for other content"  >
-        <svg class="icon icon-eye
- icon--plus "
-aria-hidden="true"
-focusable="false">
-    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-eye"></use>
-</svg>
-    <span class="buttonCircle__background"></span>
-</button>
-                </span>
-            </h1>
+            <h1 class="font-3XL" aria-label="메인 제목">섬 하나를 나누어 갖는<br>세컨하우스 마을,<br>청산도 취향섬</h1>
         </header>
-                
-    </div>
-    <div class="homeHero__categories">
-            <div class="homeHero__card" data-hoverbtn data-swup-animation="markets" data-swup-parallel="true">
-                <a class="homeHero__cardImage" data-showblob="자세히 보기" href="cheongsando.html" aria-label="청산도 취향섬 자세히 보기">
-                    <picture>
-                        <img class="image" src="img/card1_cheongsando_sm.jpg" alt="" decoding="async">
-                    </picture>
-                </a>
-                <div class="homeHero__cardWraper" data-marketcolor="housing">
-                    <div class="homeHero__cardContent" data-btnhover>
-                        <h2 class="font-XXL homeHero__cardTitle">청산도 취향섬</h2>
-                        <span class="font-XS homeHero__cardCount" role="status" aria-label="Card 1 of 5">1 / 5</span>
-                        <p class="homeHero__cardSubtitle font-S">청산도 지역 소개<br>1주택자 특례 안내</p>
-                        <a href="cheongsando.html" data-marketColor class="buttonCircle buttonCircle--plus buttonCircle--icon buttonCircle--no-title" aria-label="청산도 취향섬 자세히 보기">
-                            <svg class="icon icon-plus icon--plus" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-plus"></use></svg>
-                            <span class="buttonCircle__background"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="homeHero__card" data-hoverbtn data-swup-animation="markets" data-swup-parallel="true">
-                <a class="homeHero__cardImage" data-showblob="자세히 보기" href="stay.html" aria-label="스테이 안내 자세히 보기">
-                    <picture>
-                        <img class="image" src="img/card2_stay_sm.jpg" alt="" decoding="async">
-                    </picture>
-                </a>
-                <div class="homeHero__cardWraper" data-marketcolor="interiors">
-                    <div class="homeHero__cardContent" data-btnhover>
-                        <h2 class="font-XXL homeHero__cardTitle">스테이 안내</h2>
-                        <span class="font-XS homeHero__cardCount" role="status" aria-label="Card 2 of 5">2 / 5</span>
-                        <p class="homeHero__cardSubtitle font-S">베이직, 프리미엄 유닛<br>지형 및 조경 계획</p>
-                        <a href="stay.html" data-marketColor class="buttonCircle buttonCircle--plus buttonCircle--icon buttonCircle--no-title" aria-label="스테이 안내 자세히 보기">
-                            <svg class="icon icon-plus icon--plus" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-plus"></use></svg>
-                            <span class="buttonCircle__background"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="homeHero__card" data-hoverbtn data-swup-animation="markets" data-swup-parallel="true">
-                <a class="homeHero__cardImage" data-showblob="자세히 보기" href="operation.html" aria-label="운영 안내 자세히 보기">
-                    <picture>
-                        <img class="image" src="img/card3_operation_sm.jpg" alt="" decoding="async">
-                    </picture>
-                </a>
-                <div class="homeHero__cardWraper" data-marketcolor="higherEducation">
-                    <div class="homeHero__cardContent" data-btnhover>
-                        <h2 class="font-XXL homeHero__cardTitle">운영 안내</h2>
-                        <span class="font-XS homeHero__cardCount" role="status" aria-label="Card 3 of 5">3 / 5</span>
-                        <p class="homeHero__cardSubtitle font-S">위탁 운영 수익 구조<br>공용시설 및 관리 체계</p>
-                        <a href="operation.html" data-marketColor class="buttonCircle buttonCircle--plus buttonCircle--icon buttonCircle--no-title" aria-label="운영 안내 자세히 보기">
-                            <svg class="icon icon-plus icon--plus" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-plus"></use></svg>
-                            <span class="buttonCircle__background"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="homeHero__card" data-hoverbtn data-swup-animation="markets" data-swup-parallel="true">
-                <a class="homeHero__cardImage" data-showblob="자세히 보기" href="sale.html" aria-label="분양 안내 자세히 보기">
-                    <picture>
-                        <img class="image" src="img/card4_sale_sm.jpg" alt="" decoding="async">
-                    </picture>
-                </a>
-                <div class="homeHero__cardWraper" data-marketcolor="civic">
-                    <div class="homeHero__cardContent" data-btnhover>
-                        <h2 class="font-XXL homeHero__cardTitle">분양 안내</h2>
-                        <span class="font-XS homeHero__cardCount" role="status" aria-label="Card 4 of 5">4 / 5</span>
-                        <p class="homeHero__cardSubtitle font-S">분양 조건 및 절차<br>부지 배치 및 설계 범위</p>
-                        <a href="sale.html" data-marketColor class="buttonCircle buttonCircle--plus buttonCircle--icon buttonCircle--no-title" aria-label="분양 안내 자세히 보기">
-                            <svg class="icon icon-plus icon--plus" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-plus"></use></svg>
-                            <span class="buttonCircle__background"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="homeHero__card" data-hoverbtn data-swup-animation="markets" data-swup-parallel="true">
-                <a class="homeHero__cardImage" data-showblob="자세히 보기" href="consult.html" aria-label="상담 신청 자세히 보기">
-                    <picture>
-                        <img class="image" src="img/card5_consult_sm.jpg" alt="" decoding="async">
-                    </picture>
-                </a>
-                <div class="homeHero__cardWraper" data-marketcolor="commercial">
-                    <div class="homeHero__cardContent" data-btnhover>
-                        <h2 class="font-XXL homeHero__cardTitle">상담 신청</h2>
-                        <span class="font-XS homeHero__cardCount" role="status" aria-label="Card 5 of 5">5 / 5</span>
-                        <p class="homeHero__cardSubtitle font-S">분양 상담신청<br>브랜드 컨설팅 문의</p>
-                        <a href="consult.html" data-marketColor class="buttonCircle buttonCircle--plus buttonCircle--icon buttonCircle--no-title" aria-label="상담 신청 자세히 보기">
-                            <svg class="icon icon-plus icon--plus" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-plus"></use></svg>
-                            <span class="buttonCircle__background"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-                <div class="homeHero__cardLast" data-color=""></div>
+
+        <nav class="homeHero__list" aria-label="주요 메뉴">
+          <ul>
+            <li><a class="homeHero__listItem" data-bg="0" href="cheongsando.html">청산도 취향섬<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>취향섬 소개</span></a></li>
+            <li><a class="homeHero__listItem" data-bg="1" href="masterplan.html">마스터플랜<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>15 Islands</span></a></li>
+            <li><a class="homeHero__listItem" data-bg="2" href="invest.html">투자의 이유<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Why Buy</span></a></li>
+            <li><a class="homeHero__listItem" data-bg="3" href="ecosystem.html">건축과 운영<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Ecosystem</span></a></li>
+            <li><a class="homeHero__listItem" data-bg="4" href="archive.html">설계 노트<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Archive</span></a></li>
+            <li><a class="homeHero__listItem" data-bg="5" href="consult.html">분양 문의<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Contact us</span></a></li>
+          </ul>
+        </nav>
+
+        <button type="button" class="homeHero__down" aria-label="아래로 스크롤">
+            <svg viewBox="0 0 20 72" fill="none" aria-hidden="true"><path d="M10 1V70M2 62l8 8 8-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
     </div>
 </section>
 
-                    <section class="blockIntroGeneral" data-control="BlockIntroGeneral" data-grid="grid-template">
-    <h2 class="blockIntroGeneral__title font-XXL">머물고 싶을 때는 내 집으로,<br>비워 두는 날 동안은 스테이로.</h2>
-    <h3 class="blockIntroGeneral__tagline font-S">총 15동<br>프리미엄 4동, 베이직 11동</h3>
-    <p class="blockIntroGeneral__text">청산도에 짓는 15채의 세컨하우스. 머물고 싶을 때는 언제든 내 집으로 쓰고, 떠나 있는 동안에는 운영진이 스테이로 손님을 맞습니다.<br>예약부터 청소, 시설 관리까지 운영진이 맡고, 운영 수수료를 제외한 전체 수익은 소유주에게 돌아갑니다. 비어 있는 시간마저 가치가 되는 섬의 집입니다.</p>
-    <div class="blockIntroGeneral__button">
-        <a
-  href="operation.html"  data-color="slate"
-  data-open=""
-    
-    class="buttonArrow"
-                >
-      <span class="button__title">스테이 운영 안내</span>
-    <span class="button__arrow">
-  <svg class="icon icon-Arrow
- icon--Arrow1 "
-aria-hidden="true"
-focusable="false">
-    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use>
-</svg>
-     <svg class="icon icon-Arrow
- icon--Arrow2 "
-aria-hidden="true"
-focusable="false">
-    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use>
-</svg>
-
-      </span>
-</a>
-    </div>
+                    <section id="sec-cheongsando" class="blockIntroGeneral" data-control="BlockIntroGeneral" data-grid="grid-template">
+    <h2 class="blockIntroGeneral__title font-XXL">청산도의 자연에 취향이 쌓이고,<br>바람과 파도에 다듬어져 마주하는<br>나만의 섬 — 취향섬</h2>
+    <h3 class="blockIntroGeneral__tagline font-S">취향의 향유<br>자연에의 순응<br>군도의 완성</h3>
+    <p class="blockIntroGeneral__text">iF 디자인 어워드 수상 건축가 그룹이 토목과 인허가부터 하이엔드 건축, 위탁 운영까지 모두 준비해 둔 15개의 섬입니다.</p>
+    <div class="blockIntroGeneral__button"><a href="consult.html" data-color="slate" data-open="" class="buttonArrow"><span class="button__title">분양 안내서 받아보기</span><span class="button__arrow"><svg class="icon icon-Arrow icon--Arrow1" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg><svg class="icon icon-Arrow icon--Arrow2" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg></span></a> <a href="consult.html" data-color="slate" data-open="" class="buttonArrow"><span class="button__title">1:1 프라이빗 상담 신청</span><span class="button__arrow"><svg class="icon icon-Arrow icon--Arrow1" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg><svg class="icon icon-Arrow icon--Arrow2" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg></span></a></div>
 </section>
 
-                    <section data-watch data-grid="grid-template" class="blockProjectsHighlight" data-control="BlockProjectsHighlight">
+
+                    <section id="sec-cheongsando-values" data-grid="grid-template" class="blockWysiwyg" data-control="BlockWysiwyg">
+    <div class="blockWysiwyg__tagline font-XS--semibold">청산도 취향섬</div>
+    <div class="blockWysiwyg__title"><h2 class="font-M">자연과 취향, 그리고 연대가 빚어내는<br>새로운 전원생활의 기준</h2></div>
+    <div class="blockWysiwyg__content"><div class="wysiwyg">
+<p><strong>취향의 향유</strong><br>
+획일화된 집에서 벗어나, 나만의 취향을 섬이라는 온전한 영역에 담아 깊이 있는 전원생활을 누립니다.</p>
+<p><strong>자연에의 순응</strong><br>
+도로와 필지를 나누는 선을 바다의 해류처럼 그렸습니다. 청산도 본래의 지형과 자연의 흐름을 거스르지 않고 그 안에서 살아갑니다.</p>
+<p><strong>군도의 완성</strong><br>
+섬은 홀로 존재하지 않습니다. 저마다의 이야기를 가진 15개의 섬이 서로 영감을 주고받으며 하나의 지속 가능한 군도를 이룹니다.</p>
+<p><a href="cheongsando.html" data-color="slate" data-open="" class="buttonArrow"><span class="button__title">취향섬 소개</span><span class="button__arrow"><svg class="icon icon-Arrow icon--Arrow1" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg><svg class="icon icon-Arrow icon--Arrow2" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg></span></a></p>
+    </div></div>
+</section>
+<section id="sec-masterplan" data-watch data-grid="grid-template" class="blockProjectsHighlight" data-control="BlockProjectsHighlight">
 
     <header class="blockProjectsHighlight__header">
-        <h2 class="blockProjectsHighlight__headerTitle font-L">취향섬 유닛과 필지</h2>
+        <h2 class="blockProjectsHighlight__headerTitle font-L">15개 섬의 배치와 분양 현황</h2>
 
             <div class="highlightedButton"  data-catlinks="active"  data-control="HighlightedButton">
                     <a
-  href="stay.html"  data-color="slate"
+  href="masterplan.html"  data-color="slate"
   data-open=""
     data-no-underline
     class="buttonArrow buttonArrow--icon"
                 >
-      <span class="button__title">스테이 안내</span>
+      <span class="button__title">마스터플랜</span>
     <span class="button__arrow">
   <svg class="icon icon-Arrow
  icon--Arrow1 "
@@ -532,8 +425,8 @@ focusable="false">
     </header>
             <div class="projStage">
             <div class="projKeymap" data-proj-keymap>
-                <img class="projKeymap__img" src="img/keymap_v2.jpg?v=20261016140142" alt="취향섬 배치 키맵" decoding="async">
-                <svg class="projKeymap__ov" aria-hidden="true" viewBox="-1952 165 8071 4035" preserveAspectRatio="xMidYMid meet"><g transform="translate(71,-51) scale(5.33333,5.333333)"><g class="b" data-n="1"><rect class="hit" x="84.25" y="655.83" width="40.41" height="40.33"/><g transform="scale(0.16666666666666666)"><g transform="translate(0,4962) scale(0.1,-0.1)"><path d="M6195 9832 c-71 -42 -189 -113 -262 -157 l-132 -79 -57 -131 c-32
+                <img class="projKeymap__img" src="img/keymap_v3.jpg?v=20261016175808" alt="취향섬 배치 키맵" decoding="async">
+                <svg class="projKeymap__ov" aria-hidden="true" viewBox="-4221 165 8071 4035" preserveAspectRatio="xMidYMid meet"><g transform="translate(71,-51) scale(5.33333,5.333333)"><g class="b" data-n="1"><rect class="hit" x="84.25" y="655.83" width="40.41" height="40.33"/><g transform="scale(0.16666666666666666)"><g transform="translate(0,4962) scale(0.1,-0.1)"><path d="M6195 9832 c-71 -42 -189 -113 -262 -157 l-132 -79 -57 -131 c-32
 -71 -74 -172 -95 -223 l-38 -93 22 -8 c12 -5 213 -93 447 -195 233 -102 429
 -186 435 -186 5 0 129 46 275 101 146 56 280 106 298 112 17 6 32 14 32 18 0
 28 -767 920 -790 919 -3 -1 -63 -36 -135 -78z"/><path d="M5581 9092 c-13 -26 -157 -364 -165 -388 -6 -19 16 -30 241 -129 241
@@ -659,114 +552,99 @@ l-24 29 -40 -74z"/><path d="M37705 39449 l-380 -130 -268 -525 c-147 -289 -265 -5
 7 -13 4 -10 -3 11 -25z"/></g></g></g><g class="b" data-n="17"><rect class="hit" x="232.95" y="435.12" width="101.96" height="63.56"/><polygon points="247.556,490.319 262.82,487.315 264.119,492.674 
 	328.909,479.846 321.034,441.118 243.497,457.275 238.95,463.283 244.065,490.888"/></g></g></svg>
                 <div class="projKeymap__fx"></div>
-            </div>
-            <div class="projSlider" data-proj-slider>
-            <div class="projSlider__viewport">
-                <div class="projSlider__track">
-                <div class="projSlider__card projSlider__card--s1" data-photo="1">
-                    <div class="projSlider__shape"></div>
-                    <svg class="projSlider__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="91.2,45.9 45.6,0 31.3,0 0,55.4 0,100 33.4,100 100,81.9 100,66.9" vector-effect="non-scaling-stroke"/></svg>
-                    <div class="imageCard__textWrap">
-                        <span class="imageCard__title">베이직 1동</span>
-                        <span class="imageCard__location font-XS">사진 준비 중</span>
-                    </div>
+                <div class="projKeymap__feed projKeymap__sum" data-km-sum aria-hidden="true">
+                    <span class="projKeymap__feedTitle" data-sum-title></span>
+                    <p class="projKeymap__sumLead font-XS" data-sum-lead></p>
+                    <dl class="projKeymap__sumSpec" data-sum-spec></dl>
+                    <ul class="projKeymap__sumList" data-sum-list></ul>
                 </div>
-                <div class="projSlider__card projSlider__card--s2" data-photo="2">
-                    <div class="projSlider__shape"></div>
-                    <svg class="projSlider__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="93.8,0 18.3,0 4.7,19 0,34.8 0,81.9 40.8,100 100,100 100,19" vector-effect="non-scaling-stroke"/></svg>
-                    <div class="imageCard__textWrap">
-                        <span class="imageCard__title">베이직 2동</span>
-                        <span class="imageCard__location font-XS">사진 준비 중</span>
+                <div class="projKeymap__feed" data-km-feed aria-hidden="true">
+                    <div class="projKeymap__feedImgs"><div></div><div></div><div></div></div>
+                    <div class="projKeymap__feedText">
+                        <span class="projKeymap__feedTitle" data-km-title></span>
+                        <span class="projKeymap__feedDesc font-XS">렌더링 이미지와 설명 준비 중</span>
                     </div>
-                </div>
-                <div class="projSlider__card projSlider__card--s3" data-photo="3">
-                    <div class="projSlider__shape"></div>
-                    <svg class="projSlider__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="86.2,0 23.4,0 0,56.3 0,100 41.2,100 100,81.9 100,33.1" vector-effect="non-scaling-stroke"/></svg>
-                    <div class="imageCard__textWrap">
-                        <span class="imageCard__title">베이직 3동 · 인피니티풀</span>
-                        <span class="imageCard__location font-XS">사진 준비 중</span>
-                    </div>
-                </div>
-                <div class="projSlider__card projSlider__card--s2" data-photo="4">
-                    <div class="projSlider__shape"></div>
-                    <svg class="projSlider__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="93.8,0 18.3,0 4.7,19 0,34.8 0,81.9 40.8,100 100,100 100,19" vector-effect="non-scaling-stroke"/></svg>
-                    <div class="imageCard__textWrap">
-                        <span class="imageCard__title">베이직 4동 · 5동</span>
-                        <span class="imageCard__location font-XS">사진 준비 중</span>
-                    </div>
-                </div>
-                <div class="projSlider__card projSlider__card--s1" data-photo="5">
-                    <div class="projSlider__shape"></div>
-                    <svg class="projSlider__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="91.2,45.9 45.6,0 31.3,0 0,55.4 0,100 33.4,100 100,81.9 100,66.9" vector-effect="non-scaling-stroke"/></svg>
-                    <div class="imageCard__textWrap">
-                        <span class="imageCard__title">베이직 6동</span>
-                        <span class="imageCard__location font-XS">사진 준비 중</span>
-                    </div>
-                </div>
-                <div class="projSlider__card projSlider__card--s2" data-photo="6">
-                    <div class="projSlider__shape"></div>
-                    <svg class="projSlider__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="93.8,0 18.3,0 4.7,19 0,34.8 0,81.9 40.8,100 100,100 100,19" vector-effect="non-scaling-stroke"/></svg>
-                    <div class="imageCard__textWrap">
-                        <span class="imageCard__title">베이직 7 · 8 · 9 · 10 · 11동</span>
-                        <span class="imageCard__location font-XS">사진 준비 중</span>
-                    </div>
-                </div>
-                <div class="projSlider__card projSlider__card--s3" data-photo="7">
-                    <div class="projSlider__shape"></div>
-                    <svg class="projSlider__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="86.2,0 23.4,0 0,56.3 0,100 41.2,100 100,81.9 100,33.1" vector-effect="non-scaling-stroke"/></svg>
-                    <div class="imageCard__textWrap">
-                        <span class="imageCard__title">관리동</span>
-                        <span class="imageCard__location font-XS">사진 준비 중</span>
-                    </div>
-                </div>
-                <div class="projSlider__card projSlider__card--s2" data-photo="8">
-                    <div class="projSlider__shape"></div>
-                    <svg class="projSlider__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="93.8,0 18.3,0 4.7,19 0,34.8 0,81.9 40.8,100 100,100 100,19" vector-effect="non-scaling-stroke"/></svg>
-                    <div class="imageCard__textWrap">
-                        <span class="imageCard__title">프리미엄 1동</span>
-                        <span class="imageCard__location font-XS">사진 준비 중</span>
-                    </div>
-                </div>
-                <div class="projSlider__card projSlider__card--s1" data-photo="9">
-                    <div class="projSlider__shape"></div>
-                    <svg class="projSlider__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="91.2,45.9 45.6,0 31.3,0 0,55.4 0,100 33.4,100 100,81.9 100,66.9" vector-effect="non-scaling-stroke"/></svg>
-                    <div class="imageCard__textWrap">
-                        <span class="imageCard__title">프리미엄 2동</span>
-                        <span class="imageCard__location font-XS">사진 준비 중</span>
-                    </div>
-                </div>
-                <div class="projSlider__card projSlider__card--s2" data-photo="10">
-                    <div class="projSlider__shape"></div>
-                    <svg class="projSlider__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="93.8,0 18.3,0 4.7,19 0,34.8 0,81.9 40.8,100 100,100 100,19" vector-effect="non-scaling-stroke"/></svg>
-                    <div class="imageCard__textWrap">
-                        <span class="imageCard__title">프리미엄 3동</span>
-                        <span class="imageCard__location font-XS">사진 준비 중</span>
-                    </div>
-                </div>
-                <div class="projSlider__card projSlider__card--s3" data-photo="11">
-                    <div class="projSlider__shape"></div>
-                    <svg class="projSlider__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="86.2,0 23.4,0 0,56.3 0,100 41.2,100 100,81.9 100,33.1" vector-effect="non-scaling-stroke"/></svg>
-                    <div class="imageCard__textWrap">
-                        <span class="imageCard__title">프리미엄 4동</span>
-                        <span class="imageCard__location font-XS">사진 준비 중</span>
-                    </div>
-                </div>
                 </div>
             </div>
-            <div class="projSlider__footer">
-                <div class="projSlider__bar"><span class="projSlider__barFill"></span></div>
-                <div class="projSlider__meta">
-                    <span class="projSlider__hint font-XS">스크롤하면 섬 조각 사진이 옆으로 넘어갑니다</span>
-                    <span class="projSlider__count font-XS"><span data-proj-current>1</span> / <span data-proj-total>10</span></span>
-                    <span class="projSlider__arrows">
-                        <button type="button" class="projSlider__arrow" data-proj-prev aria-label="이전 사진">←</button>
-                        <button type="button" class="projSlider__arrow" data-proj-next aria-label="다음 사진">→</button>
-                    </span>
-                </div>
-            </div>
+            <div class="projGrid">
+                <div class="projGrid__frame"></div>
+                <div class="projGrid__frame"></div>
+                <div class="projGrid__frame"></div>
+                <div class="projGrid__frame"></div>
+                <div class="projGrid__frame"></div>
+                <div class="projGrid__frame"></div>
+                <div class="projGrid__frame"></div>
+                <div class="projGrid__frame"></div>
+                <div class="projGrid__frame"></div>
+                <div class="projGrid__frame"></div>
+                <div class="projGrid__frame"></div>
+                <div class="projGrid__frame"></div>
             </div>
             </div>
 </section>
+<section id="sec-masterplan-lots" data-grid="grid-template" class="blockWysiwyg" data-control="BlockWysiwyg">
+    <div class="blockWysiwyg__tagline font-XS--semibold">마스터플랜 15 Islands</div>
+    <div class="blockWysiwyg__title"><h2 class="font-M">필지별 면적 130~150평</h2></div>
+    <div class="blockWysiwyg__content"><div class="wysiwyg">
+<p><strong>기본 유닛 / 확장 유닛</strong><br>
+단지 배치도에서 필지를 고르면 기본 유닛과 확장 유닛 구성, 그리고 필지마다 다른 조망을 확인할 수 있습니다.</p>
+<p><a href="masterplan.html" data-color="slate" data-open="" class="buttonArrow"><span class="button__title">마스터플랜</span><span class="button__arrow"><svg class="icon icon-Arrow icon--Arrow1" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg><svg class="icon icon-Arrow icon--Arrow2" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg></span></a></p>
+    </div></div>
+</section>
+<section id="sec-invest" data-grid="grid-template" class="blockWysiwyg homeInvest" data-control="BlockWysiwyg">
+    <div class="blockWysiwyg__tagline font-XS--semibold">투자의 이유 Why Buy</div>
+    <div class="homeInvest__body">
+    <h2 class="homeInvest__title">섬 건축의 걱정,<br>미리 덜어 두었습니다</h2>
+    <ul class="homeInvest__cards">
+<li><span class="homeInvest__no">01</span><h3>인허가와 설계</h3><p>토지 분양가에 토목·건축 인허가와 iF 어워드 수상 스튜디오의 건축·인테리어·조경 설계가 모두 포함되어 있습니다.</p></li>
+<li><span class="homeInvest__no">02</span><h3>섬에서의 시공과 유지보수</h3><p>현장에서 콘크리트를 붓는 대신, 미콘(Miicon) 공장에서 미리 만든 PC 부재와 중단열 노출콘크리트 시스템으로 공사 기간과 하자를 줄입니다.</p></li>
+<li><span class="homeInvest__no">03</span><h3>비워둔 집의 관리</h3><p>단지 입구의 웰컴센터, 관리동, 인피니티 풀을 중심으로 전문 위탁 운영을 합니다. 머물지 않는 기간에는 스테이로 운영됩니다.</p></li>
+    </ul>
+    <ol class="homeInvest__points">
+<li><span class="homeInvest__pno">POINT 01</span><p><b>평당 95만 원.</b> 마스터플랜, 하이엔드 건축·인테리어 설계, 인허가까지 토지 가격에 모두 포함됩니다.</p></li>
+<li><span class="homeInvest__pno">POINT 02</span><p><b>시공비 3.2억 원대.</b> 건축·인테리어·조경을 포함해 하이엔드 노출콘크리트 주택을 투명한 예산으로 짓습니다.</p></li>
+<li><span class="homeInvest__pno">POINT 03</span><p><b>공용 시설.</b> 인피니티 풀과 웰컴센터 등 단지 전체의 가치를 높이는 공용 시설을 갖춥니다.</p></li>
+<li><span class="homeInvest__pno">POINT 04</span><p><b>별장이자 스테이.</b> 머물 때는 나만의 별장으로, 비워둘 때는 스테이로 운영되는 집입니다.</p></li>
+    </ol>
+    <p><a href="invest.html" data-color="slate" data-open="" class="buttonArrow"><span class="button__title">투자의 이유</span><span class="button__arrow"><svg class="icon icon-Arrow icon--Arrow1" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg><svg class="icon icon-Arrow icon--Arrow2" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg></span></a></p>
+    </div>
+</section>
+
+<section id="sec-ecosystem-detail" data-grid="grid-template" class="blockWysiwyg" data-control="BlockWysiwyg">
+    <div class="blockWysiwyg__tagline font-XS--semibold">건축과 운영 Ecosystem</div>
+    <div class="blockWysiwyg__title"><h2 class="font-M">재료의 본질에 집중한 공간,<br>자유롭게 옮기는 가구.<br>오너의 취향이 돋보이는 배경이 됩니다.</h2></div>
+    <div class="blockWysiwyg__content"><div class="wysiwyg">
+<p><strong>건축</strong><br>
+초고강도 노출콘크리트 PC 공법과 중단열 시스템</p>
+<p><strong>앵커 시설</strong><br>
+웰컴센터, 관리동, 인피니티 풀</p>
+<p><strong>운영</strong><br>
+전문 위탁 운영 시스템</p>
+<p><a href="ecosystem.html" data-color="slate" data-open="" class="buttonArrow"><span class="button__title">건축과 운영</span><span class="button__arrow"><svg class="icon icon-Arrow icon--Arrow1" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg><svg class="icon icon-Arrow icon--Arrow2" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg></span></a></p>
+    </div></div>
+</section>
+<section id="sec-archive" data-grid="grid-template" class="blockWysiwyg" data-control="BlockWysiwyg">
+    <div class="blockWysiwyg__tagline font-XS--semibold">설계 노트 Archive</div>
+    <div class="blockWysiwyg__title"><h2 class="font-M">신뢰를 짓는 사람들</h2></div>
+    <div class="blockWysiwyg__content"><div class="wysiwyg">
+<p><strong>파트너 소개</strong><br>
+스튜디오 이룩(기획·설계) X 미콘(PC 엔지니어링·시공)</p>
+<p><strong>유튜브 설계 노트</strong><br>
+청산도(EP.1)부터 미콘(EP.4)까지, 취향섬이 준비되는 과정을 영상으로 기록합니다.</p>
+<p><strong>신뢰의 근거</strong><br>
+2026 iF 디자인 어워드 수상 스튜디오 이룩(기획·설계)<br>
+대한민국 대표 UHPC/PC 전문기업 미콘(시공 파트너)<br>
+24년간 청산도의 터를 가꿔온 시간</p>
+<p><a href="archive.html" data-color="slate" data-open="" class="buttonArrow"><span class="button__title">설계 노트</span><span class="button__arrow"><svg class="icon icon-Arrow icon--Arrow1" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg><svg class="icon icon-Arrow icon--Arrow2" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg></span></a></p>
+    </div></div>
+</section>
+<section id="sec-consult" class="blockIntroGeneral" data-control="BlockIntroGeneral" data-grid="grid-template">
+    <h2 class="blockIntroGeneral__title font-XXL">프라이빗 분양 상담과<br>현장·설계실 미팅 예약</h2>
+    <h3 class="blockIntroGeneral__tagline font-S">서울 설계실 미팅<br>청산도 현장 답사<br>유선 상담</h3>
+    <p class="blockIntroGeneral__text">청산도까지 오시기 어렵다면 서울 스튜디오 이룩 설계실에서 1:1 프레젠테이션으로 먼저 만나보실 수 있습니다. 청산도 현장 방문 예약도 가능합니다.</p>
+    <div class="blockIntroGeneral__button"><a href="consult.html" data-color="slate" data-open="" class="buttonArrow"><span class="button__title">분양 문의</span><span class="button__arrow"><svg class="icon icon-Arrow icon--Arrow1" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg><svg class="icon icon-Arrow icon--Arrow2" aria-hidden="true" focusable="false"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use></svg></span></a></div>
+</section>
+
 
 
     				
@@ -784,19 +662,22 @@ l-24 29 -40 -74z"/><path d="M37705 39449 l-380 -130 -268 -525 c-147 -289 -265 -5
                             <ul class="navigationFooter__mainMenu">
                     <li class="font-S--Semibold">Our Focus</li>
                                             <li class="font-XL navigationFooter__menuItemWrapper">
-                            <a class="navigationFooter__menuItem" href="cheongsando.html" target="_self">청산도</a>
+                            <a class="navigationFooter__menuItem" href="cheongsando.html" target="_self">청산도 취향섬<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>취향섬 소개</span></a>
                         </li>
                                             <li class="font-XL navigationFooter__menuItemWrapper">
-                            <a class="navigationFooter__menuItem" href="stay.html" target="_self">스테이 안내</a>
+                            <a class="navigationFooter__menuItem" href="masterplan.html" target="_self">마스터플랜<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>15 Islands</span></a>
                         </li>
                                             <li class="font-XL navigationFooter__menuItemWrapper">
-                            <a class="navigationFooter__menuItem" href="operation.html" target="_self">운영 안내</a>
+                            <a class="navigationFooter__menuItem" href="invest.html" target="_self">투자의 이유<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Why Buy</span></a>
                         </li>
                                             <li class="font-XL navigationFooter__menuItemWrapper">
-                            <a class="navigationFooter__menuItem" href="sale.html" target="_self">분양 안내</a>
+                            <a class="navigationFooter__menuItem" href="ecosystem.html" target="_self">건축과 운영<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Ecosystem</span></a>
                         </li>
                                             <li class="font-XL navigationFooter__menuItemWrapper">
-                            <a class="navigationFooter__menuItem" href="consult.html" target="_self">상담 신청<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>브랜드 컨설팅</span></a>
+                            <a class="navigationFooter__menuItem" href="archive.html" target="_self">설계 노트<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Archive</span></a>
+                        </li>
+                                            <li class="font-XL navigationFooter__menuItemWrapper">
+                            <a class="navigationFooter__menuItem" href="consult.html" target="_self">분양 문의<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Contact us</span></a>
                         </li>
                                     </ul>
                         <div class="navigationFooter__subMenu chqFooterSub">
@@ -839,7 +720,7 @@ focusable="false">
 <a  href="cheongsando.html"    data-color="white" data-open=""
     class="buttonLine"
     target="_self"      data-hideline="true" >
-            <span class="font-s">청산도</span>
+            <span class="font-s">청산도 취향섬</span>
         <span class="buttonLine__line">
             <span class="buttonLine__line--one"></span>
             <span class="buttonLine__line--two"></span>
@@ -849,10 +730,10 @@ focusable="false">
                                 </li>
                                                             <li class="navigationFooter__bottomMenuItem">
                                     
-<a  href="stay.html"    data-color="white" data-open=""
+<a  href="masterplan.html"    data-color="white" data-open=""
     class="buttonLine"
     target="_self"      data-hideline="true" >
-            <span class="font-s">스테이 안내</span>
+            <span class="font-s">마스터플랜</span>
         <span class="buttonLine__line">
             <span class="buttonLine__line--one"></span>
             <span class="buttonLine__line--two"></span>
@@ -862,10 +743,10 @@ focusable="false">
                                 </li>
                                                             <li class="navigationFooter__bottomMenuItem">
                                     
-<a  href="operation.html"    data-color="white" data-open=""
+<a  href="invest.html"    data-color="white" data-open=""
     class="buttonLine"
     target="_self"      data-hideline="true" >
-            <span class="font-s">운영 안내</span>
+            <span class="font-s">투자의 이유</span>
         <span class="buttonLine__line">
             <span class="buttonLine__line--one"></span>
             <span class="buttonLine__line--two"></span>
@@ -875,10 +756,23 @@ focusable="false">
                                 </li>
                                                             <li class="navigationFooter__bottomMenuItem">
                                     
-<a  href="sale.html"    data-color="white" data-open=""
+<a  href="ecosystem.html"    data-color="white" data-open=""
     class="buttonLine"
     target="_self"      data-hideline="true" >
-            <span class="font-s">분양 안내</span>
+            <span class="font-s">건축과 운영</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                            <li class="navigationFooter__bottomMenuItem">
+                                    
+<a  href="archive.html"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_self"      data-hideline="true" >
+            <span class="font-s">설계 노트</span>
         <span class="buttonLine__line">
             <span class="buttonLine__line--one"></span>
             <span class="buttonLine__line--two"></span>
@@ -891,7 +785,7 @@ focusable="false">
 <a  href="consult.html"    data-color="white" data-open=""
     class="buttonLine"
     target="_self"      data-hideline="true" >
-            <span class="font-s">상담 신청</span>
+            <span class="font-s">분양 문의</span>
         <span class="buttonLine__line">
             <span class="buttonLine__line--one"></span>
             <span class="buttonLine__line--two"></span>
@@ -1082,7 +976,7 @@ focusable="false">
 <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
 <script src="js/logointro.js?v=20261014213500"></script>
-<script src="js/main.js?v=20261016180000"></script>
-<script src="js/keymap.js?v=20261015200000"></script>
+<script src="js/main.js?v=20261016220000"></script>
+<script src="js/keymap.js?v=20261016181000"></script>
 </body>
 </html>
