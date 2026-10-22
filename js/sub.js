@@ -91,7 +91,7 @@
         if (!stage) return;
         var steps = $$('.chqPin__step', pin);
         var bars = $$('.chqChart__bar', pin);
-        var scrubs = $$('[data-scrub]', pin);
+        var scrubs = $$('[data-count]', pin);
         var figs = $$('.chqPin__fig', pin), pops = $$('.chqPop', pin), grows = $$('.chqGrowLine,.chqGrowY,.chqGrowX', pin);
         var sec = pin.closest('.chqSec'), darkAt = pin.getAttribute('data-dark-at');
         var at = function (el, s0, l0) {

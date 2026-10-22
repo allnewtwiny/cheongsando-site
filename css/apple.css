@@ -226,6 +226,41 @@
 .chqPop{opacity:0;transform:scale(.6);transform-box:fill-box;transform-origin:center;transition:opacity .45s ease,transform .55s cubic-bezier(.2,.6,.2,1);transition-delay:var(--d,0s)}
 .chqPop.is-on{opacity:1;transform:none}
 .chqPop--up{transform:translateY(2.4rem)}
+.chqPop--fade{transform:none}
+tr.chqPop{transition:opacity .45s ease;transition-delay:var(--d,0s)}
+.chqApple .chqSec--cta .chqSec__title span{display:inline-block;background:linear-gradient(180deg,#f5f5f7 46%,#9a9a9e 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.1em;margin-bottom:-.1em}
+.chqApple .chqStats.chqPin__nums{grid-template-columns:1fr;gap:2.4rem;margin-top:3.6rem}
+.chqPin__nums .chqStat__num{font-size:clamp(3.4rem,3.4vw,5rem)}
+.chqPin__nums .chqStat__lab{margin-top:.6rem;font-size:1.4rem;line-height:1.6}
+.chqPin__aux{margin-top:3.6rem;max-width:42rem}
+.chqPin__aux svg{display:block;width:100%;height:auto}
+.chqPin__copy .chqLead{margin-left:0;margin-right:0;font-size:1.8rem}
+.chqPin--full .chqPin__stage{padding:4rem 0}
+.chqPin--full .chqSec__head{margin-bottom:3.2rem}
+.chqPin--full .chqSec__head .chqLead{margin-top:1.6rem;font-size:1.8rem}
+.chqPin .chqGantt{gap:.2rem}
+.chqPin .chqGantt__legend{display:none}
+.chqPin .chqGantt__head{margin-bottom:0}
+.chqPin .chqGantt__head{margin-bottom:.2rem;font-size:1.2rem}
+.chqPin .chqGantt__head span{padding-bottom:.4rem}
+
+.chqPin .chqGantt__head,.chqPin .chqGantt__row{grid-template-columns:16rem 1fr}
+.chqPin .chqGantt__track{height:2rem}
+.chqPin .chqGantt__bar{top:.4rem;bottom:.4rem}
+.chqPin .chqGantt__name{font-size:1.4rem}
+.chqPin .chqGantt__grp{margin:1rem 0 0;font-size:1.2rem}
+.chqPin .chqGantt__bar.chqGrowX{transform:scaleX(var(--g));transform-origin:left}
+.chqPin.is-in:not(.is-pinned) .chqGantt__bar.chqGrowX{transform:none}
+.chqGantt .chqPop{transition:opacity .45s ease}
+.chqPin .chqTableWrap{margin:0}
+.chqPin__fig .chqTable{font-size:1.5rem}
+.chqPin__fig .chqTable th,.chqPin__fig .chqTable td{padding:1.2rem 1rem}
+.chqPin--full .chqGlass{padding:3.2rem 4rem}
+.chqPin--full .chqGlass__d{font-size:1.4rem}
+.chqPin--full .chqGlass__num{font-size:clamp(3.6rem,4.4vw,6.2rem)}
+.chqPin--full .chqGlass__foot{margin-top:2.4rem;padding-top:1.6rem}
+.chqPin--full .chqGlass__foot .chqTable th,.chqPin--full .chqGlass__foot .chqTable td{padding:1.1rem 1rem}
+@media (max-width:767px){.chqApple .chqStats.chqPin__nums{gap:2rem}.chqPin__fig .chqTable th,.chqPin__fig .chqTable td{padding:1.1rem .6rem}}
 .chqPin__stage>.chqWrap{width:100%;box-sizing:border-box}
 .chqApple .chqSec--gapB{padding-bottom:24rem}
 .chqApple .chqSec--cta{padding:2rem 0 20rem}
