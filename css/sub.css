@@ -171,14 +171,16 @@ body.chqSub[data-marketsmenu] .mainContent{background:#fff;color:#141414}
 .chqFig figcaption{margin-top:2rem;font-size:1.3rem;line-height:1.6;color:#8a8a8a;word-break:keep-all}
 .chqFig--tight{padding:2.4rem}
 .chqSec--dark .chqFig{background:#1e1e1e}.chqSec--dark .chqFig figcaption{color:#8a8a8a}
-.chqDraw [pathLength]{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1)}
-.chqDraw.is-in [pathLength]{stroke-dashoffset:0}
+/* 크롬은 속성 선택자 [pathLength]만으로는 is-in 뒤 스타일을 다시 계산하지 않아 class="d"를 함께 쓴다 (10/22) */
+.chqDraw [pathLength],.chqDraw .d{stroke-dasharray:1;stroke-dashoffset:1}
+.chqDraw.is-in [pathLength],.chqDraw.is-in .d{animation:chqDraw 1.6s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes chqDraw{to{stroke-dashoffset:0}}
 .chqDraw .f{opacity:0;transition:opacity .8s ease .8s}
 .chqDraw.is-in .f{opacity:1}
 .chqDraw .f2{opacity:0;transition:opacity .8s ease 1.3s}
 .chqDraw.is-in .f2{opacity:1}
 @media (max-width:767px){.chqFig{padding:2.4rem;border-radius:1.6rem}}
-@media (prefers-reduced-motion:reduce){.chqDraw [pathLength]{stroke-dashoffset:0;transition:none}.chqDraw .f,.chqDraw .f2{opacity:1;transition:none}}
+@media (prefers-reduced-motion:reduce){.chqDraw [pathLength],.chqDraw .d{stroke-dashoffset:0;animation:none}.chqDraw .f,.chqDraw .f2{opacity:1;transition:none}}
 
 /* 17. 일정표 (2026년 3월에서 7월, 5칸) */
 .chqGantt{display:grid;gap:1rem}
