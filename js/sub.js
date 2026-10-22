@@ -1,5 +1,6 @@
 /* 하위 페이지 스크롤 연출. css/sub.css 11번 이후 블록, css/apple.css와 짝을 이룬다. main.js 다음에 로드.
-   v2 (2026-10-22): 숫자 카운트업, 어두운 섹션 전환(is-dark), 화면 고정 장면(.chqPin, gsap ScrollTrigger), 막대 차트 추가. */
+   v2 (2026-10-22): 숫자 카운트업, 어두운 섹션 전환(is-dark), 화면 고정 장면(.chqPin, gsap ScrollTrigger), 막대 차트 추가.
+   v3 (2026-10-23): 고정 장면 안 그림 교차(.chqPin__fig[data-step]), 요소 등장(.chqPop[data-at]), 선과 막대 자람(.chqGrowLine/.chqGrowY/.chqGrowX[data-at]), 단계별 어두워짐(data-dark-at). */
 (function () {
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -10,7 +11,7 @@
   var easeOut = function (t) { return 1 - Math.pow(1 - t, 4); };
 
   /* 1. 등장: .chqR 글, .chqDraw 선 그리기, .chqGantt 일정 막대, .chqBars 비중 막대 */
-  var targets = $$('.chqR,.chqDraw,.chqGantt,.chqBars');
+  var targets = $$('.chqR,.chqDraw,.chqGantt,.chqBars,.chqPin,.chqChart--io');
   if (targets.length) {
     if (reduce || !hasIO) {
       targets.forEach(function (el) { el.classList.add('is-in'); });
@@ -58,8 +59,8 @@
       if (!e) return comma(m);
       return e + '<small class="chqEok">억</small>' + (m ? ' ' + comma(m) : '');
     }
-    if (f === 'dec1') return v.toFixed(1);
-    if (f === 'dec2') return v.toFixed(2);
+    if (f === 'raw') return String(Math.round(v));
+    if (f === 'dec1' || f === 'dec2') { var q = v.toFixed(f === 'dec1' ? 1 : 2).split('.'); return comma(q[0]) + '.' + q[1]; }
     return comma(v);
   }
   function setNum(el, v) { el.innerHTML = fmt(v, el.getAttribute('data-fmt') || 'int'); }
@@ -71,7 +72,7 @@
     var step = function (ts) {
       if (t0 === null) t0 = ts;
       var t = clamp((ts - t0) / dur);
-      setNum(el, target * easeOut(t));
+      setNum(el, t >= 1 ? target : target * easeOut(t));
       if (t < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
@@ -91,6 +92,13 @@
         var steps = $$('.chqPin__step', pin);
         var bars = $$('.chqChart__bar', pin);
         var scrubs = $$('[data-scrub]', pin);
+        var figs = $$('.chqPin__fig', pin), pops = $$('.chqPop', pin), grows = $$('.chqGrowLine,.chqGrowY,.chqGrowX', pin);
+        var sec = pin.closest('.chqSec'), darkAt = pin.getAttribute('data-dark-at');
+        var at = function (el, s0, l0) {
+          var a = (el.getAttribute('data-at') || '').split(',');
+          var s = parseFloat(a[0]), l = parseFloat(a[1]);
+          return [isNaN(s) ? s0 : s, isNaN(l) ? l0 : l];
+        };
         var n = parseInt(pin.getAttribute('data-steps'), 10) || Math.max(1, steps.length);
         pin.classList.add('is-pinned');
         var render = function (p) {
@@ -102,10 +110,26 @@
           });
           scrubs.forEach(function (el) {
             if (el.closest('.chqChart__bar')) return;
-            setNum(el, parseFloat(el.getAttribute('data-count')) * easeOut(clamp(p / 0.45)));
+            var sl = at(el, 0, 0.45);
+            setNum(el, parseFloat(el.getAttribute('data-count')) * easeOut(clamp((p - sl[0]) / sl[1])));
+          });
+          grows.forEach(function (el) {
+            var sl = at(el, 0, 0.45);
+            el.style.setProperty('--g', easeOut(clamp((p - sl[0]) / sl[1])).toFixed(3));
+          });
+          pops.forEach(function (el, k) {
+            var s = parseFloat(el.getAttribute('data-at')), off = parseFloat(el.getAttribute('data-off'));
+            if (isNaN(s)) s = k / Math.max(1, pops.length) * 0.8;
+            el.classList.toggle('is-on', p >= s && (isNaN(off) || p < off));
           });
           var idx = Math.min(n - 1, Math.floor(p * n));
           steps.forEach(function (s, k) { s.classList.toggle('is-active', k === idx); });
+          figs.forEach(function (f, k) {
+            var ds = f.getAttribute('data-step');
+            var on = ds === null ? k === idx : ds.split(',').indexOf(String(idx)) !== -1;
+            f.classList.toggle('is-active', on);
+          });
+          if (darkAt !== null && sec) sec.classList.toggle('is-dark', idx >= parseInt(darkAt, 10));
           bars.forEach(function (b, i) {
             var hl = b.getAttribute('data-hl') || '';
             var on = hl.split(',').indexOf(String(idx)) !== -1;
@@ -123,7 +147,7 @@
       });
       return function () {
         created.forEach(function (t) { t.kill(); });
-        pins.forEach(function (p) { p.classList.remove('is-pinned'); });
+        pins.forEach(function (p) { p.classList.remove('is-pinned'); p.classList.add('is-in'); });
       };
     });
   }
