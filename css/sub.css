@@ -73,7 +73,7 @@ body.chqSub[data-marketsmenu] .mainContent{background:#fff;color:#141414}
 @media (max-width:1023px){.chqPartners,.chqPartners--two{grid-template-columns:1fr;gap:4rem}}
 
 /* 8. 영상 카드 */
-.chqEps{display:grid;grid-template-columns:repeat(5,1fr);gap:2.4rem;list-style:none;margin:0;padding:0}
+.chqEps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;list-style:none;margin:0;padding:0}
 .chqEp__thumb{aspect-ratio:16/9;background:#f2f2f0;display:flex;align-items:center;justify-content:center;color:#a0a0a0;font-size:1.3rem}
 .chqEp__no{display:block;margin-top:1.6rem;font-size:1.6rem;color:#141414}
 .chqEp__link{display:block;color:inherit;text-decoration:none}
@@ -115,3 +115,9 @@ body.chqSub[data-marketsmenu] .mainContent{background:#fff;color:#141414}
 .chqHoney{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .chqFormMsg{margin:0;font-size:1.5rem;color:#444;min-height:2.4rem}
 .chqForm .chqBtn:disabled{opacity:.5;cursor:wait}
+/* 설계 노트: 이후 에피소드는 4칸 아래 얇은 한 줄, 누르면 채널 새 창 */
+.chqEp--more{grid-column:1/-1;margin-top:4rem;border-top:1px solid #141414}
+.chqEp--more .chqEp__link{display:flex;justify-content:space-between;align-items:center;padding:2.4rem 0}
+.chqEp--more .chqEp__no{margin-top:0}
+.chqEp__arrow{font-size:2rem;transition:transform .3s}
+.chqEp--more .chqEp__link:hover .chqEp__arrow{transform:translateX(.6rem)}
