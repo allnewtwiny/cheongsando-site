@@ -106,3 +106,7 @@ body.chqSub[data-marketsmenu] .mainContent{background:#fff;color:#141414}
 /* 본문이 없는 섹션은 여백 축소 */
 .chqSec:has(.chqSec__head:only-child){padding:8rem 0}
 .chqSec .chqSec__head:only-child{margin-bottom:0}
+/* 상담 폼 전송 안내 */
+.chqHoney{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.chqFormMsg{margin:0;font-size:1.5rem;color:#444;min-height:2.4rem}
+.chqForm .chqBtn:disabled{opacity:.5;cursor:wait}
