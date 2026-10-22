@@ -125,6 +125,8 @@ body.chqSub[data-marketsmenu] .mainContent{background:#fff;color:#141414}
 /* 11. 스크롤 등장 (js/sub.js가 .is-in 부여) */
 .chqR{opacity:0;transform:translateY(2.4rem);transition:opacity .9s cubic-bezier(.2,.6,.2,1),transform .9s cubic-bezier(.2,.6,.2,1)}
 .chqR.is-in{opacity:1;transform:none}
+/* 첫 화면 히어로는 페이지 전환과 겹쳐 두 번 움직이지 않도록 처음부터 보이게 */
+.chqHero .chqR,.chqR.is-now{opacity:1;transform:none;transition:none}
 .chqR[data-d="1"]{transition-delay:.12s}.chqR[data-d="2"]{transition-delay:.24s}.chqR[data-d="3"]{transition-delay:.36s}.chqR[data-d="4"]{transition-delay:.48s}
 @media (prefers-reduced-motion:reduce){.chqR{opacity:1;transform:none;transition:none}}
 

@@ -42,7 +42,12 @@ https://flickity.metafizzy.co
 /* 페이지 전환 (LPAS swup 효과를 브라우저 기본 View Transition으로 재현) */
 @view-transition{navigation:auto}
 html.vt-fade::view-transition-old(root){animation:vtFadeOut .25s ease both}
-html.vt-fade::view-transition-new(root){animation:vtFadeIn .25s ease .4s both}
+html.vt-fade::view-transition-new(root){animation:vtFadeIn .25s ease both}
+/* 페이드 전환 때 상단바는 제자리에 고정해 깜빡이지 않게 */
+html.vt-fade .navigationMain__topBar{view-transition-name:vtNav}
+html.vt-fade::view-transition-group(vtNav){animation:none;z-index:2}
+html.vt-fade::view-transition-old(vtNav){animation:none;opacity:0}
+html.vt-fade::view-transition-new(vtNav){animation:none}
 html.vt-market::view-transition-old(root){animation:vtHomeBack .7s cubic-bezier(.25,.46,.45,.94) both;transform-origin:center 50vh}
 html.vt-market::view-transition-new(root){animation:vtSlideUp 1s cubic-bezier(.215,.61,.355,1) both}
 @keyframes vtFadeOut{to{opacity:0}}

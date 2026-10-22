@@ -15,7 +15,13 @@
           if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
         });
       }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-      targets.forEach(function (el) { io.observe(el); });
+      /* 첫 화면 안에 이미 보이는 요소는 등장 효과 없이 바로 보이게 (전환 직후 깜빡임과 위치 이동 방지) */
+      var vh = window.innerHeight;
+      targets.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < vh && r.bottom > 0) { el.classList.add('is-now', 'is-in'); }
+        else { io.observe(el); }
+      });
     }
   }
 
