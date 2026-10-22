@@ -76,7 +76,9 @@ body,h1,h2,h3,p,a,li,span{word-break:keep-all;overflow-wrap:break-word}
     var u=new URL(a.href,location.href);
     if(u.origin!==location.origin||!/(\.html|\/)$/.test(u.pathname)||u.pathname===location.pathname)return;
     var home=file(location.pathname)==="index.html";
-    store(home&&MARKETS.indexOf(file(u.pathname))>-1&&innerWidth>=1024?"market":"fade");
+    var toMarket=MARKETS.indexOf(file(u.pathname))>-1,fromMarket=MARKETS.indexOf(file(location.pathname))>-1;
+    /* 자식 페이지끼리도 상단 글자 메뉴로 이동할 때는 메인에서 갈 때와 같은 올라오는 효과 */
+    store(toMarket&&innerWidth>=1024&&(home||(fromMarket&&a.closest(".topBarMenu")))?"market":"fade");
   });
   var current=null;
   window.addEventListener("pageswap",function(e){
