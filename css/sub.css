@@ -76,6 +76,11 @@ body.chqSub[data-marketsmenu] .mainContent{background:#fff;color:#141414}
 .chqEps{display:grid;grid-template-columns:repeat(5,1fr);gap:2.4rem;list-style:none;margin:0;padding:0}
 .chqEp__thumb{aspect-ratio:16/9;background:#f2f2f0;display:flex;align-items:center;justify-content:center;color:#a0a0a0;font-size:1.3rem}
 .chqEp__no{display:block;margin-top:1.6rem;font-size:1.6rem;color:#141414}
+.chqEp__link{display:block;color:inherit;text-decoration:none}
+.chqEp__thumb{overflow:hidden}
+.chqEp__thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.chqEp__link:hover .chqEp__thumb img{transform:scale(1.04)}
+.chqEp__link:focus-visible{outline:2px solid #141414;outline-offset:4px}
 @media (max-width:1023px){.chqEps{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:767px){.chqEps{grid-template-columns:1fr}}
 
