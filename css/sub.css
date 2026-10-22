@@ -121,3 +121,180 @@ body.chqSub[data-marketsmenu] .mainContent{background:#fff;color:#141414}
 .chqEp--more .chqEp__no{margin-top:0}
 .chqEp__arrow{font-size:2rem;transition:transform .3s}
 .chqEp--more .chqEp__link:hover .chqEp__arrow{transform:translateX(.6rem)}
+
+/* 11. 스크롤 등장 (js/sub.js가 .is-in 부여) */
+.chqR{opacity:0;transform:translateY(2.4rem);transition:opacity .9s cubic-bezier(.2,.6,.2,1),transform .9s cubic-bezier(.2,.6,.2,1)}
+.chqR.is-in{opacity:1;transform:none}
+.chqR[data-d="1"]{transition-delay:.12s}.chqR[data-d="2"]{transition-delay:.24s}.chqR[data-d="3"]{transition-delay:.36s}.chqR[data-d="4"]{transition-delay:.48s}
+@media (prefers-reduced-motion:reduce){.chqR{opacity:1;transform:none;transition:none}}
+
+/* 12. 큰 문장 */
+.chqState{padding:14rem 0;text-align:center}
+.chqState__txt{margin:0 auto;max-width:26ch;font-size:clamp(2.8rem,4vw,5.6rem);line-height:1.35;font-weight:400;letter-spacing:-.02em;word-break:keep-all}
+.chqState__txt em{font-style:normal;color:#8a8a8a}
+.chqState__sub{margin:2.8rem auto 0;max-width:58rem;font-size:1.8rem;line-height:1.8;color:#555;word-break:keep-all}
+@media (max-width:767px){.chqState{padding:8rem 0}}
+
+/* 13. 어두운 섹션 */
+.chqSec--dark{background:#141414;color:#fff;border-top:0}
+.chqSec--dark .chqLabel{color:#9a9a9a}.chqSec--dark .chqLabel b{color:#fff}
+.chqSec--dark .chqSec__title,.chqSec--dark .chqState__txt{color:#fff}
+.chqSec--dark .chqText,.chqSec--dark .chqState__sub,.chqSec--dark .chqValue__text{color:#b5b5b5}
+.chqSec--dark .chqState__txt em{color:#7a7a7a}
+.chqSec--dark+.chqSec{border-top:0}
+
+/* 14. 큰 숫자 */
+.chqStats{display:grid;grid-template-columns:repeat(3,1fr);gap:4rem;list-style:none;margin:0;padding:0}
+.chqStat{border-top:1px solid #141414;padding-top:2.4rem}
+.chqStat__num{display:block;font-size:clamp(4rem,5vw,7.2rem);line-height:1;letter-spacing:-.03em;font-weight:300;font-variant-numeric:tabular-nums}
+.chqStat__num small{font-size:.38em;letter-spacing:0;margin-left:.6rem;font-weight:400}
+.chqStat__lab{display:block;margin-top:1.6rem;font-size:1.5rem;line-height:1.6;color:#5a5a5a;word-break:keep-all}
+.chqSec--dark .chqStat{border-top-color:#444}.chqSec--dark .chqStat__lab{color:#9a9a9a}
+@media (max-width:1023px){.chqStats{grid-template-columns:1fr 1fr;gap:3.2rem}}
+@media (max-width:767px){.chqStats{grid-template-columns:1fr}}
+
+/* 15. 고정 그림 + 단계 글 (스토리) */
+.chqStory{display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:start}
+.chqStory__pin{position:sticky;top:11rem;display:grid}
+.chqStory__fig{grid-area:1/1;opacity:0;transition:opacity .7s;pointer-events:none}
+.chqStory__fig.is-active{opacity:1;pointer-events:auto}
+.chqStory__steps{display:grid;gap:14rem;padding:4rem 0}
+.chqStory__step{opacity:.35;transition:opacity .5s}
+.chqStory__step.is-active{opacity:1}
+@media (max-width:1023px){.chqStory{grid-template-columns:1fr;gap:4rem}.chqStory__pin{position:static;gap:2rem}.chqStory__fig{grid-area:auto;opacity:1}.chqStory__steps{gap:6rem;padding:0}.chqStory__step{opacity:1}}
+
+/* 16. 도식 그림 */
+.chqFig{margin:0;background:#f5f5f3;border-radius:2.4rem;padding:4rem;overflow:hidden}
+.chqFig svg{display:block;width:100%;height:auto;font-family:inherit}
+.chqFig figcaption{margin-top:2rem;font-size:1.3rem;line-height:1.6;color:#8a8a8a;word-break:keep-all}
+.chqFig--tight{padding:2.4rem}
+.chqSec--dark .chqFig{background:#1e1e1e}.chqSec--dark .chqFig figcaption{color:#8a8a8a}
+.chqDraw [pathLength]{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1)}
+.chqDraw.is-in [pathLength]{stroke-dashoffset:0}
+.chqDraw .f{opacity:0;transition:opacity .8s ease .8s}
+.chqDraw.is-in .f{opacity:1}
+.chqDraw .f2{opacity:0;transition:opacity .8s ease 1.3s}
+.chqDraw.is-in .f2{opacity:1}
+@media (max-width:767px){.chqFig{padding:2.4rem;border-radius:1.6rem}}
+@media (prefers-reduced-motion:reduce){.chqDraw [pathLength]{stroke-dashoffset:0;transition:none}.chqDraw .f,.chqDraw .f2{opacity:1;transition:none}}
+
+/* 17. 일정표 (2026년 3월에서 7월, 5칸) */
+.chqGantt{display:grid;gap:1rem}
+.chqGantt__head{display:grid;grid-template-columns:18rem repeat(5,1fr);font-size:1.3rem;color:#8a8a8a;margin-bottom:.8rem}
+.chqGantt__head span{padding:0 0 .8rem .8rem;border-left:1px solid #dcdcda}
+.chqGantt__head span:first-child{border-left:0;padding-left:0}
+.chqGantt__grp{margin:2.4rem 0 .4rem;font-size:1.2rem;letter-spacing:.08em;text-transform:uppercase;color:#8a8a8a}
+.chqGantt__row{display:grid;grid-template-columns:18rem 1fr;align-items:center}
+.chqGantt__name{font-size:1.4rem;color:#141414;word-break:keep-all;padding-right:1.6rem;line-height:1.4}
+.chqGantt__track{position:relative;height:2.6rem;background-image:linear-gradient(90deg,#dcdcda 1px,transparent 1px);background-size:20% 100%}
+.chqGantt__bar{position:absolute;top:.5rem;bottom:.5rem;background:#141414;border-radius:999px;transform:scaleX(0);transform-origin:left;transition:transform 1s cubic-bezier(.2,.6,.2,1)}
+.chqGantt__bar--light{background:#bdbdb9}
+.chqGantt.is-in .chqGantt__bar{transform:none}
+.chqGantt__legend{display:flex;gap:2.4rem;margin-top:2.4rem;font-size:1.3rem;color:#8a8a8a}
+.chqGantt__legend i{display:inline-block;width:2.4rem;height:.8rem;border-radius:999px;background:#141414;margin-right:.8rem;vertical-align:middle}
+.chqGantt__legend i.l{background:#bdbdb9}
+@media (max-width:767px){.chqGantt__head,.chqGantt__row{grid-template-columns:9rem 1fr}.chqGantt__head{grid-template-columns:9rem repeat(5,1fr)}.chqGantt__name{font-size:1.2rem;padding-right:.8rem}}
+@media (prefers-reduced-motion:reduce){.chqGantt__bar{transform:none;transition:none}}
+
+/* 18. 가로 막대 (예산 비중) */
+.chqBars{display:grid;gap:1.8rem}
+.chqBar{display:grid;grid-template-columns:9rem 1fr 11rem;align-items:center;gap:1.6rem}
+.chqBar__lab{font-size:1.4rem;color:#555}
+.chqBar__track{height:1rem;background:#e8e8e5;border-radius:999px;overflow:hidden}
+.chqBar__fill{height:100%;background:#141414;border-radius:999px;transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.2,.6,.2,1)}
+.chqBars.is-in .chqBar__fill{transform:none}
+.chqBar__val{font-size:1.5rem;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:767px){.chqBar{grid-template-columns:7rem 1fr 9rem;gap:1rem}.chqBar__lab,.chqBar__val{font-size:1.3rem}}
+@media (prefers-reduced-motion:reduce){.chqBar__fill{transform:none;transition:none}}
+
+/* 19. 표 */
+.chqTableWrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.chqTable{width:100%;border-collapse:collapse;font-size:1.5rem}
+.chqTable th,.chqTable td{padding:1.6rem 1.2rem;border-bottom:1px solid #e6e6e6;text-align:left;vertical-align:top;word-break:keep-all;line-height:1.6}
+.chqTable th{font-weight:500;color:#141414;border-bottom:1px solid #141414;font-size:1.3rem;letter-spacing:.04em;white-space:nowrap}
+.chqTable td{color:#444}
+.chqTable td:first-child{color:#141414}
+.chqTable .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.chqTable tfoot td{color:#141414;font-weight:500;border-bottom:0;border-top:1px solid #141414}
+.chqTable--sm{font-size:1.4rem}.chqTable--sm th,.chqTable--sm td{padding:1.2rem 1rem}
+
+/* 20. 문서 카드 */
+.chqDocs{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;list-style:none;margin:0;padding:0}
+.chqDoc{background:#f5f5f3;border-radius:2rem;padding:3.2rem;display:flex;flex-direction:column;min-height:26rem}
+.chqDoc__type{font-size:1.2rem;letter-spacing:.08em;text-transform:uppercase;color:#8a8a8a}
+.chqDoc__title{margin:1.6rem 0 0;font-size:2rem;line-height:1.4;font-weight:500;word-break:keep-all}
+.chqDoc__desc{margin:1.2rem 0 0;font-size:1.5rem;line-height:1.7;color:#555;word-break:keep-all}
+.chqDoc__meta{margin-top:auto;padding-top:2.4rem;font-size:1.3rem;color:#8a8a8a;line-height:1.6}
+@media (max-width:1023px){.chqDocs{grid-template-columns:1fr 1fr}}
+@media (max-width:767px){.chqDocs{grid-template-columns:1fr}.chqDoc{min-height:0;padding:2.4rem}}
+
+/* 21. 절차 단계 */
+.chqSteps{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;list-style:none;margin:0;padding:0}
+.chqSteps--3{grid-template-columns:repeat(3,1fr)}
+.chqStep{border-top:1px solid #141414;padding-top:2.4rem}
+.chqStep__no{display:block;font-size:1.3rem;color:#8a8a8a;letter-spacing:.08em}
+.chqStep__title{margin:1.2rem 0 0;font-size:2.2rem;line-height:1.4;font-weight:400;word-break:keep-all}
+.chqStep__text{margin:1.2rem 0 0;font-size:1.5rem;line-height:1.75;color:#555;word-break:keep-all}
+@media (max-width:1023px){.chqSteps,.chqSteps--3{grid-template-columns:1fr 1fr}}
+@media (max-width:767px){.chqSteps,.chqSteps--3{grid-template-columns:1fr}}
+
+/* 22. 벤토 격자 */
+.chqBento{display:grid;grid-template-columns:repeat(6,1fr);gap:1.6rem}
+.chqCell{background:#f5f5f3;border-radius:2.4rem;padding:3.6rem;min-height:26rem;display:flex;flex-direction:column;grid-column:span 2}
+.chqCell--3{grid-column:span 3}.chqCell--4{grid-column:span 4}.chqCell--6{grid-column:span 6}
+.chqCell--dark{background:#141414;color:#fff}
+.chqCell__k{font-size:1.3rem;letter-spacing:.08em;text-transform:uppercase;color:#8a8a8a;margin-bottom:auto}
+.chqCell__big{font-size:clamp(3.2rem,4vw,5.6rem);line-height:1.1;letter-spacing:-.03em;font-weight:300;margin:2.4rem 0 0;font-variant-numeric:tabular-nums}
+.chqCell__big small{font-size:.4em;letter-spacing:0;margin-left:.4rem;font-weight:400}
+.chqCell__t{margin:1.2rem 0 0;font-size:2rem;line-height:1.4;font-weight:500;word-break:keep-all}
+.chqCell__d{margin:1rem 0 0;font-size:1.5rem;line-height:1.7;color:#555;word-break:keep-all}
+.chqCell--dark .chqCell__d{color:#b5b5b5}.chqCell--dark .chqCell__k{color:#9a9a9a}
+.chqCell__zero{font-size:clamp(8rem,12vw,16rem);line-height:.9;font-weight:200;letter-spacing:-.05em;margin:2rem 0 0;color:#fff}
+.chqCell ul{margin:1.6rem 0 0;padding:0;list-style:none;font-size:1.5rem;line-height:1.9;color:#555}
+.chqCell--dark ul{color:#b5b5b5}
+@media (max-width:1023px){.chqBento{grid-template-columns:1fr 1fr}.chqCell,.chqCell--3,.chqCell--4{grid-column:span 1}.chqCell--6{grid-column:span 2}.chqCell{min-height:22rem;padding:2.8rem}}
+@media (max-width:767px){.chqBento{grid-template-columns:1fr}.chqCell--6{grid-column:span 1}.chqCell{min-height:0}}
+
+/* 23. 그림 + 글 두 단 */
+.chqSplit{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.chqSplit--rev>:first-child{order:2}
+.chqSplit .chqText{margin-top:1.6rem}
+.chqSplit h3{margin:0;font-size:clamp(2.2rem,2.4vw,3.2rem);line-height:1.4;font-weight:400;word-break:keep-all}
+@media (max-width:1023px){.chqSplit{grid-template-columns:1fr;gap:3.2rem}.chqSplit--rev>:first-child{order:0}}
+
+/* 24. 주석, 작은 글, 섹션 간격 보조 */
+.chqNote{margin:3.2rem 0 0;padding:1.6rem 2.4rem;border-left:2px solid #141414;font-size:1.4rem;line-height:1.7;color:#555;word-break:keep-all;max-width:76rem}
+.chqSmall{margin:2rem 0 0;font-size:1.3rem;line-height:1.7;color:#8a8a8a;word-break:keep-all}
+.chqGroupTitle{margin:0 0 2rem;font-size:2rem;font-weight:500;display:flex;align-items:baseline;gap:1.2rem;flex-wrap:wrap}
+.chqGroupTitle small{font-size:1.4rem;color:#8a8a8a;font-weight:400}
+.chqMt{margin-top:8rem}.chqMt2{margin-top:4rem}
+.chqLot__price{display:block;margin-top:2rem;font-size:1.7rem;color:#141414;font-weight:500;font-variant-numeric:tabular-nums}
+.chqLot--center{background:#141414;color:#fff;border-color:#141414}
+.chqLot--center .chqLot__no,.chqLot--center dd,.chqLot--center .chqLot__price{color:#fff}.chqLot--center dt{color:#9a9a9a}
+@media (max-width:767px){.chqMt{margin-top:5rem}}
+
+/* 25. 상세 페이지 보조 (10/22 본문 상세화) */
+.chqSec--state{padding:0}
+.chqFig img{display:block;width:100%;height:auto;border-radius:1.2rem}
+.chqStory__step h3,.chqSplit h3{margin:1.6rem 0 0}
+.chqStory__step h3{font-size:clamp(2.2rem,2.4vw,3.2rem);line-height:1.4;font-weight:400;word-break:keep-all}
+.chqStory__step .chqText,.chqSplit .chqText{margin-top:1.6rem}
+.chqHero__title{max-width:24ch}
+.chqList{margin:2rem 0 0;padding:0;list-style:none;font-size:1.6rem;line-height:1.9;color:#444;max-width:76rem}
+.chqList li{padding-left:1.6rem;position:relative;word-break:keep-all}
+.chqList li::before{content:"";position:absolute;left:0;top:1.3rem;width:.6rem;height:.6rem;border-radius:50%;background:#141414}
+.chqSec--dark .chqList{color:#b5b5b5}.chqSec--dark .chqList li::before{background:#fff}
+.chqSec--dark .chqTable th{color:#fff;border-bottom-color:#fff}.chqSec--dark .chqTable td{color:#b5b5b5;border-bottom-color:#333}
+.chqSec--dark .chqTable td:first-child,.chqSec--dark .chqTable tfoot td{color:#fff}.chqSec--dark .chqTable tfoot td{border-top-color:#fff}
+.chqSec--dark .chqBar__lab{color:#b5b5b5}.chqSec--dark .chqBar__track{background:#2a2a2a}.chqSec--dark .chqBar__fill{background:#fff}.chqSec--dark .chqBar__val{color:#fff}
+.chqSec--dark .chqNote{border-left-color:#fff;color:#b5b5b5}.chqSec--dark .chqSmall{color:#8a8a8a}
+.chqSec--dark .chqStat__num,.chqSec--dark .chqGroupTitle{color:#fff}.chqSec--dark .chqGroupTitle small{color:#9a9a9a}
+.chqContact{display:grid;grid-template-columns:repeat(3,1fr);gap:4rem;list-style:none;margin:0;padding:0}
+.chqContact li{border-top:1px solid #141414;padding-top:2rem;font-size:1.6rem;line-height:1.8;color:#444;word-break:keep-all}
+.chqContact li b{display:block;font-weight:500;color:#141414;margin-bottom:.6rem}
+.chqContact a{color:inherit;text-decoration:none}
+@media (max-width:767px){.chqContact{grid-template-columns:1fr;gap:2.4rem}}
+.chqCell--link{text-decoration:none;color:inherit;transition:background .25s}
+.chqCell--link:hover{background:#ebebe8}
+@media (max-width:767px){.chqTable{font-size:1.25rem}.chqTable th,.chqTable td{padding:1.1rem .6rem}.chqTable th{white-space:normal;line-height:1.3;vertical-align:bottom}.chqTableWrap{margin:0 -2rem;padding:0 2rem}}
+.chqValues .chqValue__img+.chqValue__no{margin-top:2.8rem}
