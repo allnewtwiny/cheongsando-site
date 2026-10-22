@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>취향섬 파도 흐름 알트</title>
+<style>
+  :root{--ink:#231815;--paper:#fff;--gray:#8a8380;--line:#e4e0de}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;padding:16px}
+  .bar{display:flex;gap:12px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+  .bar button{font:inherit;font-size:14px;padding:8px 14px;border:1px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;cursor:pointer}
+  .bar label{font-size:13px;display:flex;align-items:center;gap:6px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+  .cell{border:1px solid var(--line);border-radius:8px;padding:12px;cursor:pointer}
+  .cell h2{font-size:14px;font-weight:600;margin-bottom:2px}
+  .cell p{font-size:12px;color:var(--gray);margin-bottom:8px}
+  .cell svg{width:100%;height:auto;display:block}
+</style>
+</head>
+<body>
+<div class="bar">
+  <button id="replay">모두 다시 보기</button>
+  <label><input type="checkbox" id="slow"> 느리게(0.5배)</label>
+  <span style="font-size:13px;color:var(--gray)">칸을 누르면 그 칸만 처음부터 다시 재생. 모두 같은 높이에 고정, 위아래 이동 없음</span>
+</div>
+<div class="grid" id="grid"></div>
+
+<script>
+const INK = '#231815', NS = 'http://www.w3.org/2000/svg';
+// 로고플레이와 같은 좌표계. 화면 양끝까지 선이 이어짐 (끝 흐림 없음)
+const X0 = 190, X1 = 710, STEP = 3;
+const L = 340;                                   // 모든 파도 높이 고정 (위아래 이동 없음)
+const TAU = Math.PI * 2;
+const xs = []; for (let x = X0; x <= X1; x += STEP) xs.push(x);
+const byX = f => xs.map(x => [x, f(x)]);
+
+// 피그마 '바다'(204:277) 물결 한 주기
+// 각진 버전: 곡선 대신 조절점을 직선으로 이음
+const SEA_UNIT = [[0, 1], [.25, 1], [.3, 0], [.7, 0], [.75, 1]];
+// 각진 물결: sin 과 같은 주기, 같은 높이의 삼각파 (꼭짓점이 뾰족하게 꺾임)
+const tri = a => 2 / Math.PI * Math.asin(Math.sin(a));
+// 더 뾰족한 물결: 삼각파 꼭대기 쪽만 가늘게 솟게 (옆면이 안으로 휘며 끝이 날카로워짐)
+const spk = a => { const v = tri(a); return Math.sign(v) * v * v; };
+
+const ALTS = [
+  { name: '고른 물결 한 방향 흐름', desc: '같은 크기 물결이 오른쪽으로 꾸준히 흘러감',
+    make: () => s => byX(x => L + 10 * tri(TAU * (x / 165 - s * .45))) },
+  { name: '뾰족한 마루 바다 물결', desc: '마루와 골이 모두 뾰족하게 꺾인 물결이 흘러감',
+    make: () => s => byX(x => L - 11 * tri(TAU * (x / 150 - s * .5) + Math.PI / 2)) },
+  { name: '피그마 바다 모양 흐름', desc: '피그마에 그린 바다 물결 모양 그대로 흘러감',
+    make: () => s => { const len = 165, amp = 18, shift = s * 70, pts = [];
+      const start = X0 - len - (((X0 - shift) % len) + len) % len;
+      for (let o = start; o < X1 + len; o += len) SEA_UNIT.forEach(([u, v]) => pts.push([o + u * len, L + amp * (v - .5)]));
+      return pts; } },
+  { name: '여러 물결이 겹친 자연스러운 흐름', desc: '크고 작은 물결이 서로 다른 방향과 속도로 겹쳐 모양이 계속 바뀜',
+    make: () => s => byX(x => L + 8 * tri(TAU * (x / 190 - s * .4)) + 5 * tri(TAU * (x / 110 + s * .55)) + 2.5 * tri(TAU * (x / 60 - s * .9))) },
+  { name: '밀려왔다 물러나는 물결', desc: '높이는 그대로, 물결이 앞으로 밀려갔다 살짝 되돌아오기를 반복하며 흘러감',
+    make: () => s => { const ph = s * .45 + .22 * Math.sin(TAU * s * .4);
+      return byX(x => L + 9 * tri(TAU * (x / 160 - ph))); } },
+  { name: '출렁이는 물 (부딪혀 되돌아오는 물결)', desc: '양쪽에서 밀려온 두 물결이 겹치며 출렁임',
+    make: () => s => { const m = .75 + .25 * Math.sin(TAU * s * .12);
+      return byX(x => L + 8 * m * tri(TAU * (x / 210 - s * .35)) + 7 * (1.5 - m) * tri(TAU * (x / 170 + s * .3) + 1.3)); } },
+  { name: '천천히 기울며 흔들림', desc: '가운데 높이는 그대로, 수면이 좌우로 천천히 기울었다 돌아오며 일렁임',
+    make: () => s => { const tilt = 16 * Math.sin(TAU * s * .15);
+      return byX(x => L + tilt * ((x - X0) / (X1 - X0) - .5) + 8 * tri(TAU * (x / 160 - s * .45))); } },
+  { name: '세기가 커졌다 작아짐', desc: '높이는 그대로, 물결 크기가 시간에 따라 커졌다 작아지며 계속 일렁임',
+    make: () => s => { const A = 5 + 9 * (.5 - .5 * Math.cos(TAU * s * .2));
+      return byX(x => L + A * tri(TAU * (x / 150 - s * .5)) + A * .3 * tri(TAU * (x / 75 + s * .7))); } },
+  { name: '4번 더 뾰족하게', desc: '4번 여러 물결 겹침을 끝이 날카롭게 솟도록 바꿈',
+    make: () => s => byX(x => L + 13 * spk(TAU * (x / 190 - s * .4)) + 8 * spk(TAU * (x / 110 + s * .55)) + 4 * spk(TAU * (x / 60 - s * .9))) },
+  { name: '6번 더 뾰족하게', desc: '6번 출렁이는 물을 끝이 날카롭게 솟도록 바꿈',
+    make: () => s => { const m = .75 + .25 * Math.sin(TAU * s * .12);
+      return byX(x => L + 13 * m * spk(TAU * (x / 210 - s * .35)) + 11 * (1.5 - m) * spk(TAU * (x / 170 + s * .3) + 1.3)); } },
+  { name: '8번 더 뾰족하게', desc: '8번 세기가 커졌다 작아짐을 끝이 날카롭게 솟도록 바꿈',
+    make: () => s => { const A = 5 + 9 * (.5 - .5 * Math.cos(TAU * s * .2));
+      return byX(x => L + 1.6 * A * spk(TAU * (x / 150 - s * .5)) + A * .5 * spk(TAU * (x / 75 + s * .7))); } }
+];
+
+const grid = document.getElementById('grid');
+const cells = ALTS.map((a, i) => {
+  const cell = document.createElement('div');
+  cell.className = 'cell';
+  cell.innerHTML = `<h2>${i + 1}. ${a.name}</h2><p>${a.desc}</p>`;
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '200 230 500 220');
+  svg.setAttribute('aria-label', a.name);
+  const path = document.createElementNS(NS, 'path');
+  [['fill', 'none'], ['stroke', INK], ['stroke-width', 1.4], ['stroke-linejoin', 'miter'], ['stroke-linecap', 'round']].forEach(([k, v]) => path.setAttribute(k, v));
+  svg.appendChild(path);
+  cell.appendChild(svg);
+  grid.appendChild(cell);
+  const c = { render: a.make(), path, t0: performance.now() };
+  cell.addEventListener('click', () => { c.t0 = performance.now(); });
+  return c;
+});
+document.getElementById('replay').addEventListener('click', () => { const n = performance.now(); cells.forEach(c => c.t0 = n); });
+
+(function loop(now) {
+  const k = document.getElementById('slow').checked ? .5 : 1;
+  cells.forEach(c => {
+    const pts = c.render((now - c.t0) * k / 1000);
+    c.path.setAttribute('d', 'M ' + pts.map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L '));
+  });
+  requestAnimationFrame(loop);
+})(performance.now());
+</script>
+</body>
+</html>

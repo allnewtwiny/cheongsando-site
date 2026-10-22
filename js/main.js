@@ -304,6 +304,8 @@
       return tl;
     }
 
+    function showBar() { document.documentElement.classList.remove("is-intro"); }
+
     function full() {
       lock();
       measure();
@@ -314,7 +316,7 @@
       });
       /* 확대 전환(reveal) 대신 로고 재생 후 프리로더를 페이드 아웃 */
       master.add(logo())
-        .to(pre, { autoAlpha: 0, duration: 0.8, ease: "power2.inOut" })
+        .to(pre, { autoAlpha: 0, duration: 0.8, ease: "power2.inOut", onStart: showBar })
         .add(heroIn(), "-=0.4");
     }
 
@@ -322,13 +324,14 @@
       measure();
       var master = gsap.timeline();
       master.add(logo(true))
-        .to(pre, { autoAlpha: 0, duration: 0.3 });
+        .to(pre, { autoAlpha: 0, duration: 0.3, onStart: showBar });
     }
 
     return {
       init: function () {
         if (!wrapper || !secOne || !secTwo || !wordOne || !wordTwo || !wordThree || !wordFour) {
           gsap.set(pre, { autoAlpha: 0 });
+          showBar();
           return;
         }
         /* 상단 로고 클릭 시 새로고침 때와 같은 로고 재생 (홈에서는 이동 없이 바로 재생) */
@@ -338,6 +341,7 @@
           if (logoBox) logoBox.innerHTML = "";
           gsap.set(logoBox, { autoAlpha: 1 });
           gsap.set(pre, { autoAlpha: 1 });
+          document.documentElement.classList.add("is-intro");
           revisit();
         };
         if (sessionStorage.getItem("preloaderShow") === "true") revisit();

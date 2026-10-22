@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>키맵 배치 예시</title>
+<style>
+:root{--ink:#0e0e0e;--bg:#f5f5f3;--line:#d6d6d6;--gray:#c9c9c9;--prem:#0e0e0e;--basic:#8d8d8d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,"Apple SD Gothic Neo","Pretendard",sans-serif}
+.intro{padding:4rem 4vw 2rem}
+.intro h1{font-size:2.4rem;font-weight:600}
+.intro p{margin-top:.8rem;color:#666;line-height:1.6}
+.nav{position:sticky;top:0;z-index:20;display:flex;gap:.6rem;padding:1rem 4vw;background:rgba(245,245,243,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.nav a{padding:.5rem 1rem;border:1px solid var(--ink);border-radius:99px;color:var(--ink);text-decoration:none;font-size:.9rem}
+.demo{height:100vh;min-height:640px;padding:5.5rem 4vw 2rem;display:flex;flex-direction:column;gap:1.2rem;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.demo__head{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.demo__title{font-size:1.5rem;font-weight:600}
+.demo__desc{font-size:.9rem;color:#666;margin-top:.3rem}
+.filter{display:flex;gap:.5rem}
+.filter button{font:inherit;font-size:.85rem;padding:.45rem .9rem;border:1px solid var(--ink);background:none;border-radius:99px;cursor:pointer;color:var(--ink)}
+.filter button.is-on{background:var(--ink);color:#fff}
+.body{flex:1;min-height:0;display:flex;gap:2rem}
+
+/* 키맵 */
+.map{position:relative;background:#ececec;border:1px dashed #9a9a9a;min-height:0}
+.map svg{width:100%;height:100%;display:block}
+.island{fill:#dcdcd6}
+.plot rect{stroke:#fff;stroke-width:2;cursor:pointer;transition:opacity .3s,fill .3s}
+.plot.prem rect{fill:var(--prem)}
+.plot.basic rect{fill:var(--basic)}
+.plot text{fill:#fff;font-size:15px;font-weight:600;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+.plot.is-dim rect{opacity:.18}
+.plot.is-active rect{fill:#e2572b}
+.plot.is-pulse rect{animation:pulse .9s ease-out 2}
+@keyframes pulse{0%{stroke:#e2572b;stroke-width:2}50%{stroke:#e2572b;stroke-width:14}100%{stroke:#fff;stroke-width:2}}
+.ring{fill:none;stroke:#e2572b;stroke-width:3;pointer-events:none;transform-box:fill-box;transform-origin:center;animation:ring .8s ease-out forwards}
+@keyframes ring{from{opacity:1;transform:scale(.6)}to{opacity:0;transform:scale(2.2)}}
+.mapTag{position:absolute;left:1rem;top:.8rem;font-size:.75rem;color:#888}
+
+/* 슬라이더 */
+.slider{min-width:0;min-height:0;display:flex;flex-direction:column;gap:.8rem}
+.vp{flex:1;min-height:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.vp::-webkit-scrollbar{display:none}
+.track{display:flex;align-items:center;height:100%;width:max-content}
+.card{flex:none;height:100%;aspect-ratio:560/440;margin-right:2.4rem;position:relative;transition:transform .5s,opacity .5s;transform:scale(.88);opacity:.55;cursor:pointer}
+.card.is-active{transform:scale(1);opacity:1}
+.card.is-dim{opacity:.12}
+.shape{position:absolute;inset:0;background:var(--gray)}
+.s1 .shape{clip-path:polygon(91.2% 45.9%,45.6% 0%,31.3% 0%,0% 55.4%,0% 100%,33.4% 100%,100% 81.9%,100% 66.9%)}
+.s2 .shape{clip-path:polygon(93.8% 0%,18.3% 0%,4.7% 19%,0% 34.8%,0% 81.9%,40.8% 100%,100% 100%,100% 19%)}
+.s3 .shape{clip-path:polygon(86.2% 0%,23.4% 0%,0% 56.3%,0% 100%,41.2% 100%,100% 81.9%,100% 33.1%)}
+.card.prem .shape{background:#a9a9a9}
+.cap{position:absolute;left:0;bottom:-1.6rem;font-size:.8rem;white-space:nowrap}
+.cap b{font-weight:600;margin-right:.4rem}
+.meta{display:flex;justify-content:space-between;font-size:.8rem;color:#666;padding-top:1.4rem}
+
+/* A 한 화면 고정 */
+.A .body{flex-direction:column;gap:1rem}
+.A .map{flex:0 0 56%}
+.A .slider{flex:1}
+
+/* B 좌우 나란히 */
+.B .map{flex:0 0 50%}
+.B .slider{flex:1}
+.B .vp{flex:0 0 70%;margin:auto 0}
+
+/* C 맵 위 팝업 */
+.C .map{flex:1}
+.pop{position:absolute;width:min(30rem,40vw);aspect-ratio:560/440;pointer-events:none;opacity:0;transform:translateY(12px) scale(.94);transition:opacity .35s,transform .35s;z-index:5}
+.pop.is-on{opacity:1;transform:none;pointer-events:auto}
+.pop .shape{filter:drop-shadow(0 10px 20px rgba(0,0,0,.25))}
+.pop .cap{bottom:-1.6rem}
+.pop__x{position:absolute;right:0;top:-2rem;font:inherit;background:var(--ink);color:#fff;border:0;border-radius:99px;width:1.6rem;height:1.6rem;cursor:pointer}
+
+/* D 미니맵 */
+.D .slider{flex:1}
+.D .map{position:absolute;right:4vw;top:9rem;width:min(26rem,34vw);aspect-ratio:1000/600;z-index:5;background:rgba(236,236,236,.95);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.D .vp{flex:0 0 78%}
+
+@media (max-width:760px){
+  .B .body{flex-direction:column}
+  .B .map{flex:0 0 45%}
+  .D .map{top:auto;bottom:5rem;width:60vw}
+}
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <h1>1-4 키맵과 사진 배치 예시</h1>
+  <p>아래 4가지 배치를 화면 한 칸씩 비교하는 예시입니다. 부지 모양과 번호, 프리미엄 01부터 04 지정은 실제 배치도가 아닌 임시 값입니다.<br>
+  부지를 누르거나 상단 버튼을 눌러 보세요. 사진 줄 위에서 휠을 굴리면 옆으로 넘어갑니다.</p>
+</div>
+
+<nav class="nav">
+  <a href="#A">A 한 화면 고정</a><a href="#B">B 좌우 나란히</a><a href="#C">C 맵 위 팝업</a><a href="#D">D 미니맵</a>
+</nav>
+
+<section class="demo A" id="A" data-demo="A">
+  <div class="demo__head"><div><div class="demo__title">A. 한 화면 고정 (추천)</div><div class="demo__desc">위에 키맵, 아래에 사진 줄. 부지를 누르면 사진이 가운데로 돌아옵니다.</div></div><div class="filter"></div></div>
+  <div class="body"><div class="map"></div><div class="slider"></div></div>
+</section>
+
+<section class="demo B" id="B" data-demo="B">
+  <div class="demo__head"><div><div class="demo__title">B. 좌우 나란히</div><div class="demo__desc">왼쪽 키맵 고정, 오른쪽 사진 줄.</div></div><div class="filter"></div></div>
+  <div class="body"><div class="map"></div><div class="slider"></div></div>
+</section>
+
+<section class="demo C" id="C" data-demo="C">
+  <div class="demo__head"><div><div class="demo__title">C. 맵 위에 사진 띄우기</div><div class="demo__desc">키맵을 화면 가득. 부지를 누르면 그 옆에 사진이 떠오릅니다.</div></div><div class="filter"></div></div>
+  <div class="body"><div class="map"></div></div>
+</section>
+
+<section class="demo D" id="D" data-demo="D">
+  <div class="demo__head"><div><div class="demo__title">D. 미니맵</div><div class="demo__desc">사진이 주인공, 구석의 작은 키맵에 지금 사진의 부지가 표시됩니다.</div></div><div class="filter"></div></div>
+  <div class="body"><div class="slider"></div><div class="map"></div></div>
+</section>
+
+<script>
+(function(){
+  // 임시 부지 데이터: 프리미엄 4, 베이직 11
+  var PLOTS=[];
+  var premPos=[[150,170],[270,140],[390,130],[510,140]];
+  var basicPos=[[230,280],[340,270],[450,265],[560,270],[670,280],[780,300],[290,390],[400,385],[510,385],[620,395],[730,410]];
+  premPos.forEach(function(p){PLOTS.push({type:'prem',x:p[0],y:p[1],w:100,h:80})});
+  basicPos.forEach(function(p){PLOTS.push({type:'basic',x:p[0],y:p[1],w:90,h:72})});
+  PLOTS.forEach(function(p,i){p.no=('0'+(i+1)).slice(-2)});
+  var SHAPES=['s1','s2','s3','s2'];
+  var ISLAND='M80 300 C60 180 160 90 320 80 C470 70 600 90 700 150 C820 220 920 280 900 400 C880 500 740 540 560 530 C400 520 230 520 140 460 C90 420 90 360 80 300Z';
+  var NS='http://www.w3.org/2000/svg';
+
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+
+  function buildMap(box,onPick){
+    var svg=document.createElementNS(NS,'svg');
+    svg.setAttribute('viewBox','0 0 1000 600');
+    svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+    var land=document.createElementNS(NS,'path');land.setAttribute('d',ISLAND);land.setAttribute('class','island');svg.appendChild(land);
+    var gs=PLOTS.map(function(p,i){
+      var g=document.createElementNS(NS,'g');g.setAttribute('class','plot '+p.type);
+      var r=document.createElementNS(NS,'rect');
+      r.setAttribute('x',p.x);r.setAttribute('y',p.y);r.setAttribute('width',p.w);r.setAttribute('height',p.h);r.setAttribute('rx',6);
+      var t=document.createElementNS(NS,'text');t.setAttribute('x',p.x+p.w/2);t.setAttribute('y',p.y+p.h/2);t.textContent=p.no;
+      g.appendChild(r);g.appendChild(t);svg.appendChild(g);
+      g.addEventListener('click',function(e){e.stopPropagation();ring(svg,p);onPick(i,g)});
+      return g;
+    });
+    box.appendChild(svg);
+    box.appendChild(el('span','mapTag','키맵 임시 예시'));
+    return {svg:svg,plots:gs};
+  }
+
+  function ring(svg,p){
+    var c=document.createElementNS(NS,'rect');
+    c.setAttribute('x',p.x);c.setAttribute('y',p.y);c.setAttribute('width',p.w);c.setAttribute('height',p.h);c.setAttribute('rx',10);c.setAttribute('class','ring');
+    svg.appendChild(c);setTimeout(function(){c.remove()},850);
+  }
+
+  function cardHTML(p,i){
+    return '<div class="shape"></div><div class="cap"><b>부지 '+p.no+'</b>'+(p.type==='prem'?'프리미엄':'베이직')+' 사진 준비 중</div>';
+  }
+
+  function buildSlider(box,onActive){
+    var vp=el('div','vp'),track=el('div','track');
+    var cards=PLOTS.map(function(p,i){
+      var c=el('div','card '+SHAPES[i%4]+' '+p.type,cardHTML(p,i));
+      c.addEventListener('click',function(){go(i)});
+      track.appendChild(c);return c;
+    });
+    vp.appendChild(track);box.appendChild(vp);
+    var meta=el('div','meta','<span>휠이나 드래그로 넘기기</span><span class="cnt">01 / '+PLOTS.length+'</span>');
+    box.appendChild(meta);
+    var cnt=meta.querySelector('.cnt'),cur=-1;
+
+    function pad(){var w=cards[0].offsetWidth;var s=Math.max(0,(vp.clientWidth-w)/2);track.style.paddingLeft=s+'px';track.style.paddingRight=s+'px'}
+    function go(i){var c=cards[i];vp.scrollTo({left:c.offsetLeft-(vp.clientWidth-c.offsetWidth)/2,behavior:'smooth'})}
+    function sync(){
+      var mid=vp.scrollLeft+vp.clientWidth/2,best=0,bd=1e9;
+      cards.forEach(function(c,i){var d=Math.abs(c.offsetLeft+c.offsetWidth/2-mid);if(d<bd){bd=d;best=i}});
+      if(best===cur)return;cur=best;
+      cards.forEach(function(c,i){c.classList.toggle('is-active',i===best)});
+      cnt.textContent=PLOTS[best].no+' / '+PLOTS.length;
+      onActive(best);
+    }
+    vp.addEventListener('scroll',sync,{passive:true});
+    vp.addEventListener('wheel',function(e){
+      if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();vp.scrollLeft+=e.deltaY}
+    },{passive:false});
+    var down=null;
+    vp.addEventListener('pointerdown',function(e){down={x:e.clientX,l:vp.scrollLeft}});
+    window.addEventListener('pointermove',function(e){if(down)vp.scrollLeft=down.l-(e.clientX-down.x)});
+    window.addEventListener('pointerup',function(){down=null});
+    window.addEventListener('resize',function(){pad();cur=-1;sync()});
+    requestAnimationFrame(function(){pad();sync()});
+    return {go:go,cards:cards};
+  }
+
+  function buildFilter(box,onFilter){
+    [['all','전체'],['prem','프리미엄 4'],['basic','베이직 11']].forEach(function(f,i){
+      var b=el('button',i===0?'is-on':'',f[1]);
+      b.addEventListener('click',function(){
+        box.querySelectorAll('button').forEach(function(x){x.classList.remove('is-on')});
+        b.classList.add('is-on');onFilter(f[0]);
+      });
+      box.appendChild(b);
+    });
+  }
+
+  function applyFilter(map,slider,type){
+    map.plots.forEach(function(g,i){
+      var hit=type==='all'||PLOTS[i].type===type;
+      g.classList.toggle('is-dim',!hit);
+      g.classList.remove('is-pulse');
+      if(hit&&type!=='all'){void g.getBBox();requestAnimationFrame(function(){g.classList.add('is-pulse')})}
+    });
+    if(!slider)return;
+    var first=-1;
+    slider.cards.forEach(function(c,i){
+      var hit=type==='all'||PLOTS[i].type===type;
+      c.classList.toggle('is-dim',!hit);
+      if(hit&&first<0)first=i;
+    });
+    if(first>=0)slider.go(first);
+  }
+
+  function setActivePlot(map,i){map.plots.forEach(function(g,k){g.classList.toggle('is-active',k===i)})}
+
+  document.querySelectorAll('[data-demo]').forEach(function(sec){
+    var kind=sec.getAttribute('data-demo');
+    var mapBox=sec.querySelector('.map'),sliderBox=sec.querySelector('.slider'),filterBox=sec.querySelector('.filter');
+    var map,slider=null,pop=null;
+
+    if(kind==='C'){
+      pop=el('div','pop s1','<div class="shape"></div><div class="cap"></div><button class="pop__x" type="button" aria-label="닫기">×</button>');
+      mapBox.appendChild(pop);
+      pop.querySelector('.pop__x').addEventListener('click',function(){pop.classList.remove('is-on');setActivePlot(map,-1)});
+      map=buildMap(mapBox,function(i,g){
+        setActivePlot(map,i);
+        var p=PLOTS[i];
+        pop.className='pop '+SHAPES[i%4];
+        pop.querySelector('.cap').innerHTML='<b>부지 '+p.no+'</b>'+(p.type==='prem'?'프리미엄':'베이직')+' 사진 준비 중';
+        var mb=mapBox.getBoundingClientRect(),gb=g.getBoundingClientRect();
+        var pw=pop.offsetWidth,ph=pop.offsetHeight;
+        var left=gb.right-mb.left+16;if(left+pw>mb.width-8)left=gb.left-mb.left-pw-16;
+        var top=gb.top-mb.top+gb.height/2-ph/2;top=Math.max(8,Math.min(top,mb.height-ph-36));
+        pop.style.left=Math.max(8,left)+'px';pop.style.top=top+'px';
+        pop.classList.remove('is-on');void pop.offsetWidth;pop.classList.add('is-on');
+      });
+      mapBox.addEventListener('click',function(){pop.classList.remove('is-on');setActivePlot(map,-1)});
+    }else{
+      map=buildMap(mapBox,function(i){slider.go(i)});
+      slider=buildSlider(sliderBox,function(i){setActivePlot(map,i)});
+    }
+    buildFilter(filterBox,function(type){applyFilter(map,slider,type)});
+  });
+})();
+</script>
+</body>
+</html>

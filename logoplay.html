@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>취향섬 로고플레이 시안</title>
+<style>
+  :root{--ink:#231815;--paper:#fff;--gray:#8a8380;--line:#e4e0de}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--paper);color:var(--ink);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;overflow:hidden}
+  .bar{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 16px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line)}
+  .bar button{font:inherit;font-size:14px;padding:8px 14px;border:1px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;cursor:pointer}
+  .bar button.on{background:var(--ink);color:#fff}
+  .bar .gap{flex:1}
+  .bar label{font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer}
+  .stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  svg.logo{width:min(80vw,620px);height:auto;overflow:visible}
+  .hero{position:absolute;inset:0;background:url(img/hero.jpg) center/cover no-repeat;opacity:0;pointer-events:none}
+  .cap{position:fixed;left:16px;right:16px;bottom:16px;z-index:10;font-size:13px;line-height:1.6;color:var(--gray);max-width:720px}
+  .cap b{color:var(--ink)}
+  .hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--gray);font-size:15px;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="bar">
+  <button data-plan="B2">2-2 순차 페이드인</button>
+  <button data-plan="B5">2-5 바닥에서 솟아오름</button>
+  <button data-plan="B14">2-14 2분의 1씩 톡톡</button>
+  <button data-plan="C">3 횡스크롤 패턴</button>
+  <button id="replay">다시 보기</button>
+  <span class="gap"></span>
+  <label><input type="checkbox" id="slow"> 느리게(0.5배)</label>
+  <label><input type="checkbox" id="withHero" checked> 메인 화면 전환까지</label>
+</div>
+
+<div class="stage">
+  <div class="hint" id="hint">위에서 버튼 하나를 눌러 주세요</div>
+  <svg class="logo" id="svg" viewBox="200 230 500 300" aria-label="취향섬 로고"></svg>
+  <div class="hero" id="hero"></div>
+</div>
+<div class="cap" id="cap"></div>
+
+<script>
+// 로고 원본 좌표 (Logo bundle.svg 에서 추출)
+const INK = '#231815';
+const BLOCKS = [
+  [[366.30,345.36],[301.85,296.07],[281.59,296.07],[237.41,355.54],[237.41,403.36],[284.53,403.36],[378.68,383.91],[378.68,367.82]],
+  [[510.12,296.06],[412.90,296.06],[395.38,316.41],[389.34,333.44],[389.34,383.91],[441.86,403.36],[518.10,403.36],[518.10,316.41]],
+  [[647.12,296.06],[560.86,296.06],[528.76,356.42],[528.76,403.36],[585.39,403.36],[666.07,383.91],[666.07,331.61]]
+];
+const LETTERS = [
+  'M 384.77 456.52 L 400.42 456.52 L 400.42 452.36 L 384.74 452.36 L 384.74 446.20 L 380.21 446.20 L 380.21 452.36 L 364.54 452.36 L 364.54 456.52 L 380.19 456.52 C 379.97 465.94 375.50 468.33 363.29 472.48 L 364.74 476.77 C 374.00 473.63 379.71 471.01 382.01 464.27 L 382.95 464.27 C 385.25 471.01 390.96 473.63 400.21 476.77 L 401.67 472.48 C 389.45 468.33 384.98 465.94 384.77 456.52 M 406.96 504.47 L 411.50 504.47 L 411.50 444.68 L 406.96 444.68 Z M 364.01 486.15 L 380.21 486.15 L 380.21 504.47 L 384.74 504.47 L 384.74 486.15 L 400.94 486.15 L 400.94 481.98 L 364.01 481.98 Z',
+  'M 463.21 452.36 L 447.54 452.36 L 447.54 446.20 L 443.01 446.20 L 443.01 452.36 L 427.33 452.36 L 427.33 456.52 L 463.21 456.52 Z M 481.08 460.32 L 481.08 456.15 L 474.45 456.15 L 474.45 444.68 L 469.91 444.68 L 469.91 480.39 L 474.45 480.39 L 474.45 472.21 L 481.08 472.21 L 481.08 468.04 L 474.45 468.04 L 474.45 460.32 Z M 435.27 469.85 C 435.27 467.29 436.04 464.57 445.27 464.57 C 454.50 464.57 455.28 467.29 455.28 469.85 C 455.28 472.41 454.50 475.13 445.27 475.13 C 436.04 475.13 435.27 472.41 435.27 469.85 M 459.81 469.85 C 459.81 460.04 448.87 460.04 445.27 460.04 C 441.68 460.04 430.74 460.04 430.74 469.85 C 430.74 479.66 441.68 479.66 445.27 479.66 C 448.87 479.66 459.81 479.66 459.81 469.85 M 455.68 500.39 C 442.28 500.39 440.56 497.13 440.56 494.28 C 440.56 491.43 442.28 488.16 455.68 488.16 C 469.07 488.16 470.79 491.43 470.79 494.28 C 470.79 497.13 469.07 500.39 455.68 500.39 M 455.68 483.64 C 450.30 483.64 436.04 483.64 436.04 494.28 C 436.04 504.92 450.30 504.92 455.68 504.92 C 461.05 504.92 475.32 504.92 475.32 494.28 C 475.32 483.64 461.05 483.64 455.68 483.64',
+  'M 509.62 461.52 L 510.43 461.52 C 512.40 469.64 517.20 473.45 526.32 478.00 L 528.34 473.95 C 516.69 468.13 512.29 464.56 512.29 450.01 L 512.29 446.20 L 507.76 446.20 L 507.76 450.01 C 507.76 464.56 503.36 468.13 491.70 473.95 L 493.73 478.00 C 502.84 473.45 507.65 469.64 509.62 461.52 M 535.66 444.68 L 535.66 458.57 L 524.40 458.57 L 524.40 462.74 L 535.66 462.74 L 535.66 480.39 L 540.20 480.39 L 540.20 444.68 Z M 506.15 488.24 L 535.66 488.24 L 535.66 500.30 L 506.15 500.30 Z M 501.62 504.47 L 540.20 504.47 L 540.20 484.09 L 501.62 484.09 Z'
+];
+const LETTER_CX = [387.5, 454.2, 516.0];       // 글자 가운데
+const BLOCK_CX  = [308.0, 453.7, 597.4];       // 블록 가운데
+const BASE_Y = 403.4;                          // 블록 바닥선
+
+// A안: 집 3동 선 그림 (블록과 꼭짓점 수를 맞춰 모양이 그대로 바뀌게 함)
+const HOUSES = [
+  [[378.68,330],[312,262],[300,262],[237.41,330],[237.41,403.36],[308,403.36],[378.68,403.36],[378.68,368]],
+  [[453.7,250],[453.7,250],[421,276],[389.34,302],[389.34,403.36],[453.7,403.36],[518.10,403.36],[518.10,302]],
+  [[628,252],[606,252],[528.76,322],[528.76,403.36],[597,403.36],[666.07,403.36],[666.07,306]]
+];
+// 집 창과 문 (선 그림 디테일, 나중에 사라짐)
+const DETAILS = [
+  'M 255 403 L 255 365 L 280 365 L 280 403 M 300 345 L 345 345 L 345 375 L 300 375 Z M 237.41 330 L 378.68 330',
+  'M 440 403 L 440 360 L 468 360 L 468 403 M 405 330 L 432 330 L 432 352 L 405 352 Z M 476 330 L 503 330 L 503 352 L 476 352 Z',
+  'M 545 403 L 545 360 L 572 360 L 572 403 M 600 335 L 650 335 L 650 372 L 600 372 Z M 528.76 322 L 666.07 306'
+];
+
+const CAPS = {
+  B2:'<b>2-2 순차 페이드인</b> 네모 도형 3개가 왼쪽부터 하나씩 서서히 나타남, 잠시 뒤 검정 선 파도 하나가 아래에서 차올라 가림, 더 올라오며 일렁임이 잦아들고 그동안 로고로 바뀜, 다시 일렁이며 물이 빠지고 로고가 드러남, 윗선이 로고 밑단 모양으로 굳어짐, 워드마크, 메인 화면 페이드인.',
+  B5:'<b>2-5 바닥에서 솟아오름</b> 네모 도형 3개가 바닥선에서 위로 하나씩 자라나듯 올라옴, 잠시 뒤 검정 선 파도 하나가 아래에서 차올라 가림, 더 올라오며 일렁임이 잦아들고 그동안 로고로 바뀜, 다시 일렁이며 물이 빠지고 로고가 드러남, 윗선이 로고 밑단 모양으로 굳어짐, 워드마크, 메인 화면 페이드인.',
+  B14:'<b>2-14 2분의 1씩 톡톡</b> 네모 도형 3개가 바닥 아래에서 2분의 1씩 톡, 톡 두 번에 밀려 올라옴, 잠시 뒤 검정 선 파도 하나가 아래에서 차올라 가림, 더 올라오며 일렁임이 잦아들고 그동안 로고로 바뀜, 다시 일렁이며 물이 빠지고 로고가 드러남, 윗선이 로고 밑단 모양으로 굳어짐, 워드마크, 메인 화면 페이드인.',
+  C:'<b>3 횡스크롤 패턴</b> 같은 높이의 블록들이 줄지어 천천히 흘러오다 가운데 3개만 남고 나머지는 사라짐, 워드마크, 메인 화면 페이드인.'
+};
+
+const NS = 'http://www.w3.org/2000/svg';
+const svg = document.getElementById('svg');
+const hero = document.getElementById('hero');
+let run = 0, current = null;
+
+const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; };
+const poly = pts => 'M ' + pts.map(p => p[0].toFixed(2) + ' ' + p[1].toFixed(2)).join(' L ') + ' Z';
+const lerp = (a, b, t) => a + (b - a) * t;
+const lerpPts = (A, B, t) => A.map((p, i) => [lerp(p[0], B[i][0], t), lerp(p[1], B[i][1], t)]);
+const ease = {
+  out: t => 1 - Math.pow(1 - t, 3),
+  inOut: t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+  outExpo: t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
+  lin: t => t
+};
+const speed = () => document.getElementById('slow').checked ? 2 : 1;
+
+// 취소 가능한 시간 진행
+function tween(tok, ms, fn, e = ease.inOut) {
+  ms *= speed();
+  return new Promise((res, rej) => {
+    const t0 = performance.now();
+    (function f(now) {
+      if (tok !== run) return rej('stop');
+      const t = Math.min(1, (now - t0) / ms);
+      fn(e(t), t);
+      t < 1 ? requestAnimationFrame(f) : res();
+    })(t0);
+  });
+}
+const wait = (tok, ms) => tween(tok, ms, () => {}, ease.lin);
+
+function wavePts(x0, x1, y, amp, len, phase, step = 4) {
+  const pts = [];
+  for (let x = x0; x <= x1; x += step) pts.push([x, y + amp * Math.sin((x / len) * Math.PI * 2 + phase)]);
+  return pts;
+}
+const lineD = pts => 'M ' + pts.map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L ');
+
+function addWordmark() {
+  const g = el('g', {});
+  return LETTERS.map(d => el('path', { d, fill: INK, opacity: 0 }, g));
+}
+
+// 메인 화면 전환: 로고가 사라지고 메인 화면이 페이드인 (확대 없음)
+async function heroOut(tok) {
+  if (!document.getElementById('withHero').checked) return;
+  await wait(tok, 900);
+  await tween(tok, 1000, t => { svg.style.opacity = 1 - t; hero.style.opacity = t; }, ease.inOut);
+}
+
+const WATER = '#fff';                           // 물 색 = 사이트 배경색 (선으로만 보임)
+const BOT = 412;                                // 네모 도형 바닥 (로고 바닥보다 살짝 아래)
+// 파도가 보이는 범위: 로고 가운데 기준 1.15배
+const ZX0 = 205, ZX1 = 699, ZY0 = 235, ZY1 = 425;
+// 블록 아래쪽 꼭짓점을 바닥으로 내린 모양 (물에 잘려서 로고 밑단이 됨)
+const TALL = BLOCKS.map(b => b.map(p => p[1] > 380 ? [p[0], BOT] : p));
+// 블록 바깥 상자에 꼭짓점을 붙인 네모 (꼭짓점 수가 같아 그대로 모양이 바뀜)
+const toRect = (b, y1) => {
+  const xs = b.map(p => p[0]), ys = b.map(p => p[1]);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), yb = y1 ?? Math.max(...ys);
+  const cx = (x0 + x1) / 2, cy = (y0 + yb) / 2;
+  return b.map(p => [p[0] < cx ? x0 : x1, p[1] < cy ? y0 : yb]);
+};
+// 블록 가운데 기준 정사각형 (높이 = 블록 윗변부터 바닥까지, 꼭짓점 수 유지)
+const toSquare = (b, y1) => {
+  const xs = b.map(p => p[0]), ys = b.map(p => p[1]);
+  const y0 = Math.min(...ys), cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (y0 + y1) / 2, h = (y1 - y0) / 2;
+  return b.map(p => [p[0] < cx ? cx - h : cx + h, p[1] < cy ? y0 : y1]);
+};
+// 피그마 '바다'(204:277) 물결 한 주기: 골에서 마루로, 마루에서 골로 (x는 주기 비율, y는 0 마루 1 골)
+const SEA_SEG = [[[0, 1], [.25, 1], [.3, 0], [.5, 0]], [[.5, 0], [.7, 0], [.75, 1], [1, 1]]];
+const bez = (q, t) => { const u = 1 - t; return [0, 1].map(k => u*u*u*q[0][k] + 3*u*u*t*q[1][k] + 3*u*t*t*q[2][k] + t*t*t*q[3][k]); };
+const SEA_UNIT = SEA_SEG.flatMap(q => Array.from({ length: 10 }, (_, n) => bez(q, n / 10)));
+// x0~x1 구간 물결 점: 주기 len, 높이 amp, 가운데 높이 y, 가로 이동 shift
+function seaPts(x0, x1, y, amp, len, shift) {
+  const pts = [], start = x0 - len - (((x0 - shift) % len) + len) % len;
+  for (let o = start; o < x1 + len; o += len) SEA_UNIT.forEach(([u, v]) => { const x = o + u * len; if (x >= x0 - len / 10 && x <= x1 + len / 10) pts.push([x, y + amp * (v - .5)]); });
+  return pts;
+}
+// 로고 밑단 선 (블록 바닥 모양을 이은 선)
+const PROFILE = [[-600,403.36],[237.41,403.36],[284.53,403.36],[378.68,383.91],[389.34,383.91],[441.86,403.36],[518.10,403.36],[528.76,403.36],[585.39,403.36],[666.07,383.91],[1500,383.91]];
+const profileY = x => { for (let i = 1; i < PROFILE.length; i++) if (x <= PROFILE[i][0]) { const [x0, y0] = PROFILE[i - 1], [x1, y1] = PROFILE[i]; return y0 + (y1 - y0) * (x - x0) / (x1 - x0); } return 383.91; };
+const wordmarkIn = (tok, letters) => tween(tok, 700, t => letters.forEach(l => { l.setAttribute('opacity', t); l.setAttribute('transform', `translate(0 ${8 * (1 - t)})`); }), ease.out);
+const clamp01 = v => Math.max(0, Math.min(1, v));
+
+// 파도 범위 마스크: 범위 가장자리에서 선이 부드럽게 사라짐
+function waveZone(id) {
+  const defs = el('defs', {});
+  const gradH = el('linearGradient', { id: id + 'h', x1: 0, x2: 1, y1: 0, y2: 0 }, defs);
+  [[0, 0], [.1, 1], [.9, 1], [1, 0]].forEach(([o, a]) => el('stop', { offset: o, 'stop-color': '#fff', 'stop-opacity': a }, gradH));
+  const gradV = el('linearGradient', { id: id + 'v', x1: 0, x2: 0, y1: 0, y2: 1 }, defs);
+  [[0, 0], [.1, 1], [.9, 1], [1, 0]].forEach(([o, a]) => el('stop', { offset: o, 'stop-color': '#fff', 'stop-opacity': a }, gradV));
+  const mh = el('mask', { id: id + 'mh', maskUnits: 'userSpaceOnUse', x: ZX0, y: ZY0, width: ZX1 - ZX0, height: ZY1 - ZY0 }, defs);
+  el('rect', { x: ZX0, y: ZY0, width: ZX1 - ZX0, height: ZY1 - ZY0, fill: `url(#${id}h)` }, mh);
+  const mv = el('mask', { id: id + 'mv', maskUnits: 'userSpaceOnUse', x: ZX0, y: ZY0, width: ZX1 - ZX0, height: ZY1 - ZY0 }, defs);
+  el('rect', { x: ZX0, y: ZY0, width: ZX1 - ZX0, height: ZY1 - ZY0, fill: `url(#${id}v)` }, mv);
+  const outer = el('g', { mask: `url(#${id}mv)` });
+  return { defs, g: el('g', { mask: `url(#${id}mh)` }, outer) };
+}
+const LINE = { fill: 'none', stroke: INK, 'stroke-width': 1.1, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' };
+
+// 2안: 아래에서 차오르고 빠지는 물 (파도는 검정 윗선 하나)
+async function planB(tok, intro) {
+  const defs = el('defs', {});
+  const clip = el('clipPath', { id: 'above' }, defs);
+  const clipPath = el('path', {}, clip);
+  const rects = TALL.map(b => toSquare(b, BOT));
+  const g = el('g', { 'clip-path': 'url(#above)' });
+  const blocks = TALL.map((b, i) => el('path', { d: poly(rects[i]), fill: INK, opacity: 0 }, g));
+  const zone = waveZone('zb');
+  const sea = el('g', {}, zone.g);
+  const crest = el('path', LINE, sea);
+  const letters = addWordmark();
+  const LEN = (ZX1 - ZX0) / 3, AMP0 = 16;                        // 물결을 잘게: 범위 안에 마루 3개
+  let level = ZY1 + 20, amp = AMP0, settle = 0;
+  const surf = (x, ph) => level + amp * (Math.sin((x / LEN) * Math.PI * 2 + ph) + .25 * Math.sin((x / LEN) * Math.PI * 4 - ph * 1.3));
+  const draw = () => {
+    const ph = performance.now() * .0012;
+    const top = [];
+    for (let x = ZX0 - 10; x <= ZX1 + 10; x += 4) top.push([x, lerp(surf(x, ph), profileY(x), settle)]);
+    const d = lineD(top);
+    crest.setAttribute('d', d);
+    clipPath.setAttribute('d', d + ` L ${ZX1 + 10} 0 L ${ZX0 - 10} 0 Z`);
+  };
+  const shape = t => blocks.forEach((b, i) => b.setAttribute('d', poly(lerpPts(rects[i], TALL[i], t))));
+
+  // 1. 네모 3개가 먼저 나타남 (파도는 아직 아래에 숨어 있음), 등장 방식은 정사각 알트 번호
+  const sq = (i, h, op) => { blocks[i].setAttribute('d', poly(rects[i].map(p => [p[0], p[1] < BOT ? BOT - h : BOT]))); blocks[i].setAttribute('opacity', op); };
+  await tween(tok, intro.dur, (_, raw) => { blocks.forEach((b, i) => intro.frame(raw * intro.dur, i, sq)); draw(); }, ease.lin);
+  blocks.forEach((b, i) => { b.setAttribute('d', poly(rects[i])); b.setAttribute('opacity', 1); });
+  await tween(tok, 900, () => draw(), ease.lin);
+  // 2. 파도가 아래에서 모습을 보임
+  await tween(tok, 900, t => { level = lerp(ZY1 + 20, 415, t); draw(); }, ease.out);
+  // 3. 물이 차올라 네모를 다 가림
+  await tween(tok, 1500, t => { level = lerp(415, 280, t); draw(); }, ease.inOut);
+  // 4. 더 위로 올라오며 일렁임이 잦아듦, 가려진 동안 로고 모양으로 바뀜
+  await tween(tok, 1000, t => { level = lerp(280, 262, t); amp = AMP0 * (1 - t); shape(t); draw(); }, ease.inOut);
+  await tween(tok, 300, () => draw(), ease.lin);
+  // 5. 다시 일렁이며 물이 빠지고 로고가 드러남, 윗선이 로고 밑단 모양으로 굳어짐
+  await tween(tok, 1800, t => { level = lerp(262, 395, t); amp = AMP0 * clamp01(t * 3); draw(); }, ease.inOut);
+  await tween(tok, 1200, t => { amp = AMP0 * (1 - t); settle = t; draw(); }, ease.inOut);
+  // 6. 파도 선이 사라지고 로고만 남음
+  await tween(tok, 600, t => sea.setAttribute('opacity', 1 - t), ease.out);
+  await wordmarkIn(tok, letters);
+  await heroOut(tok);
+}
+
+// C안
+async function planC(tok) {
+  const PERIOD = 441;                       // 블록 3개 묶음 폭 + 간격
+  const row = el('g', {});
+  const copies = [];
+  for (let k = -5; k <= 5; k++) {
+    const grp = el('g', { transform: `translate(${k * PERIOD} 0)` }, row);
+    BLOCKS.forEach(b => el('path', { d: poly(b), fill: INK }, grp));
+    copies.push({ k, grp });
+  }
+  const letters = addWordmark();
+  const START = PERIOD * 4;
+
+  // 1. 줄지어 흘러오다 멈춤 (뒤쪽 블록은 중간부터 흐려짐)
+  await tween(tok, 4200, (_, raw) => {
+    const t = ease.out(raw);
+    row.setAttribute('transform', `translate(${START * (1 - t)} 0)`);
+    const fade = Math.min(1, Math.max(0, (raw - .45) / .45));
+    copies.forEach(c => { if (c.k !== 0) c.grp.setAttribute('opacity', 1 - fade); });
+  }, ease.lin);
+  // 2. 워드마크
+  await tween(tok, 800, t => letters.forEach(l => { l.setAttribute('opacity', t); l.setAttribute('transform', `translate(0 ${8 * (1 - t)})`); }), ease.out);
+  await heroOut(tok);
+}
+
+// 정사각 등장 알트 (squares.html 2, 5, 14번과 같은 동작)
+const SQ_H = BOT - 296.07;
+const seg = (t, a, d) => clamp01((t - a) / d);
+const backE = t => 1 + 2.4 * Math.pow(t - 1, 3) + 1.4 * Math.pow(t - 1, 2);
+const INTROS = {
+  B2: { dur: 1300, frame: (t, i, sq) => sq(i, SQ_H, ease.out(seg(t, i * 300, 700))) },
+  B5: { dur: 1200, frame: (t, i, sq) => sq(i, SQ_H * ease.outExpo(seg(t, i * 200, 800)), 1) },
+  B14: { dur: 740, frame: (t, i, sq) => { const n = 2, P = 250, M = 140, l = t - i * 120, k = Math.min(n, Math.max(0, Math.floor(l / P)));
+    sq(i, k >= n ? SQ_H : SQ_H / n * (k + backE(clamp01((l - k * P) / M))), l >= 0 ? 1 : 0); } }
+};
+const PLANS = { C: planC };
+Object.keys(INTROS).forEach(k => PLANS[k] = tok => planB(tok, INTROS[k]));
+function play(key) {
+  current = key;
+  const tok = ++run;
+  svg.innerHTML = '';
+  hero.style.opacity = 0; svg.style.opacity = 1;
+  document.getElementById('hint').style.display = 'none';
+  document.getElementById('cap').innerHTML = CAPS[key];
+  document.querySelectorAll('[data-plan]').forEach(b => b.classList.toggle('on', b.dataset.plan === key));
+  PLANS[key](tok).catch(e => { if (e !== 'stop') console.error(e); });
+}
+document.querySelectorAll('[data-plan]').forEach(b => b.addEventListener('click', () => play(b.dataset.plan)));
+document.getElementById('replay').addEventListener('click', () => current && play(current));
+const h = location.hash.slice(1).toUpperCase(); if (PLANS[h]) play(h);
+</script>
+</body>
+</html>

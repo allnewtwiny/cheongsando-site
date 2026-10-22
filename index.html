@@ -45,14 +45,28 @@
 .marketsMenu__wrapper{width:23.8rem!important;grid-template-columns:13rem 2rem 2rem 2rem 2rem 2rem}
 .topBarMenu{display:none}
 @media (min-width:1360px){
-body.is-pastHero[data-page=home] .topBarMenu{display:block;grid-column:3;grid-row:1;justify-self:end;margin-right:5rem;pointer-events:all}
+[data-page=home] .topBarMenu{display:block;grid-column:3;grid-row:1;justify-self:end;margin-right:5rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility .35s}
+body.is-pastHero[data-page=home] .topBarMenu{opacity:1;visibility:visible;pointer-events:all}
 .topBarMenu ul{display:flex;gap:2rem;margin:0;padding:0;list-style:none}
 .topBarMenu a{font-size:1.3rem;letter-spacing:.02em;color:#0e0e0e;text-decoration:none;white-space:nowrap;opacity:.6;transition:opacity .25s}
 .topBarMenu a:hover,.topBarMenu a:focus-visible{opacity:1}
+.topBarMenu a[aria-current=page]{opacity:1;font-weight:600}
 }
+/* 스크롤 시 상단바 색 전환을 부드럽게 (흰 바탕, 검은 아이콘으로 서서히) */
+[data-page=home] .navigationMain__topBar{transition:background-color .35s ease,box-shadow .35s ease,opacity .5s ease,visibility .5s!important}
+[data-page=home] .buttonMenu,[data-page=home] .buttonChat,[data-page=home] .topBarMark{transition:filter .35s ease!important}
+body.is-pastHero[data-page=home] .navigationMain__topBarLogo .topBarMark{content:normal;filter:brightness(0)!important}
+/* 첫 화면 로고 재생 중에는 상단바 숨김 */
+html.is-intro [data-page=home] .navigationMain__topBar{opacity:0;visibility:hidden}
 body,h1,h2,h3,p,a,li,span{word-break:keep-all;overflow-wrap:break-word}
 .navigationFooter__menuItem,.buttonLine .font-s{white-space:nowrap}
 </style>
+<script>
+/* 첫 화면은 항상 맨 위에서 시작하고, 로고 재생이 끝날 때까지 상단바를 숨긴다 (로드 시 흰 메뉴 깜빡임 방지) */
+if("scrollRestoration" in history)history.scrollRestoration="manual";
+document.documentElement.classList.add("is-intro");
+setTimeout(function(){document.documentElement.classList.remove("is-intro");},15000);
+</script>
 <script>
 /* 페이지 전환 종류 결정: 홈에서 Our Focus 페이지로 갈 때(PC 1024 이상)는 아래에서 올라오는 효과, 그 외는 페이드 */
 (function(){
@@ -976,7 +990,7 @@ focusable="false">
 <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
 <script src="js/logointro.js?v=20261014213500"></script>
-<script src="js/main.js?v=20261016220000"></script>
+<script src="js/main.js?v=20261022130000"></script>
 <script src="js/keymap.js?v=20261016181000"></script>
 </body>
 </html>

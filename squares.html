@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>취향섬 정사각 시작 알트</title>
+<style>
+  :root{--ink:#231815;--paper:#fff;--gray:#8a8380;--line:#e4e0de}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;padding:16px}
+  .bar{display:flex;gap:12px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+  .bar button{font:inherit;font-size:14px;padding:8px 14px;border:1px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;cursor:pointer}
+  .bar label{font-size:13px;display:flex;align-items:center;gap:6px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+  .cell{border:1px solid var(--line);border-radius:8px;padding:12px;cursor:pointer}
+  .cell h2{font-size:14px;font-weight:600;margin-bottom:2px}
+  .cell p{font-size:12px;color:var(--gray);margin-bottom:8px}
+  .cell svg{width:100%;height:auto;display:block}
+</style>
+</head>
+<body>
+<div class="bar">
+  <button id="replay">모두 다시 보기</button>
+  <label><input type="checkbox" id="slow"> 느리게(0.5배)</label>
+  <span style="font-size:13px;color:var(--gray)">칸을 누르면 그 칸만 처음부터 다시 재생</span>
+</div>
+<div class="grid" id="grid"></div>
+
+<script>
+const INK = '#231815', NS = 'http://www.w3.org/2000/svg';
+// 2안 시작 정사각형과 같은 위치 (블록 가운데 기준, 윗변 296, 바닥 412)
+const S = 115.93;
+const SQ = [308.05, 453.72, 597.42].map(cx => ({ x: cx - S / 2, y: 296.07 }));
+const c01 = v => Math.max(0, Math.min(1, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const E = {
+  out: t => 1 - Math.pow(1 - t, 3),
+  inOut: t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+  outExpo: t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
+  back: t => 1 + 2.4 * Math.pow(t - 1, 3) + 1.4 * Math.pow(t - 1, 2),
+  bounce: t => { const n = 7.5625, d = 2.75;
+    if (t < 1 / d) return n * t * t; if (t < 2 / d) return n * (t -= 1.5 / d) * t + .75;
+    if (t < 2.5 / d) return n * (t -= 2.25 / d) * t + .9375; return n * (t -= 2.625 / d) * t + .984375; }
+};
+const mk = (tag, a, p) => { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; };
+const box = (r, x, y, w, h, op = 1) => { r.setAttribute('x', x); r.setAttribute('y', y); r.setAttribute('width', Math.max(0, w)); r.setAttribute('height', Math.max(0, h)); r.setAttribute('opacity', op); };
+const rects = svg => SQ.map(() => mk('rect', { fill: INK, opacity: 0 }, svg));
+// 구간 진행률: 시작 시각 a, 길이 d
+const seg = (t, a, d) => c01((t - a) / d);
+
+// 키프레임: [[시각, 값], ...] 사이를 out 이징으로 이음
+const kf = (t, K) => { if (t <= K[0][0]) return K[0][1];
+  for (let j = 1; j < K.length; j++) if (t <= K[j][0]) return lerp(K[j - 1][1], K[j][1], E.out((t - K[j - 1][0]) / (K[j][0] - K[j - 1][0])));
+  return K[K.length - 1][1]; };
+
+const ALTS = [
+  { name: '동시 페이드인', desc: '세 개가 같은 자리에서 한꺼번에 서서히 나타남 (현재 방식)', dur: 900,
+    setup: svg => { const R = rects(svg); return t => R.forEach((r, i) => box(r, SQ[i].x, SQ[i].y, S, S, seg(t, 0, 900))); } },
+  { name: '순차 페이드인', desc: '왼쪽부터 하나씩 서서히 나타남', dur: 1300,
+    setup: svg => { const R = rects(svg); return t => R.forEach((r, i) => box(r, SQ[i].x, SQ[i].y, S, S, E.out(seg(t, i * 300, 700)))); } },
+  { name: '팝팝팝 순차 팝', desc: '왼쪽부터 하나씩 팝! 팝! 팝! 튀어나옴', dur: 1100,
+    setup: svg => { const R = rects(svg); return t => R.forEach((r, i) => { const a = i * 260, p = E.back(seg(t, a, 320)), w = S * p; box(r, SQ[i].x + (S - w) / 2, SQ[i].y + (S - w) / 2, w, w, t >= a ? 1 : 0); }); } },
+  { name: '한꺼번에 팝', desc: '세 개가 동시에 팝! 튀어나옴', dur: 700,
+    setup: svg => { const R = rects(svg); return t => R.forEach((r, i) => { const p = E.back(seg(t, 0, 320)), w = S * p; box(r, SQ[i].x + (S - w) / 2, SQ[i].y + (S - w) / 2, w, w, 1); }); } },
+  { name: '바닥에서 솟아오름', desc: '바닥선에서 위로 자라나듯 하나씩 올라옴', dur: 1200,
+    setup: svg => { const R = rects(svg); return t => R.forEach((r, i) => { const p = E.outExpo(seg(t, i * 200, 800)); box(r, SQ[i].x, SQ[i].y + S * (1 - p), S, S * p); }); } },
+  { name: '가운데서 톡 팝업', desc: '각 네모 가운데 점에서 살짝 튕기며 커짐', dur: 1100,
+    setup: svg => { const R = rects(svg); return t => R.forEach((r, i) => { const p = E.back(seg(t, i * 180, 650)), w = S * p; box(r, SQ[i].x + (S - w) / 2, SQ[i].y + (S - w) / 2, w, w, seg(t, i * 180, 120)); }); } },
+  { name: '아래에서 튀어올라 착지', desc: '떨어져 착지의 위아래 반전, 아래에서 올라와 통통 튀며 멈춤', dur: 1300,
+    setup: svg => { const R = rects(svg); return t => R.forEach((r, i) => { const p = E.bounce(seg(t, i * 160, 900)); box(r, SQ[i].x, SQ[i].y + 180 * (1 - p), S, S, seg(t, i * 160, 100)); }); } },
+  { name: '가운데 먼저, 양옆이 갈라져 나옴', desc: '가운데 하나가 나타나고 그 뒤에서 양옆 두 개가 미끄러져 나옴', dur: 1400,
+    setup: svg => {
+      const side = [mk('rect', { fill: INK }, svg), mk('rect', { fill: INK }, svg)], mid = mk('rect', { fill: INK }, svg);
+      return t => {
+        box(mid, SQ[1].x, SQ[1].y, S, S, E.out(seg(t, 0, 500)));
+        const p = E.outExpo(seg(t, 550, 850));
+        [0, 2].forEach((k, j) => box(side[j], lerp(SQ[1].x, SQ[k].x, p), SQ[k].y, S, S, seg(t, 550, 10)));
+      };
+    } },
+  { name: '가로로 쓸며 드러남', desc: '왼쪽에서 오른쪽으로 한 번에 쓸고 지나가며 세 개가 드러남', dur: 1300,
+    setup: svg => { const R = rects(svg), x0 = SQ[0].x, x1 = SQ[2].x + S;
+      return t => { const wx = lerp(x0, x1, E.inOut(seg(t, 0, 1300))); R.forEach((r, i) => box(r, SQ[i].x, SQ[i].y, c01((wx - SQ[i].x) / S) * S, S)); }; } },
+  { name: '한 칸씩 톡톡 밀려 올라옴', desc: '바닥 아래에서 4분의 1씩 톡, 톡, 톡, 톡 밀려 올라와 네모가 됨', dur: 1300,
+    setup: svg => { const R = rects(svg), n = 4, P = 250, M = 140;
+      return t => R.forEach((r, i) => {
+        const l = t - i * 120, k = Math.min(n, Math.max(0, Math.floor(l / P)));
+        const h = k >= n ? S : S / n * (k + E.back(c01((l - k * P) / M)));
+        box(r, SQ[i].x, SQ[i].y + S - h, S, h, l >= 0 ? 1 : 0);
+      }); } },
+  { name: '3번 타격감 버전', desc: '쿵, 쿵, 쿵 일정한 박자로 크게 튀었다가 눌리며 박힘', dur: 1000,
+    setup: svg => { const R = rects(svg), K = [[0, 0], [90, 1.16], [170, .92], [240, 1.03], [300, 1]];
+      return t => R.forEach((r, i) => { const a = i * 300, w = S * kf(t - a, K); box(r, SQ[i].x + (S - w) / 2, SQ[i].y + (S - w) / 2, w, w, t >= a ? 1 : 0); }); } },
+  { name: '6번 타격감 버전', desc: '따다닥 빠른 박자로 튀어나오며 옆으로 눌렸다 펴짐', dur: 800,
+    setup: svg => { const R = rects(svg),
+        X = [[0, 0], [80, 1.12], [150, 1.1], [220, .97], [280, 1]],
+        Y = [[0, 0], [80, 1.12], [150, .86], [220, 1.04], [280, 1]];
+      return t => R.forEach((r, i) => { const a = i * 140, w = S * kf(t - a, X), h = S * kf(t - a, Y); box(r, SQ[i].x + (S - w) / 2, SQ[i].y + (S - h) / 2, w, h, t >= a ? 1 : 0); }); } },
+  { name: '10번 3분의 1씩', desc: '바닥 아래에서 3분의 1씩 톡, 톡, 톡 세 번에 밀려 올라옴', dur: 990,
+    setup: svg => { const R = rects(svg), n = 3, P = 250, M = 140;
+      return t => R.forEach((r, i) => {
+        const l = t - i * 120, k = Math.min(n, Math.max(0, Math.floor(l / P)));
+        const h = k >= n ? S : S / n * (k + E.back(c01((l - k * P) / M)));
+        box(r, SQ[i].x, SQ[i].y + S - h, S, h, l >= 0 ? 1 : 0);
+      }); } },
+  { name: '10번 2분의 1씩', desc: '바닥 아래에서 2분의 1씩 톡, 톡 두 번에 밀려 올라옴', dur: 740,
+    setup: svg => { const R = rects(svg), n = 2, P = 250, M = 140;
+      return t => R.forEach((r, i) => {
+        const l = t - i * 120, k = Math.min(n, Math.max(0, Math.floor(l / P)));
+        const h = k >= n ? S : S / n * (k + E.back(c01((l - k * P) / M)));
+        box(r, SQ[i].x, SQ[i].y + S - h, S, h, l >= 0 ? 1 : 0);
+      }); } }
+];
+
+const grid = document.getElementById('grid');
+const cells = ALTS.map((a, i) => {
+  const cell = document.createElement('div');
+  cell.className = 'cell';
+  cell.innerHTML = `<h2>${i + 1}. ${a.name}</h2><p>${a.desc}</p>`;
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '220 250 470 190');
+  svg.setAttribute('aria-label', a.name);
+  cell.appendChild(svg);
+  grid.appendChild(cell);
+  const c = { a, render: a.setup(svg), t0: performance.now() };
+  cell.addEventListener('click', () => { c.t0 = performance.now(); });
+  return c;
+});
+document.getElementById('replay').addEventListener('click', () => { const n = performance.now(); cells.forEach(c => c.t0 = n); });
+
+// 각 칸 반복 재생: 재생 후 1.4초 멈춤, 처음부터 다시
+const HOLD = 1400;
+(function loop(now) {
+  const k = document.getElementById('slow').checked ? .5 : 1;
+  cells.forEach(c => c.render(((now - c.t0) * k) % (c.a.dur + HOLD)));
+  requestAnimationFrame(loop);
+})(performance.now());
+</script>
+</body>
+</html>

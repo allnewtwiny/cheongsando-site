@@ -45,11 +45,19 @@
 .marketsMenu__wrapper{width:23.8rem!important;grid-template-columns:13rem 2rem 2rem 2rem 2rem 2rem}
 .topBarMenu{display:none}
 @media (min-width:1360px){
-body.is-pastHero[data-page=home] .topBarMenu{display:block;grid-column:3;grid-row:1;justify-self:end;margin-right:5rem;pointer-events:all}
+[data-page=home] .topBarMenu{display:block;grid-column:3;grid-row:1;justify-self:end;margin-right:5rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility .35s}
+body.is-pastHero[data-page=home] .topBarMenu{opacity:1;visibility:visible;pointer-events:all}
 .topBarMenu ul{display:flex;gap:2rem;margin:0;padding:0;list-style:none}
 .topBarMenu a{font-size:1.3rem;letter-spacing:.02em;color:#0e0e0e;text-decoration:none;white-space:nowrap;opacity:.6;transition:opacity .25s}
 .topBarMenu a:hover,.topBarMenu a:focus-visible{opacity:1}
+.topBarMenu a[aria-current=page]{opacity:1;font-weight:600}
 }
+/* 스크롤 시 상단바 색 전환을 부드럽게 (흰 바탕, 검은 아이콘으로 서서히) */
+[data-page=home] .navigationMain__topBar{transition:background-color .35s ease,box-shadow .35s ease,opacity .5s ease,visibility .5s!important}
+[data-page=home] .buttonMenu,[data-page=home] .buttonChat,[data-page=home] .topBarMark{transition:filter .35s ease!important}
+body.is-pastHero[data-page=home] .navigationMain__topBarLogo .topBarMark{content:normal;filter:brightness(0)!important}
+/* 첫 화면 로고 재생 중에는 상단바 숨김 */
+html.is-intro [data-page=home] .navigationMain__topBar{opacity:0;visibility:hidden}
 body,h1,h2,h3,p,a,li,span{word-break:keep-all;overflow-wrap:break-word}
 .navigationFooter__menuItem,.buttonLine .font-s{white-space:nowrap}
 </style>
@@ -99,7 +107,7 @@ body,h1,h2,h3,p,a,li,span{word-break:keep-all;overflow-wrap:break-word}
         <a href="index.html" class="navigationMain__topBarLogo" aria-label="청산도 취향섬 홈으로">
             <img class="icon icon-logo" src="img/logo_white_wide.png" alt="청산도 취향섬"><img class="topBarMark" src="img/logo_white_mark.png" alt="청산도 취향섬">
         </a>
-        <nav class="topBarMenu" aria-label="상단 메뉴"><ul><li><a href="cheongsando.html">청산도 취향섬</a></li><li><a href="masterplan.html">마스터플랜</a></li><li><a href="invest.html">투자의 이유</a></li><li><a href="ecosystem.html">건축과 운영</a></li><li><a href="archive.html">설계 노트</a></li><li><a href="consult.html">분양 문의</a></li></ul></nav>
+        <nav class="topBarMenu" aria-label="상단 메뉴"><ul><li><a href="cheongsando.html">청산도 취향섬</a></li><li><a href="masterplan.html">마스터플랜</a></li><li><a href="invest.html" aria-current="page">투자의 이유</a></li><li><a href="ecosystem.html">건축과 운영</a></li><li><a href="archive.html">설계 노트</a></li><li><a href="consult.html">분양 문의</a></li></ul></nav>
         <div class="navigationMain__topBarItems">
             <div class="navigationMain__subItems">
                 <div class="navigationMain__projects">
