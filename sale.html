@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ko" data-istoch="false">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>분양 안내 - 청산도 취향섬</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=20261022200000">
+<link rel="stylesheet" href="css/sub.css?v=20261023040000">
+<link rel="stylesheet" href="css/apple.css?v=20261023040000">
+<style>
+  @media screen { html { margin-top: 0 !important; } }
+/* 푸터 보조메뉴: 메뉴 패널(navigationMain__subMenu)과 같은 구성과 세로 간격 */
+.navigationFooter__subMenu.chqFooterSub{gap:0}
+.chqFooterSub__group{display:flex;flex-direction:column;gap:.3rem}
+.chqFooterSub__title{padding:1rem 0;color:#fff}
+.chqFooterSub__item{margin-bottom:1rem}
+@media (min-width:768px){.navigationFooter__subMenu.chqFooterSub{gap:4.5rem}.chqFooterSub__title{padding:1.6rem 0 1rem}.chqFooterSub__item{margin-bottom:0}}
+.navigationFooter__bottomSectionLogo .chqFooterLogo{display:block;height:2.5rem;width:auto}
+/* 푸터 보조메뉴 호버: 올린 항목만 선명, 나머지 블러(큰 메뉴와 같은 .2rem) */
+.chqFooterSub li{transition:filter .2s}
+.navigationFooter__mainMenu>li{transition:filter .2s}
+/* 푸터 메뉴 전체 호버: 올린 항목과 그 그룹의 이름표만 선명, 나머지 전부 블러 */
+@media (min-width:768px){
+.navigationFooter .navigationFooter__mainMenu:hover>li{filter:none}
+.navigationFooter:has(.navigationFooter__menuItemWrapper:hover) :is(.navigationFooter__mainMenu>li,.chqFooterSub li){filter:blur(.2rem)}
+.navigationFooter :is(.navigationFooter__mainMenu,.chqFooterSub__group):has(>.navigationFooter__menuItemWrapper:hover)>li:first-child,
+.navigationFooter:has(.navigationFooter__menuItemWrapper:hover) .navigationFooter__menuItemWrapper:hover{filter:none}
+}
+/* 푸터 상담 신청 호버 시 브랜드 컨설팅 표시 (상단 메뉴와 동일) */
+.navigationFooter__menuItem:hover .navigationMain__hoverExtra,.navigationFooter__menuItem:focus-visible .navigationMain__hoverExtra{opacity:1;transform:translateX(0)}
+/* 상단 메뉴 패널 호버 블러를 푸터 방식으로: 올린 항목과 그 그룹 이름표만 선명, 나머지 전부 블러 */
+#mainNavigation :is(.navigationMain__mainMenuTitle,.navigationMain__subMenuTitle){transition:filter .2s;color:#fff}
+@media (min-width:768px){
+#mainNavigation :is(.navigationMain__mainMenuItem,.navigationMain__subMenu--explore,.navigationMain__subMenuItem){filter:none}
+#mainNavigation:has(:is(.navigationMain__mainMenuWrapper,.navigationMain__subMenuWrapper,.navigationMain__companyMenuWrapper):hover) :is(.navigationMain__mainMenuTitle,.navigationMain__subMenuTitle,.navigationMain__mainMenuItem,.navigationMain__subMenuItem){filter:blur(.2rem)}
+#mainNavigation :is(.navigationMain__mainMenu,.navigationMain__subMenu--explore,.navigationMain__subMenu--company):has(>:is(.navigationMain__mainMenuWrapper,.navigationMain__subMenuWrapper,.navigationMain__companyMenuWrapper):hover)>li:first-child,
+#mainNavigation:has(:is(.navigationMain__mainMenuWrapper,.navigationMain__subMenuWrapper,.navigationMain__companyMenuWrapper):hover) :is(.navigationMain__mainMenuWrapper,.navigationMain__subMenuWrapper,.navigationMain__companyMenuWrapper):hover>a{filter:none}
+}
+/* 주소 한 줄 처리 */
+.contactInfo a p{white-space:nowrap}
+/* 메뉴 6개: 상단바 한 줄 메뉴와 마켓 메뉴 폭 */
+.marketsMenu__wrapper{width:23.8rem!important;grid-template-columns:13rem 2rem 2rem 2rem 2rem 2rem}
+.topBarMenu{display:none}
+@media (min-width:1360px){
+[data-page=home] .topBarMenu{display:block;grid-column:3;grid-row:1;justify-self:end;margin-right:5rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility .35s}
+body.is-pastHero[data-page=home] .topBarMenu{opacity:1;visibility:visible;pointer-events:all}
+.topBarMenu ul{display:flex;gap:2rem;margin:0;padding:0;list-style:none}
+.topBarMenu a{font-size:1.3rem;letter-spacing:.02em;color:#0e0e0e;text-decoration:none;white-space:nowrap;opacity:.6;transition:opacity .25s}
+.topBarMenu a:hover,.topBarMenu a:focus-visible{opacity:1}
+.topBarMenu a[aria-current=page]{opacity:1;font-weight:600}
+}
+/* 스크롤 시 상단바 색 전환을 부드럽게 (흰 바탕, 검은 아이콘으로 서서히) */
+[data-page=home] .navigationMain__topBar{transition:background-color .35s ease,box-shadow .35s ease,opacity .5s ease,visibility .5s!important}
+[data-page=home] .buttonMenu,[data-page=home] .buttonChat,[data-page=home] .topBarMark{transition:filter .35s ease!important}
+body.is-pastHero[data-page=home] .navigationMain__topBarLogo .topBarMark{content:normal;filter:brightness(0)!important}
+/* 첫 화면 로고 재생 중에는 상단바 숨김 */
+html.is-intro [data-page=home] .navigationMain__topBar{opacity:0;visibility:hidden}
+body,h1,h2,h3,p,a,li,span{word-break:keep-all;overflow-wrap:break-word}
+.navigationFooter__menuItem,.buttonLine .font-s{white-space:nowrap}
+</style>
+<script>
+/* 페이지 전환 종류 결정: 홈에서 Our Focus 페이지로 갈 때(PC 1024 이상)는 아래에서 올라오는 효과, 그 외는 페이드 */
+(function(){
+  var KEY="vtType",MARKETS=["cheongsando.html","masterplan.html","invest.html","ecosystem.html","archive.html","consult.html"];
+  try{window.__vtIncoming=sessionStorage.getItem(KEY);}catch(e){}
+  function file(p){return p.split("/").pop()||"index.html";}
+  function store(v){try{v?sessionStorage.setItem(KEY,v):sessionStorage.removeItem(KEY);}catch(e){}}
+  function take(){try{var v=sessionStorage.getItem(KEY);sessionStorage.removeItem(KEY);return v;}catch(e){return null;}}
+  document.addEventListener("click",function(e){
+    var a=e.target.closest&&e.target.closest("a[href]");
+    if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+    if(a.target&&a.target!=="_self")return;
+    var u=new URL(a.href,location.href);
+    if(u.origin!==location.origin||!/(\.html|\/)$/.test(u.pathname)||u.pathname===location.pathname)return;
+    var home=file(location.pathname)==="index.html";
+    var toMarket=MARKETS.indexOf(file(u.pathname))>-1,fromMarket=MARKETS.indexOf(file(location.pathname))>-1;
+    /* 자식 페이지끼리도 상단 글자 메뉴로 이동할 때는 메인에서 갈 때와 같은 올라오는 효과 */
+    store(toMarket&&innerWidth>=1024&&(home||(fromMarket&&a.closest(".topBarMenu")))?"market":"fade");
+  });
+  var current=null;
+  window.addEventListener("pageswap",function(e){
+    if(!e.viewTransition)return;
+    try{current=sessionStorage.getItem(KEY);}catch(x){}
+    if(!current){e.viewTransition.skipTransition();return;}
+    document.documentElement.classList.add("vt-"+current);
+    e.viewTransition.finished.then(function(){document.documentElement.classList.remove("vt-"+current);});
+  });
+  window.addEventListener("pagereveal",function(e){
+    var t=take();
+    if(!e.viewTransition)return;
+    if(!t){e.viewTransition.skipTransition();return;}
+    document.documentElement.classList.add("vt-"+t);
+    e.viewTransition.finished.then(function(){document.documentElement.classList.remove("vt-"+t);});
+  });
+  window.addEventListener("pageshow",function(e){if(e.persisted){store(null);document.documentElement.classList.remove("vt-fade","vt-market");}});
+})();
+</script>
+</head>
+	<body class="chqSub chqApple is-pastHero" data-page="home" data-logoColor="dark" data-marketsmenu="1" data-marketcolor="higherEducation">
+<svg id="sprite" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position:absolute;width:0;height:0" aria-hidden="true"><symbol fill="none"  viewBox="0 0 19 19" id="icon-Arrow"><path d="m13.731 10.498-4.23 3.328M13.731 8.506l-4.23-3.328M10.5 9.5h-6" stroke="currentColor" stroke-linecap="round" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-Chevron"><path d="M11.23 10.498 7 13.826M11.23 8.506 7 5.178" stroke="currentColor" stroke-linecap="round" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-arrowOut"><path d="M7.026 5.611h6.364v6.364M5.611 13.39l7.425-7.425" stroke="currentColor" stroke-linecap="round" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-close"><path d="m14.096 4.904-9.192 9.192M14.096 14.096l-2.298-2.298-.884-.884m-6.01-6.01 2.298 2.298.884.884" stroke="currentColor" stroke-linecap="round" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-eye"><mask id="icon-eye_a" fill="#fff"><path d="M9.423 5c3.248 0 6.17 1.51 8.208 3.917a.901.901 0 0 1 0 1.166C15.593 12.491 12.671 14 9.423 14s-6.17-1.51-8.208-3.917a.901.901 0 0 1 0-1.166C3.253 6.51 6.175 5 9.423 5Z" /></mask><path d="M9.423 5V4v1Zm0 9v1-1Zm8.208-5.083.763-.647-.763.647Zm0 1.166-.763-.646.763.646ZM9.423 5v1C12.349 6 15 7.358 16.868 9.563l.763-.646.763-.647C16.185 5.661 12.993 4 9.423 4v1Zm8.208 5.083-.763-.646C15.001 11.642 12.348 13 9.423 13v2c3.57 0 6.762-1.661 8.971-4.27l-.763-.647ZM9.423 14v-1c-2.926 0-5.578-1.358-7.445-3.563l-.763.646-.764.647C2.661 13.339 5.853 15 9.423 15v-1ZM1.215 8.917l.763.646C3.845 7.358 6.497 6 9.423 6V4C5.853 4 2.66 5.661.45 8.27l.764.647Zm0 1.166.763-.646c.03.036.03.09 0 .126l-.763-.646L.45 8.27a1.901 1.901 0 0 0 0 2.46l.764-.647ZM17.63 8.917l-.763.646a.099.099 0 0 1 0-.126l.763.646.763.647a1.901 1.901 0 0 0 0-2.46l-.763.647Z" fill="currentColor" mask="url(#icon-eye_a)" /><circle cx="9.501" cy="8" r="2.5" stroke="currentColor" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-insta"><path d="M11.776 6.564a.66.66 0 1 1 1.32 0 .66.66 0 0 1-1.32 0Z" fill="currentColor" /><path fill-rule="evenodd" clip-rule="evenodd" d="M7.008 9.586a2.578 2.578 0 1 1 5.156 0 2.578 2.578 0 0 1-5.156 0Zm4.25 0a1.66 1.66 0 1 1-3.321 0 1.66 1.66 0 0 1 3.322 0Z" fill="currentColor" /><path fill-rule="evenodd" clip-rule="evenodd" d="M9.5 4c-1.493 0-1.68.007-2.267.033-.586.027-.986.12-1.335.256-.362.14-.669.328-.975.634a2.7 2.7 0 0 0-.634.974c-.137.35-.23.75-.256 1.335C4.007 7.819 4 8.006 4 9.5c0 1.494.007 1.68.033 2.267.027.586.12.985.256 1.335.14.362.328.669.634.974.306.306.613.495.974.635.35.136.75.229 1.335.256.587.026.774.033 2.268.033 1.494 0 1.68-.007 2.267-.033.586-.027.986-.12 1.336-.256.361-.14.668-.329.973-.635.306-.305.494-.612.635-.974.136-.35.228-.75.256-1.335.026-.586.033-.773.033-2.267 0-1.494-.007-1.681-.033-2.268-.028-.585-.12-.985-.256-1.335a2.698 2.698 0 0 0-.635-.974 2.687 2.687 0 0 0-.974-.634c-.35-.136-.75-.229-1.336-.256C11.18 4.007 10.993 4 9.5 4H9.5Zm-.183.991h.184c1.468 0 1.642.005 2.222.032.536.024.827.114 1.021.19.257.099.44.218.632.41.193.193.312.376.412.633.075.194.165.485.19 1.021.026.58.031.754.031 2.222 0 1.467-.005 1.642-.032 2.221-.024.537-.114.828-.19 1.021a1.7 1.7 0 0 1-.41.632 1.702 1.702 0 0 1-.633.412c-.193.075-.485.165-1.021.19-.58.026-.754.031-2.222.031-1.47 0-1.643-.005-2.223-.032-.536-.025-.827-.114-1.021-.19-.257-.1-.44-.218-.633-.41a1.704 1.704 0 0 1-.411-.633c-.076-.194-.165-.485-.19-1.021-.026-.58-.031-.754-.031-2.223 0-1.468.005-1.642.031-2.221.025-.537.114-.828.19-1.022.1-.256.219-.44.411-.632.193-.193.376-.312.633-.412.194-.075.485-.165 1.021-.19.507-.022.704-.03 1.73-.03v.001h.31Z" fill="currentColor" /></symbol><symbol fill="none"  viewBox="0 0 78 26" id="icon-logo"><path d="M2.516 23.907h14.276V26H0V.035h2.516v23.872ZM68.752 0c1.406 0 2.679.194 3.746.584 1.067.388 1.952.92 2.655 1.595a6.576 6.576 0 0 1 1.583 2.35c.353.89.527 1.84.527 2.845h-2.286c0-.937-.171-1.748-.51-2.436a4.611 4.611 0 0 0-1.39-1.68 6.016 6.016 0 0 0-2.005-.961 8.767 8.767 0 0 0-2.322-.309c-1.22 0-2.246.167-3.078.497-.832.331-1.496.76-1.988 1.287a4.32 4.32 0 0 0-1.02 1.749 4.103 4.103 0 0 0-.106 1.92c.14.8.468 1.439.985 1.92.515.48 1.149.874 1.9 1.183.75.309 1.577.56 2.479.754.902.194 1.823.4 2.762.617.938.218 1.846.475 2.725.77.88.298 1.659.697 2.339 1.2a5.578 5.578 0 0 1 1.636 1.937c.41.79.616 1.778.616 2.966 0 2.286-.809 4.059-2.428 5.316-1.618 1.256-3.894 1.886-6.824 1.886-1.313 0-2.532-.166-3.658-.497-1.126-.33-2.098-.833-2.92-1.508a6.935 6.935 0 0 1-1.915-2.505c-.457-.996-.687-2.165-.687-3.514h2.323l.002.008c.093 1.097.344 2.029.755 2.794a5.51 5.51 0 0 0 1.583 1.868c.645.48 1.39.83 2.233 1.046.843.218 1.746.326 2.709.326 1.126 0 2.098-.138 2.919-.413.82-.274 1.49-.645 2.006-1.114a4.362 4.362 0 0 0 1.142-1.629c.247-.617.37-1.269.37-1.954 0-.962-.224-1.738-.668-2.334a5.105 5.105 0 0 0-1.74-1.458c-.717-.377-1.537-.68-2.464-.909-.927-.229-1.876-.45-2.848-.669a32.416 32.416 0 0 1-2.849-.77 9.01 9.01 0 0 1-2.463-1.201 5.845 5.845 0 0 1-1.741-1.938c-.446-.789-.67-1.789-.67-3 0-.845.182-1.67.546-2.47.364-.8.902-1.508 1.619-2.126.716-.617 1.613-1.108 2.691-1.474C66.102.183 67.346 0 68.752 0ZM29.341.035c1.717 0 3.134.192 4.253.574 1.116.383 2.002.91 2.652 1.58a5.538 5.538 0 0 1 1.362 2.317c.258.874.387 1.789.387 2.746 0 1.436-.301 2.62-.902 3.554a6.614 6.614 0 0 1-2.34 2.209c-.956.537-2.043.914-3.258 1.13a20.885 20.885 0 0 1-3.664.324h-5.67v11.418h-2.507V.035h9.687Zm18.755 0 .798 2.085-5.192 13.57h10.385l.798 2.082h-12.03l-3.13 8.115h-2.578L47.569.035h.528ZM22.16 12.385h5.741c1.18 0 2.234-.07 3.168-.215.933-.144 1.725-.412 2.375-.808a4.051 4.051 0 0 0 1.511-1.615c.356-.682.534-1.575.534-2.675 0-1.628-.546-2.86-1.637-3.697-1.094-.837-2.83-1.257-5.211-1.257h-6.48v10.268Z" fill="currentcolor" /></symbol><symbol class="menuLine" viewBox="0 0 29 29" fill="none"  id="icon-menu"><path class="menuLineTwo" d="M4 18h21" stroke="currentColor" stroke-linecap="round" /><g class="menuLinesGroup" stroke="currentColor" stroke-linecap="round"><path class="menuLineOne" d="M4 11h21" /><path class="menuLineThree" d="M4 11h21" /></g></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-plus"><path d="M16 9.5H3M9.5 16v-4m0-9v4" stroke="currentColor" stroke-linecap="round" /></symbol></svg>
+		
+		
+					<header class="mainHeader">
+									<div class="navigationMain" data-control="NavigationMain" data-grid="grid-template">
+    <div class="navigationMain__topBar">
+        <a href="index.html" class="navigationMain__topBarLogo" aria-label="청산도 취향섬 홈으로">
+            <img class="icon icon-logo" src="img/logo_white_wide.png" alt="청산도 취향섬"><img class="topBarMark" src="img/logo_white_mark.png" alt="청산도 취향섬">
+        </a>
+        <nav class="topBarMenu" aria-label="상단 메뉴"><ul><li><a href="cheongsando.html">청산도 취향섬</a></li><li><a href="masterplan.html">마스터플랜</a></li><li><a href="invest.html">투자의 이유</a></li><li><a href="ecosystem.html">건축과 운영</a></li><li><a href="archive.html">설계 노트</a></li><li><a href="consult.html">분양 문의</a></li></ul></nav>
+        <div class="navigationMain__topBarItems">
+            <div class="navigationMain__subItems">
+                <div class="navigationMain__projects">
+                    <a href="https://lpas.com/portfolio/" class="buttonClose" data-history-back >
+    <svg class="icon icon-close
+"
+aria-hidden="true"
+focusable="false">
+    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use>
+</svg>
+</a>
+                </div>
+                <div class="marketsMenu" data-menustatetoggle>
+    <span class="marketsMenu__text font-S" >Shift your focus</span>
+    <nav aria-label="Markets navigation">
+        <ul class="marketsMenu__wrapper" >
+                <li class="marketsMenu__item" data-marketcolor="housing" data-marketindex="1">
+                    <a href="cheongsando.html" aria-label="청산도 취향섬 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">청산도 취향섬</span>
+                    </a>
+                </li>
+                <li class="marketsMenu__item" data-marketcolor="interiors" data-marketindex="2">
+                    <a href="masterplan.html" aria-label="마스터플랜 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">마스터플랜</span>
+                    </a>
+                </li>
+                <li class="marketsMenu__item" data-marketcolor="civic" data-marketindex="3">
+                    <a href="invest.html" aria-label="투자의 이유 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">투자의 이유</span>
+                    </a>
+                </li>
+                <li class="marketsMenu__item" data-marketcolor="higherEducation" data-marketindex="4" current-menu>
+                    <a href="ecosystem.html" aria-label="건축과 운영 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">건축과 운영</span>
+                    </a>
+                </li>
+                <li class="marketsMenu__item" data-marketcolor="sand" data-marketindex="5">
+                    <a href="archive.html" aria-label="설계 노트 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">설계 노트</span>
+                    </a>
+                </li>
+                <li class="marketsMenu__item" data-marketcolor="commercial" data-marketindex="6">
+                    <a href="consult.html" aria-label="분양 문의 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">분양 문의</span>
+                    </a>
+                </li>
+                    </ul>
+    </nav>
+</div>
+            </div>
+            <button tabindex="0" class="buttonMenu" data-menu="closed" aria-expanded="false" aria-controls="mainNavigation" aria-label="Toggle navigation menu">
+    <span class="buttonMenu__text buttonMenu__text font-XS" aria-hidden="true">
+    <span class="buttonMenu__textMenu">Menu</span>
+    <span class="buttonMenu__textClose">Close</span>
+    </span>
+    <svg class="menuLine" width="100%" height="100%" viewbox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="menuLineTwo" d="M4 18H25" stroke="currentColor" stroke-linecap="round"/>
+
+        <g class="menuLinesGroup">
+            <path class="menuLineOne" d="M4 11H25" stroke="currentColor" stroke-linecap="round"/>
+            <path class="menuLineThree" d="M4 11H25" stroke="currentColor" stroke-linecap="round"/>
+        </g>
+    </svg>
+</button>
+            <button type="button" class="buttonChat" aria-label="챗봇 상담 (준비 중)">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5h16v10H9.5L5.5 19v-3.5H4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <nav id="mainNavigation" class="navigationMain__dropDown" aria-hidden="true" data-menustatetoggle>
+        <div class="navigationMain__dropDownLine"></div>
+        <div class="navigationMain__dropDownWrapper">
+                            <ul class="navigationMain__mainMenu">
+                    <li class="font-S--Semibold navigationMain__mainMenuTitle">Our Focus</li>
+                                            <li class="font-XL navigationMain__mainMenuWrapper">
+                            <a class="navigationMain__mainMenuItem" href="cheongsando.html" target="_self">청산도 취향섬<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>취향섬 소개</span></a>
+                        </li>
+                                            <li class="font-XL navigationMain__mainMenuWrapper">
+                            <a class="navigationMain__mainMenuItem" href="masterplan.html" target="_self">마스터플랜<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>15 Islands</span></a>
+                        </li>
+                                            <li class="font-XL navigationMain__mainMenuWrapper">
+                            <a class="navigationMain__mainMenuItem" href="invest.html" target="_self">투자의 이유<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Why Buy</span></a>
+                        </li>
+                                            <li class="font-XL navigationMain__mainMenuWrapper">
+                            <a class="navigationMain__mainMenuItem" href="ecosystem.html" target="_self">건축과 운영<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Ecosystem</span></a>
+                        </li>
+                                            <li class="font-XL navigationMain__mainMenuWrapper">
+                            <a class="navigationMain__mainMenuItem" href="archive.html" target="_self">설계 노트<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Archive</span></a>
+                        </li>
+                                            <li class="font-XL navigationMain__mainMenuWrapper">
+                            <a class="navigationMain__mainMenuItem" href="consult.html" target="_self">분양 문의<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Contact us</span></a>
+                        </li>
+                                            </ul>
+                        <div class="navigationMain__subMenu">
+                                    <ul class="navigationMain__subMenu--explore">
+                        <li class="font-S--Semibold navigationMain__subMenuTitle">Explore our</li>
+                                                    <li class="font-M navigationMain__subMenuWrapper">
+                                <a class="navigationMain__subMenuItem" href="https://www.2look.co.kr/" target="_blank" rel="noopener noreferrer">Portfolio</a>
+                            </li>
+                                            </ul>
+                                                    <ul class="navigationMain__subMenu--company">
+                        <li class="font-S--Semibold navigationMain__subMenuTitle">Company</li>
+                                                    <li class="font-M navigationMain__companyMenuWrapper">
+                                <a class="navigationMain__subMenuItem" href="https://2look.co.kr" target="_blank" rel="noopener noreferrer">2LOOK</a>
+                            </li>
+                                                    <li class="font-M navigationMain__companyMenuWrapper">
+                                <a class="navigationMain__subMenuItem" href="https://miicon.com" target="_blank" rel="noopener noreferrer">Miicon</a>
+                            </li>
+                                                    </ul>
+                            </div>
+
+            <div class="navigationMain__social">
+                                    
+<a  href="https://www.youtube.com/@we2look"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank" rel="noopener noreferrer"     >
+            <span class="font-s">유튜브</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                    
+<a  href="https://www.instagram.com/we2look/"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank" rel="noopener noreferrer"     >
+            <span class="font-s">인스타그램</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                    
+<a  href="https://m.blog.naver.com/we2look"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank" rel="noopener noreferrer"     >
+            <span class="font-s">블로그</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                            </div>
+
+                            <div class="navigationMain__contactOne">
+                    <div class="contactInfo">
+    <h2 class="font-S--SemiBold contactInfo__Label">주식회사 이룩</h2>
+            <a class="font-S" href="https://maps.google.com/?q=서울특별시%20구로구%20구로중앙로25길%202-9" target="_blank" rel="noopener noreferrer" aria-label="서울특별시 구로구 구로중앙로25길 2-9 지도에서 보기"><p>서울특별시 구로구 구로중앙로25길 2-9</p>
+</a>
+                <a class="font-S" href="tel:070-8682-0255" aria-label="070-8682-0255로 전화하기">070-8682-0255</a>
+                
+<a href="mailto:we2look@gmail.com" data-color="white" data-open="" class="buttonLine" target="_blank">
+            <span class="font-s">E-mail</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+    </div>
+                </div>
+                                        <div class="navigationMain__contactTwo">
+                    <div class="contactInfo">
+    <h2 class="font-S--SemiBold contactInfo__Label">청산도 취향섬</h2>
+            <a class="font-S" href="https://maps.google.com/?q=전라남도%20완도군%20청산면%20동촌리%20271번지%20일원" target="_blank" rel="noopener noreferrer" aria-label="전라남도 완도군 청산면 동촌리 271번지 일원 지도에서 보기"><p>전라남도 완도군 청산면 동촌리 271번지 일원</p>
+</a>
+                <a class="font-S" href="tel:070-8682-0255" aria-label="070-8682-0255로 전화하기">070-8682-0255</a>
+                
+<a href="mailto:we2look@gmail.com" data-color="white" data-open="" class="buttonLine" target="_blank">
+            <span class="font-s">E-mail</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+    </div>
+                </div>
+                    </div>
+    </nav>
+</div>
+
+							</header>
+			<main id="swup" class="mainContent" aria-label="Content">
+<section class="chqHero"><div class="chqWrap"><p class="chqLabel chqR"><b>분양 안내</b>Sales Guide</p><h1 class="chqHero__title chqR" data-d="1">15개의 섬,<br>한 장으로 보는 분양 안내</h1><p class="chqHero__sub chqR" data-d="2">271번지 일대 베이직 11필지와 바다 쪽 227번지 프리미엄 4필지. 토지 가격과 포함 범위, 건축비, 절차를 한 장에 정리했습니다.</p><div class="chqBtns chqR" data-d="3"><a class="chqBtn chqBtn--fill" href="consult.html">분양 문의</a><a class="chqBtn" href="masterplan.html">마스터플랜</a></div><div class="chqHero__img chqR" data-d="3"><img src="img/keymap_v3.jpg" alt="취향섬 배치 키맵"></div></div></section>
+<section class="chqSec chqSec--state"><div class="chqWrap"><div class="chqState chqR"><p class="chqState__txt">땅값 안에 <em>설계와 인허가가 들어 있습니다.</em></p><p class="chqState__sub">마스터플랜과 건축 설계, 브랜딩, 인테리어, 스펙북, 토목과 건축 인허가까지 토지 가격에 포함됩니다.</p></div></div></section>
+<section class="chqSec"><div class="chqPin" data-steps="1" data-len="130"><div class="chqPin__stage"><div class="chqWrap chqPin__grid"><div class="chqPin__copy"><div class="chqSec__head"><p class="chqLabel"><b>01 분양 개요</b></p><h2 class="chqSec__title">두 구역,<br>15개의 섬</h2></div><ul class="chqStats chqPin__nums"><li class="chqStat chqPop chqPop--up" data-at="0.05" style="--d:0.0s"><span class="chqStat__num"><span class="chqNum" data-count="11" data-fmt="int" data-scrub data-at="0.05,0.3">11</span><small>베이직</small></span><span class="chqStat__lab">271번지 일대. 일반 유닛 21평 (70㎡), 평당 95만 원.</span></li><li class="chqStat chqPop chqPop--up" data-at="0.36" style="--d:0.15s"><span class="chqStat__num"><span class="chqNum" data-count="4" data-fmt="int" data-scrub data-at="0.36,0.3">4</span><small>프리미엄</small></span><span class="chqStat__lab">바다 쪽 227번지. 확장 유닛 38평 (125㎡), 평당 125만 원.</span></li><li class="chqStat chqPop chqPop--up" data-at="0.66" style="--d:0.3s"><span class="chqStat__num"><span class="chqNum" data-count="15" data-fmt="int" data-scrub data-at="0.66,0.3">15</span><small>개의 섬</small></span><span class="chqStat__lab">분양 가능 15필지. 필지마다 조망이 다릅니다.</span></li></ul></div><div class="chqPin__figs"><figure class="chqFig chqFig--plain chqDraw chqPin__fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" role="img" aria-label="15개 섬의 배치"><path class="ks bgf d" d="M70,130 C150,50 330,40 470,80 C630,120 750,160 735,290 C720,400 540,432 380,420 C220,408 85,380 70,290 Z" stroke-width="1.6" pathLength="1"/><g class="gs" stroke-width="1.6"><path d="M40,200 C180,150 300,250 440,200 C560,160 660,210 790,170" class="d" pathLength="1"/><path d="M40,290 C170,250 320,330 470,290 C600,255 690,300 790,270" class="d" pathLength="1"/><path d="M120,420 C230,350 330,400 450,360 C560,325 650,370 760,330" class="d" pathLength="1"/></g><circle class="k chqPop" data-at="0.0" cx="150" cy="190" r="12"/><circle class="k chqPop" data-at="0.024" cx="210" cy="150" r="12"/><circle class="k chqPop" data-at="0.048" cx="280" cy="120" r="12"/><circle class="k chqPop" data-at="0.072" cx="350" cy="150" r="12"/><circle class="k chqPop" data-at="0.096" cx="300" cy="230" r="12"/><circle class="k chqPop" data-at="0.12" cx="220" cy="270" r="12"/><circle class="k chqPop" data-at="0.144" cx="170" cy="330" r="12"/><circle class="k chqPop" data-at="0.168" cx="260" cy="350" r="12"/><circle class="k chqPop" data-at="0.192" cx="350" cy="300" r="12"/><circle class="k chqPop" data-at="0.216" cx="420" cy="250" r="12"/><circle class="k chqPop" data-at="0.24" cx="440" cy="340" r="12"/><g class="chqPop" data-at="0.26"><text class="k f" x="250" y="60" font-size="22" text-anchor="middle" font-weight="600">베이직 11</text><text class="g m f" x="250" y="86" font-size="15" text-anchor="middle">271번지 일대 · 일반 유닛 21평</text></g><circle class="as chqPop" data-at="0.36" cx="560" cy="160" r="15" stroke-width="3"/><circle class="as chqPop" data-at="0.41" cx="630" cy="200" r="15" stroke-width="3"/><circle class="as chqPop" data-at="0.46" cx="640" cy="290" r="15" stroke-width="3"/><circle class="as chqPop" data-at="0.51" cx="580" cy="350" r="15" stroke-width="3"/><g class="chqPop" data-at="0.56"><text class="at f" x="610" y="100" font-size="22" text-anchor="middle" font-weight="600">프리미엄 4</text><text class="g m f" x="610" y="126" font-size="15" text-anchor="middle">227번지 · 확장 유닛 38평</text></g><g class="chqPop" data-at="0.7"><rect class="ks bgf" x="117" y="377" width="26" height="26" stroke-width="1.8"/><text class="k f" x="150" y="396" font-size="18" text-anchor="start" font-weight="500">웰컴센터</text></g><g class="chqPop" data-at="0.77"><rect class="ks bgf" x="457" y="387" width="26" height="26" stroke-width="1.8"/><text class="k f" x="490" y="406" font-size="18" text-anchor="start" font-weight="500">관리동</text></g><g class="chqPop" data-at="0.84"><rect class="ks bgf" x="487" y="167" width="26" height="26" stroke-width="1.8"/><text class="k f" x="520" y="186" font-size="18" text-anchor="start" font-weight="500">인피니티 풀</text></g></svg></figure></div></div></div></div></section>
+<section class="chqSec chqSec--grey"><div class="chqPin" data-steps="1" data-len="120"><div class="chqPin__stage"><div class="chqWrap chqPin__grid"><div class="chqPin__copy"><div class="chqSec__head"><p class="chqLabel"><b>02 토지 가격</b></p><h2 class="chqSec__title">베이직 95만 원,<br>프리미엄 125만 원</h2><p class="chqLead">평당 금액입니다. 도로 지분을 포함한 분양 면적에 평당 단가를 곱한 기준 산정액입니다.</p></div><ul class="chqStats chqPin__nums"><li class="chqStat chqPop chqPop--up" data-at="0.08" style="--d:0.0s"><span class="chqStat__num"><span class="chqNum" data-count="95" data-fmt="int" data-scrub data-at="0.08,0.4">95</span><small>만 원 / 평</small></span><span class="chqStat__lab">베이직 11필지. 분양 면적 1,682.2평.</span></li><li class="chqStat chqPop chqPop--up" data-at="0.26" style="--d:0.15s"><span class="chqStat__num"><span class="chqNum" data-count="125" data-fmt="int" data-scrub data-at="0.26,0.4">125</span><small>만 원 / 평</small></span><span class="chqStat__lab">프리미엄 4필지. 분양 면적 537평.</span></li></ul></div><div class="chqPin__figs"><div class="chqPin__fig"><div class="chqTableWrap chqR"><table class="chqTable chqTable--sm"><thead><tr class="chqPop chqPop--fade" data-at="0.3" style="--d:0.0s"><th>구역</th><th>필지</th><th>유닛</th><th class="num">대지 합계</th><th class="num">도로 지분</th><th class="num">분양 면적</th><th class="num">금액 합계</th></tr></thead><tbody><tr class="chqPop chqPop--fade" data-at="0.42" style="--d:0.06s"><td>271번지 일대</td><td>11필지</td><td>일반 유닛 21평</td><td class="num">1,392평</td><td class="num">290.2평</td><td class="num">1,682.2평</td><td class="num">15억 9,808만 원</td></tr><tr class="chqPop chqPop--fade" data-at="0.54" style="--d:0.12s"><td>227번지</td><td>4필지</td><td>확장 유닛 38평</td><td class="num">474평</td><td class="num">63평</td><td class="num">537평</td><td class="num">6억 7,124만 원</td></tr></tbody></table></div></div></div></div></div></div></section>
+<section class="chqSec"><div class="chqPin chqPin--full" data-steps="1" data-len="140"><div class="chqPin__stage"><div class="chqWrap"><div class="chqSec__head"><p class="chqLabel"><b>03 필지별 금액</b></p><h2 class="chqSec__title">15개 섬의 기준 금액</h2></div><div class="chqMt2"><div class="chqChart" role="img" aria-label="15개 필지의 기준 금액"><ol class="chqChart__plot" style="--n:15"><div class="chqChart__grid"><div class="chqChart__gl" style="bottom:25.4%"><span>5,000만</span></div><div class="chqChart__gl" style="bottom:50.8%"><span>1억</span></div><div class="chqChart__gl" style="bottom:76.2%"><span>1억 5,000만</span></div></div><li class="chqChart__bar" style="--v:0.5541" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="10906" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 906</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">1번</span></li><li class="chqChart__bar" style="--v:0.8457" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="16647" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 6,647</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">2번</span></li><li class="chqChart__bar" style="--v:0.8399" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="16532" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 6,532</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">3번</span></li><li class="chqChart__bar" style="--v:0.8107" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="15958" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 5,958</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">4번</span></li><li class="chqChart__bar" style="--v:0.7174" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="14121" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 4,121</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">5번</span></li><li class="chqChart__bar" style="--v:0.7757" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="15269" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 5,269</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">6번</span></li><li class="chqChart__bar" style="--v:0.6182" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="12169" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 2,169</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">7번</span></li><li class="chqChart__bar" style="--v:0.6649" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="13088" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 3,088</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">8번</span></li><li class="chqChart__bar" style="--v:0.6882" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="13547" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 3,547</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">9번</span></li><li class="chqChart__bar" style="--v:0.8573" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="16876" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 6,876</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">10번</span></li><li class="chqChart__bar" style="--v:0.7465" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="14695" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 4,695</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">11번</span></li><li class="chqChart__bar chqChart__bar--acc" style="--v:0.8129" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="16002" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 6,002</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">A</span></li><li class="chqChart__bar chqChart__bar--acc" style="--v:0.741" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="14586" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 4,586</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">B</span></li><li class="chqChart__bar chqChart__bar--acc" style="--v:0.8561" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="16852" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 6,852</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">C</span></li><li class="chqChart__bar chqChart__bar--acc" style="--v:1.0" data-hl=""><div class="chqChart__track"><span class="chqChart__val"><span class="chqNum" data-count="19684" data-fmt="eok" data-scrub>1<small class="chqEok">억</small> 9,684</span></span><i class="chqChart__fill"></i></div><span class="chqChart__lab">D</span></li></ol><p class="chqChart__cap">막대 높이는 필지별 기준 금액(만 원), 초록은 프리미엄 4필지입니다.</p></div></div><ul class="chqLegend chqR"><li><i></i>베이직 11필지 · 평당 95만 원 · 합계 15억 9,808만 원</li><li><i class="a"></i>프리미엄 4필지 · 평당 125만 원 · 합계 6억 7,124만 원</li></ul></div></div></div><div class="chqWrap"><div class="chqPin__after"><p class="chqSmall chqR">출처: 청산도 분양 정리 3쪽과 4쪽, 2026년 10월 22일 수정. 웰컴센터 부지 287평은 건물과 함께 매각할 예정이라 금액을 따로 정합니다. 조망과 대지 조건에 따른 최종 분양가는 상담 시 안내합니다.</p></div></div></section>
+<section class="chqSec chqSec--grey"><div class="chqWrap"><div class="chqSec__head chqR"><p class="chqLabel"><b>04 토지 가격에 포함</b></p><h2 class="chqSec__title">설계와 인허가까지,<br>여섯 가지</h2></div><div class="chqIncl chqR"><p class="chqMono chqIncl__tag"><i></i>토지 가격 (평당 95만 원 기준) 안에 포함</p><div class="chqBento"><div class="chqCell chqR"><span class="chqCell__k">01</span><p class="chqCell__t">마스터플랜과 건축 설계</p><p class="chqCell__d">마스터플랜 배치와 유닛 계획, 평면과 입면, 단면과 동선 설계</p></div><div class="chqCell chqR"><span class="chqCell__k">02</span><p class="chqCell__t">진입로와 조경 설계</p><p class="chqCell__d">대지 전체를 하나의 건축으로 그리는 조경과 진입로, 주차장 설계</p></div><div class="chqCell chqR"><span class="chqCell__k">03</span><p class="chqCell__t">브랜딩</p><p class="chqCell__d">이름과 로고, 스테이용 사인과 어매니티 브랜딩</p></div><div class="chqCell chqR"><span class="chqCell__k">04</span><p class="chqCell__t">인테리어 설계</p><p class="chqCell__d">실내 입면과 가구 디자인, 톤앤매너 보드</p></div><div class="chqCell chqR"><span class="chqCell__k">05</span><p class="chqCell__t">마감재 스펙북과 실시설계</p><p class="chqCell__d">단열과 마감재, 창호, 욕실, 주방, 조명, 가구와 가전, 조경의 스펙북</p></div><div class="chqCell chqR"><span class="chqCell__k">06</span><p class="chqCell__t">토목과 건축 인허가, 구조계산</p><p class="chqCell__d">구조계산과 안전 승인, 토목과 건축 인허가</p></div></div></div><p class="chqSmall chqR">출처: 청산도 분양 정리 2쪽.</p></div></section>
+<section class="chqSec chqSec--state"><div class="chqWrap"><div class="chqState chqR"><p class="chqState__txt">공장에서 만들고, <em>섬에서 세웁니다.</em></p><p class="chqState__sub">미콘 공장에서 골조와 단열을 한 몸으로 만든 PC 부재를 섬으로 옮겨 세웁니다. 골조 단가 평당 1,000만 원에 단열과 운반, 설치가 들어 있습니다.</p></div></div></section>
+<section class="chqSec chqSec--dark"><div class="chqPin" data-steps="1" data-len="130"><div class="chqPin__stage"><div class="chqWrap chqPin__grid"><div class="chqPin__copy"><div class="chqSec__head"><p class="chqLabel"><b>05 건축비</b></p><h2 class="chqSec__title">일반 3억 2,180만 원,<br>확장 5억 2,770만 원</h2></div><ul class="chqStats chqPin__nums"><li class="chqStat chqPop chqPop--up" data-at="0.08" style="--d:0.0s"><span class="chqStat__num"><span class="chqNum" data-count="32180" data-fmt="eok" data-scrub data-at="0.08,0.4">3<small class="chqEok">억</small> 2,180</span><small>만 원</small></span><span class="chqStat__lab">일반 유닛 21평 (70㎡). 골조부터 조경까지 8개 항목 합계.</span></li><li class="chqStat chqPop chqPop--up" data-at="0.26" style="--d:0.15s"><span class="chqStat__num"><span class="chqNum" data-count="52770" data-fmt="eok" data-scrub data-at="0.26,0.4">5<small class="chqEok">억</small> 2,770</span><small>만 원</small></span><span class="chqStat__lab">확장 유닛 38평 (125㎡). 227번지 프리미엄 기준.</span></li></ul></div><div class="chqPin__figs"><div class="chqPin__fig"><div class="chqTableWrap chqR"><table class="chqTable"><thead><tr class="chqPop chqPop--fade" data-at="0.1" style="--d:0.0s"><th>항목</th><th class="num">일반 유닛 21평 (70㎡)</th><th class="num">확장 유닛 38평 (125㎡)</th></tr></thead><tbody><tr class="chqPop chqPop--fade" data-at="0.145" style="--d:0.06s"><td>골조 (단열, 운반, 설치 포함)</td><td class="num">2억 1,000만 원</td><td class="num">3억 8,000만 원</td></tr><tr class="chqPop chqPop--fade" data-at="0.19" style="--d:0.12s"><td>전기 (배선 공사 포함)</td><td class="num">780만 원</td><td class="num">1,020만 원</td></tr><tr class="chqPop chqPop--fade" data-at="0.235" style="--d:0.18s"><td>설비 (정화조 포함)</td><td class="num">2,500만 원</td><td class="num">3,350만 원</td></tr><tr class="chqPop chqPop--fade" data-at="0.28" style="--d:0.24s"><td>창호</td><td class="num">2,100만 원</td><td class="num">2,900만 원</td></tr><tr class="chqPop chqPop--fade" data-at="0.325" style="--d:0.3s"><td>내장</td><td class="num">2,800만 원</td><td class="num">3,500만 원</td></tr><tr class="chqPop chqPop--fade" data-at="0.37" style="--d:0.36s"><td>가구 (주방, 붙박이장, 선반장)</td><td class="num">1,000만 원</td><td class="num">2,000만 원</td></tr><tr class="chqPop chqPop--fade" data-at="0.415" style="--d:0.42s"><td>조경 (50에서 70평)</td><td class="num">1,200만 원</td><td class="num">1,200만 원</td></tr><tr class="chqPop chqPop--fade" data-at="0.46" style="--d:0.48s"><td>현장 가설</td><td class="num">800만 원</td><td class="num">800만 원</td></tr></tbody><tfoot><tr class="chqPop chqPop--fade" data-at="0.505" style="--d:0.54s"><td>합계</td><td class="num">3억 2,180만 원</td><td class="num">5억 2,770만 원</td></tr></tfoot></table></div></div></div></div></div></div><div class="chqWrap"><div class="chqPin__after"><p class="chqNote chqR">섬 지역이라 건축비를 1.5배로 예상해 잡은 금액입니다. 부가세는 85㎡ 이하 주택이 면세라 21평(70㎡)은 면세, 38평(125㎡)은 과세 대상입니다.</p><p class="chqSmall chqR">출처: 청산도 분양 정리 5쪽과 11쪽, 분양 예상 비용 정리 2026년 10월 17일.</p></div></div></section>
+<section class="chqSec"><div class="chqWrap"><div class="chqSec__head chqR"><p class="chqLabel"><b>06 별도 비용과 세금</b></p><h2 class="chqSec__title">합계에 빠진 것과<br>살 때 내는 세금</h2></div><div class="chqBento"><div class="chqCell chqR chqCell--3"><span class="chqCell__k">01 분담금</span><p class="chqCell__big"><span class="chqNum" data-count="1500" data-fmt="int">1,500</span><small>만 원</small></p><p class="chqCell__t">베이직 필지 1동당</p><p class="chqCell__d">위성섬 공사비와 인피니티 풀 분담금. 베이직 11필지가 나눕니다.</p></div><div class="chqCell chqR chqCell--3"><span class="chqCell__k">02 CCTV</span><p class="chqCell__big"><span class="chqNum" data-count="100" data-fmt="int">100</span><small>만 원</small></p><p class="chqCell__t">선택 시 일반 유닛</p><p class="chqCell__d">확장 유닛은 120만 원.</p></div><div class="chqCell chqR chqCell--3"><span class="chqCell__k">03 토지 취득세</span><p class="chqCell__big"><span class="chqNum" data-count="4.6" data-fmt="dec1">4.6</span><small>%</small></p><p class="chqCell__t">토지를 살 때</p><p class="chqCell__d">취득세, 지방교육세, 농어촌특별세 합계. 1억 5,000만 원이면 690만 원.</p></div><div class="chqCell chqR chqCell--3"><span class="chqCell__k">04 신축 취득세</span><p class="chqCell__big"><span class="chqNum" data-count="3.16" data-fmt="dec2">3.16</span><small>%</small></p><p class="chqCell__t">집을 새로 지을 때</p><p class="chqCell__d">취득세, 지방교육세, 농어촌특별세 합계. 공사비 3억 2,000만 원이면 약 1,011만 원.</p></div></div><p class="chqNote chqR">세율과 요건은 1주택 기준으로 정리한 참고 자료이며, 실제 적용은 세무서와 세무사 확인이 필요합니다.</p><p class="chqSmall chqR">출처: 청산도 분양 정리 5쪽, 6쪽, 11쪽.</p></div></section>
+<section class="chqSec chqSec--grey"><div class="chqPin chqPin--full" data-steps="1" data-len="110"><div class="chqPin__stage"><div class="chqWrap"><div class="chqSec__head"><p class="chqLabel"><b>07 분양 절차</b></p><h2 class="chqSec__title">신청부터 계약까지,<br>네 단계</h2></div><ol class="chqSteps"><li class="chqStep chqPop chqPop--up" data-at="0.15" style="--d:0.0s" data-d="0"><span class="chqStep__no">01</span><h3 class="chqStep__title">온라인 신청</h3><p class="chqStep__text">아래 양식에 성함과 연락처, 관심 유형, 미팅 희망 방식을 남겨 주세요. 확인 후 연락드립니다.</p></li><li class="chqStep chqPop chqPop--up" data-at="0.25" style="--d:0.12s" data-d="1"><span class="chqStep__no">02</span><h3 class="chqStep__title">1:1 미팅</h3><p class="chqStep__text">설계실 미팅, 현장 답사, 유선 상담 중 편한 방식으로 프레젠테이션을 진행합니다.</p></li><li class="chqStep chqPop chqPop--up" data-at="0.35" style="--d:0.24s" data-d="2"><span class="chqStep__no">03</span><h3 class="chqStep__title">필지와 유닛 선택</h3><p class="chqStep__text">마스터플랜의 15개 섬 가운데 조망과 크기가 맞는 필지, 일반 유닛과 확장 유닛 중 원하는 유닛을 고릅니다.</p></li><li class="chqStep chqPop chqPop--up" data-at="0.45" style="--d:0.36s" data-d="3"><span class="chqStep__no">04</span><h3 class="chqStep__title">계약과 설계 착수</h3><p class="chqStep__text">토지 계약 뒤 토지 가격에 포함된 설계와 인허가를 진행합니다.</p></li></ol></div></div></div></section>
+<section class="chqSec"><div class="chqWrap"><div class="chqSec__head chqR"><p class="chqLabel"><b>08 상담 방법</b></p><h2 class="chqSec__title">설계실, 현장,<br>전화</h2></div><div class="chqBento"><div class="chqCell chqR"><span class="chqCell__k">01 설계실</span><p class="chqCell__t">서울 설계실 미팅</p><p class="chqCell__d">서울시 구로구 구로중앙로25길 2-9 스튜디오 이룩 설계실에서 1:1 프레젠테이션으로 마스터플랜과 유닛, 건축비를 설명해 드립니다.</p></div><div class="chqCell chqR"><span class="chqCell__k">02 현장</span><p class="chqCell__t">청산도 현장 답사</p><p class="chqCell__d">전라남도 완도군 청산면 동촌리 271번지 일대와 227번지. 섬의 자리와 조망을 현장에서 직접 확인하실 수 있습니다.</p></div><div class="chqCell chqR"><span class="chqCell__k">03 전화</span><p class="chqCell__t">유선 상담</p><p class="chqCell__d">먼저 전화로 궁금한 점을 여쭤보실 수 있습니다. 070-8682-0255.</p></div></div><ul class="chqContact chqR"><li><b>설계실</b>서울시 구로구 구로중앙로25길 2-9</li><li><b>전화</b><a href="tel:07086820255">070-8682-0255</a></li><li><b>이메일</b><a href="mailto:we2look@gmail.com">we2look@gmail.com</a></li></ul></div></section>
+<section class="chqSec chqSec--darkFixed chqSec--cta"><div class="chqPin" data-steps="1" data-len="150"><div class="chqPin__stage"><div class="chqWrap"><div class="chqSec__head"><h2 class="chqSec__title chqPop chqPop--up" data-at="0.08" style="--d:0s"><span>필지와 유닛을 정해</span><br><span>상담을 신청하세요</span></h2></div><div class="chqBtns"><a class="chqBtn chqPop chqPop--up chqBtn--fill" data-at="0.34" style="--d:.4s" href="consult.html">분양 문의</a><a class="chqBtn chqPop chqPop--up" data-at="0.34" style="--d:.4s" href="masterplan.html">마스터플랜</a></div></div></div></div></section>
+</main>
+							<footer  data-watchfooter id="swupFooter" data-grid="grid-template" class="navigationFooter" data-control="NavigationFooter">
+    <div class="navigationFooter__topSection">
+        <div class="navigationFooter__mainImage">
+                    
+        
+<img class="image" src="img/footer_premium_interior.jpg" alt="프리미엄 유닛 실내">
+        </div>
+                            <div class="navigationFooter__line"></div>
+                            <ul class="navigationFooter__mainMenu">
+                    <li class="font-S--Semibold">Our Focus</li>
+                                            <li class="font-XL navigationFooter__menuItemWrapper">
+                            <a class="navigationFooter__menuItem" href="cheongsando.html" target="_self">청산도 취향섬<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>취향섬 소개</span></a>
+                        </li>
+                                            <li class="font-XL navigationFooter__menuItemWrapper">
+                            <a class="navigationFooter__menuItem" href="masterplan.html" target="_self">마스터플랜<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>15 Islands</span></a>
+                        </li>
+                                            <li class="font-XL navigationFooter__menuItemWrapper">
+                            <a class="navigationFooter__menuItem" href="invest.html" target="_self">투자의 이유<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Why Buy</span></a>
+                        </li>
+                                            <li class="font-XL navigationFooter__menuItemWrapper">
+                            <a class="navigationFooter__menuItem" href="ecosystem.html" target="_self">건축과 운영<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Ecosystem</span></a>
+                        </li>
+                                            <li class="font-XL navigationFooter__menuItemWrapper">
+                            <a class="navigationFooter__menuItem" href="archive.html" target="_self">설계 노트<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Archive</span></a>
+                        </li>
+                                            <li class="font-XL navigationFooter__menuItemWrapper">
+                            <a class="navigationFooter__menuItem" href="consult.html" target="_self">분양 문의<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Contact us</span></a>
+                        </li>
+                                    </ul>
+                        <div class="navigationFooter__subMenu chqFooterSub">
+                    <ul class="chqFooterSub__group">
+                        <li class="font-S--Semibold chqFooterSub__title">Explore our</li>
+                        <li class="font-M navigationFooter__menuItemWrapper chqFooterSub__item">
+                            <a class="navigationFooter__menuItem navigationFooter__menuItem--sub" href="https://www.2look.co.kr/" target="_blank" rel="noopener noreferrer">Portfolio</a>
+                        </li>
+                    </ul>
+                    <ul class="chqFooterSub__group">
+                        <li class="font-S--Semibold chqFooterSub__title">Company</li>
+                        <li class="font-M navigationFooter__menuItemWrapper chqFooterSub__item">
+                            <a class="navigationFooter__menuItem navigationFooter__menuItem--sub" href="https://2look.co.kr" target="_blank" rel="noopener noreferrer">2LOOK</a>
+                        </li>
+                        <li class="font-M navigationFooter__menuItemWrapper chqFooterSub__item">
+                            <a class="navigationFooter__menuItem navigationFooter__menuItem--sub" href="https://miicon.com" target="_blank" rel="noopener noreferrer">Miicon</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    <div class="navigationFooter__bottomSection">
+        <div class="navigationFooter__bottomSection--1">
+            <a href="index.html" class="navigationFooter__bottomSectionLogo" aria-label="청산도 취향섬 홈으로">
+                <img class="chqFooterLogo" src="img/logo_white_mark.png" alt="청산도 취향섬">
+            </a>
+            <div class="navigationFooter__bottomMenu">
+                <div class="navigationFooter__bottomMenuWrapper" data-menustatetoggle>
+                                            <ul class="navigationFooter__bottomMenuList" data-footer-menu="close">
+                            <li class="navigationFooter__bottomMenuButton">
+                                <span class="navigationFooter__buttonTitle">Our Focus</span>
+                                <svg class="icon icon-plus
+"
+aria-hidden="true"
+focusable="false">
+    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-plus"></use>
+</svg>
+                            </li>
+                                                            <li class="navigationFooter__bottomMenuItem">
+                                    
+<a  href="cheongsando.html"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_self"      data-hideline="true" >
+            <span class="font-s">청산도 취향섬</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                            <li class="navigationFooter__bottomMenuItem">
+                                    
+<a  href="masterplan.html"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_self"      data-hideline="true" >
+            <span class="font-s">마스터플랜</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                            <li class="navigationFooter__bottomMenuItem">
+                                    
+<a  href="invest.html"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_self"      data-hideline="true" >
+            <span class="font-s">투자의 이유</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                            <li class="navigationFooter__bottomMenuItem">
+                                    
+<a  href="ecosystem.html"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_self"      data-hideline="true" >
+            <span class="font-s">건축과 운영</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                            <li class="navigationFooter__bottomMenuItem">
+                                    
+<a  href="archive.html"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_self"      data-hideline="true" >
+            <span class="font-s">설계 노트</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                            <li class="navigationFooter__bottomMenuItem">
+                                    
+<a  href="consult.html"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_self"      data-hideline="true" >
+            <span class="font-s">분양 문의</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                    </ul>
+                                                                <ul class="navigationFooter__bottomSubMenu">
+                                                            <li>
+                                    
+<a  href="https://www.2look.co.kr/"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank" rel="noopener noreferrer"      data-hideline="true" >
+            <span class="font-s">Portfolio</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                                                        <li>
+                                    
+<a  href="https://2look.co.kr"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank" rel="noopener noreferrer"      data-hideline="true" >
+            <span class="font-s">2LOOK</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                                                        <li>
+                                    
+<a  href="https://miicon.com"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank" rel="noopener noreferrer"      data-hideline="true" >
+            <span class="font-s">Miicon</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                    </ul>
+                                    </div>
+                <div class="navigationFooter__social">
+                                            
+<a  href="https://www.youtube.com/@we2look"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank"     >
+            <span class="font-s">유튜브</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                            
+<a  href="https://www.instagram.com/we2look/"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank"     >
+            <span class="font-s">인스타그램</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                            
+<a  href="https://m.blog.naver.com/we2look"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank"     >
+            <span class="font-s">블로그</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                    </div>
+            </div>
+        </div>
+        <div class="navigationFooter__bottomSection--2">
+            <div class="navigationFooter__social--sm">
+                                    
+<a  href="https://www.youtube.com/@we2look"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank"     >
+            <span class="font-s">유튜브</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                    
+<a  href="https://www.instagram.com/we2look/"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank"     >
+            <span class="font-s">인스타그램</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                    
+<a  href="https://m.blog.naver.com/we2look"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank"     >
+            <span class="font-s">블로그</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                            </div>
+                            <div class="navigationFooter__contactOne">
+                    <div class="contactInfo">
+    <h2 class="font-S--SemiBold contactInfo__Label">주식회사 이룩</h2>
+            <a class="font-S" href="https://maps.google.com/?q=서울특별시%20구로구%20구로중앙로25길%202-9" target="_blank" rel="noopener noreferrer" aria-label="서울특별시 구로구 구로중앙로25길 2-9 지도에서 보기"><p>서울특별시 구로구 구로중앙로25길 2-9</p>
+</a>
+                <a class="font-S" href="tel:070-8682-0255" aria-label="070-8682-0255로 전화하기">070-8682-0255</a>
+                
+<a href="mailto:we2look@gmail.com" data-color="white" data-open="" class="buttonLine" target="_blank">
+            <span class="font-s">E-mail</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+    </div>
+                </div>
+                                        <div class="navigationFooter__contactTwo">
+                    <div class="contactInfo">
+    <h2 class="font-S--SemiBold contactInfo__Label">청산도 취향섬</h2>
+            <a class="font-S" href="https://maps.google.com/?q=전라남도%20완도군%20청산면%20동촌리%20271번지%20일원" target="_blank" rel="noopener noreferrer" aria-label="전라남도 완도군 청산면 동촌리 271번지 일원 지도에서 보기"><p>전라남도 완도군 청산면 동촌리 271번지 일원</p>
+</a>
+                <a class="font-S" href="tel:070-8682-0255" aria-label="070-8682-0255로 전화하기">070-8682-0255</a>
+                
+<a href="mailto:we2look@gmail.com" data-color="white" data-open="" class="buttonLine" target="_blank">
+            <span class="font-s">E-mail</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+    </div>
+                </div>
+                                        <button class="navigationFooter__bottomText">
+                    Back to top
+                    <svg class="icon icon-Arrow
+"
+aria-hidden="true"
+focusable="false">
+    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use>
+</svg>
+                </button>
+                    </div>
+        <div class="navigationFooter__bottomSection--3 font-S">
+            <div class="navigationFooter__copyright font-S">
+                © 2026. All rights reserved.
+            </div>
+                            <button class="navigationFooter__bottomText navigationFooter__bottomText--sm">
+                    Back to top
+                    <svg class="icon icon-Arrow
+"
+aria-hidden="true"
+focusable="false">
+    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use>
+</svg>
+                </button>
+            
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
+<script src="js/main.js?v=20261016180000"></script>
+<script src="js/sub.js?v=20261023040000"></script>
+</body>
+</html>

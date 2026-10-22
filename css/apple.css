@@ -228,7 +228,7 @@
 .chqPop--up{transform:translateY(2.4rem)}
 .chqPop--fade{transform:none}
 tr.chqPop{transition:opacity .45s ease;transition-delay:var(--d,0s)}
-.chqApple .chqSec--cta .chqSec__title span{display:inline-block;background:linear-gradient(180deg,#f5f5f7 46%,#9a9a9e 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.1em;margin-bottom:-.1em}
+.chqApple .chqSec--cta .chqSec__title span{display:inline-block;background:linear-gradient(180deg,#ffffff 30%,#8a8a8e 72%,#3a3a3e 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.1em;margin-bottom:-.1em}
 .chqApple .chqStats.chqPin__nums{grid-template-columns:1fr;gap:2.4rem;margin-top:3.6rem}
 .chqPin__nums .chqStat__num{font-size:clamp(3.4rem,3.4vw,5rem)}
 .chqPin__nums .chqStat__lab{margin-top:.6rem;font-size:1.4rem;line-height:1.6}
@@ -237,6 +237,8 @@ tr.chqPop{transition:opacity .45s ease;transition-delay:var(--d,0s)}
 .chqPin__copy .chqLead{margin-left:0;margin-right:0;font-size:1.8rem}
 .chqPin--full .chqPin__stage{padding:4rem 0}
 .chqPin--full .chqSec__head{margin-bottom:3.2rem}
+.chqPin--full .chqChart__plot{height:min(36rem,46vh)}
+.chqPin--full .chqChart .chqMt2{margin-top:0}
 .chqPin--full .chqSec__head .chqLead{margin-top:1.6rem;font-size:1.8rem}
 .chqPin .chqGantt{gap:.2rem}
 .chqPin .chqGantt__legend{display:none}
