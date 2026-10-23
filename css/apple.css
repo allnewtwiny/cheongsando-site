@@ -482,3 +482,4 @@ body.chqApple.is-pastHero.is-overDark[data-page=home] .topBarMenu a{color:#f5f5f
 .chqApple .chqV8state{padding:0}
 /* v8: 하단 메뉴 호버 블러 잔상 방지. 흐려지는 글자를 각자 합성 층으로 분리 (2026-10-24) */
 .chqApple .navigationFooter :is(.navigationFooter__mainMenu>li,.chqFooterSub li){will-change:filter;transform:translateZ(0);-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.chqApple .chqFigNote--l+.chqSmall{margin-top:0}
