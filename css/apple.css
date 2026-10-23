@@ -425,3 +425,11 @@ body.chqApple.is-pastHero[data-page=home] .navigationMain__topBar{background:rgb
 .chqApple .chqHero__title{margin-top:0}
 .chqApple .homeHero .chqHeroNote{position:absolute;left:2.4rem;bottom:2rem;margin:0;font-size:1.1rem;color:rgba(255,255,255,.55);z-index:3;pointer-events:none}
 .chqApple .homeHero__main{position:relative}
+/* v5: 메인 여섯 장 버튼 고정과 문장 줄바꿈 (2026-10-23) */
+.chqApple .chqChapters .chqPin__steps{min-height:42rem}
+.chqApple .chqChapters .chqPin__step{top:0;bottom:0;display:flex;flex-direction:column;max-width:50rem}
+.chqApple .chqChapters .chqPin__step .chqText{margin:0}
+.chqApple .chqChapters .chqPin__step .chqBtns{margin-top:auto;padding-top:2.4rem;justify-content:flex-start}
+.chqApple .chqChapters .chqBtn{display:inline-flex;justify-content:center;min-width:16rem;box-sizing:border-box}
+@media (max-width:1023px){.chqApple .chqChapters .chqPin__steps{min-height:0}.chqApple .chqChapters .chqPin__step{display:block}}
+@media (max-width:767px){.chqApple .chqBrD{display:none}}
