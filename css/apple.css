@@ -491,3 +491,6 @@ body.chqApple.is-pastHero.is-overDark[data-page=home] .topBarMenu a{color:#f5f5f
 /* v9: 세 장의 안내 위쪽 여백 확대 */
 .chqApple .chqV9guide{padding-top:24rem}
 @media (max-width:767px){.chqApple .chqV9guide{padding-top:12rem}}
+/* v9: 메인 첫 화면 렌더링 안내를 메뉴 글자 왼쪽 선에 맞춤 */
+.chqApple .homeHero .chqHeroNote{left:4rem}
+@media (max-width:767px){.chqApple .homeHero .chqHeroNote{left:1.6rem}}
