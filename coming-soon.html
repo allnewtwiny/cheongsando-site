@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>청산도 취향섬</title>
+<meta name="description" content="청산도 취향섬 분양 사이트를 준비하고 있습니다.">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%;background:#262626;color:#fff;font-family:"Noto Sans KR",sans-serif;-webkit-font-smoothing:antialiased}
+.cs{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3.2rem;padding:0 1.6rem}
+.cs__logo{width:min(56rem,86vw);height:auto;display:block}
+.cs__txt{opacity:0;transform:translateY(.8rem);transition:opacity 1.2s ease,transform 1.2s ease;text-align:center;line-height:1.7}
+.cs__txt.is-on{opacity:1;transform:none}
+.cs__txt p{margin:0;font-size:1.4rem;font-weight:300;letter-spacing:.04em;color:#cfcfcf}
+.cs__txt p b{display:block;font-size:1.7rem;font-weight:400;color:#fff;margin-bottom:.4rem}
+.cs__foot{position:fixed;left:0;right:0;bottom:2.4rem;text-align:center;font-size:1.1rem;color:#8a8a8a;letter-spacing:.06em;opacity:0;transition:opacity 1.2s ease .4s}
+.cs__foot.is-on{opacity:1}
+.cs__foot a{color:#8a8a8a;text-decoration:none}
+@media (max-width:600px){.cs__txt p{font-size:1.2rem}.cs__txt p b{font-size:1.45rem}}
+</style>
+</head>
+<body>
+<main class="cs">
+<svg class="cs__logo" viewBox="200 230 500 300" aria-label="청산도 취향섬"></svg>
+<div class="cs__txt" id="txt"><p><b>청산도 취향섬</b>분양 사이트를 준비하고 있습니다.</p></div>
+</main>
+<p class="cs__foot" id="foot">STUDIO 2LOOK · <a href="tel:07086820255">070-8682-0255</a></p>
+<script src="js/logointro.js?v=20261014213500"></script>
+<script>
+(function(){
+  var svg=document.querySelector('.cs__logo');
+  if(!window.LogoIntro){document.getElementById('txt').classList.add('is-on');document.getElementById('foot').classList.add('is-on');return;}
+  var play=window.LogoIntro(svg,'#fff'),t0=null;
+  function step(ts){if(t0===null)t0=ts;var t=ts-t0;play.frame(Math.min(t,play.T.end));if(t<play.T.end)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+  setTimeout(function(){document.getElementById('txt').classList.add('is-on');document.getElementById('foot').classList.add('is-on');},Math.max(0,play.T.word-300));
+})();
+</script>
+</body>
+</html>
