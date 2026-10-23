@@ -433,3 +433,27 @@ body.chqApple.is-pastHero[data-page=home] .navigationMain__topBar{background:rgb
 .chqApple .chqChapters .chqBtn{display:inline-flex;justify-content:center;min-width:16rem;box-sizing:border-box}
 @media (max-width:1023px){.chqApple .chqChapters .chqPin__steps{min-height:0}.chqApple .chqChapters .chqPin__step{display:block}}
 @media (max-width:767px){.chqApple .chqBrD{display:none}}
+/* v6: 여섯 장 버튼 하나 고정, 글자만 교차 (2026-10-24) */
+.chqApple .chqChapters .chqPin__steps{min-height:34rem}
+.chqApple .chqChapters .chqChapM{display:none}
+.chqApple .chqChapBtn{position:relative;margin-top:3.2rem;cursor:pointer}
+.chqApple .chqChapBtn:hover{background:var(--fg);color:var(--bg)}
+.chqApple .chqChapBtn__sz{visibility:hidden}
+.chqApple .chqChapBtn__a{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:inherit;text-decoration:none;opacity:0;pointer-events:none;transition:opacity .5s ease}
+.chqApple .chqChapBtn__a:first-of-type{opacity:1;pointer-events:auto}
+.chqApple .chqPin__copy:has(.chqPin__step.is-active) .chqChapBtn__a{opacity:0;pointer-events:none}
+.chqApple .chqPin__copy:has(.chqPin__step:nth-child(1).is-active) .chqChapBtn__a:nth-of-type(1),
+.chqApple .chqPin__copy:has(.chqPin__step:nth-child(2).is-active) .chqChapBtn__a:nth-of-type(2),
+.chqApple .chqPin__copy:has(.chqPin__step:nth-child(3).is-active) .chqChapBtn__a:nth-of-type(3),
+.chqApple .chqPin__copy:has(.chqPin__step:nth-child(4).is-active) .chqChapBtn__a:nth-of-type(4),
+.chqApple .chqPin__copy:has(.chqPin__step:nth-child(5).is-active) .chqChapBtn__a:nth-of-type(5),
+.chqApple .chqPin__copy:has(.chqPin__step:nth-child(6).is-active) .chqChapBtn__a:nth-of-type(6){opacity:1;pointer-events:auto}
+@media (max-width:1023px){.chqApple .chqChapBtn{display:none}.chqApple .chqChapters .chqChapM{display:flex}.chqApple .chqChapters .chqPin__steps{min-height:0}}
+/* 렌더링 안내 문구 좌측 정렬 */
+.chqApple .chqFigNote--l{text-align:left}
+.chqApple .chqHero__img+.chqFigNote--l{max-width:none}
+/* v6: 메인 첫 화면과 첫 문구 사이 간격 = 첫 문구와 키맵 사이 간격 */
+.chqApple .homeHero+.chqSec--state{padding-top:26.5rem}
+@media (max-width:767px){.chqApple .homeHero+.chqSec--state{padding-top:12.3rem}}
+.chqApple .chqSmall.chqFigNote--l{text-align:left}
+@media (max-width:1023px){.chqApple .chqChapters .chqChapBtn{display:none}.chqApple .chqChapters .chqPin__step .chqChapM{display:flex}}
