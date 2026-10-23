@@ -108,11 +108,12 @@ setTimeout(function(){document.documentElement.classList.remove("is-intro");},15
 </script>
 <style>
 /* 오픈 준비중: 로고 인트로와 첫 화면 배경만 두고 메뉴, 문구를 숨긴다 */
-html,body{height:100%;overflow:hidden}
-.mainHeader,.homeHero__title,.homeHero__list,.chqHeroNote,.homeHero__down,.navigationFooter{display:none!important}
-.homeHero{position:fixed;inset:0;height:100vh;height:100svh}
+html,body{height:auto;overflow:auto}
+.mainHeader,.homeHero__title,.homeHero__list,.chqHeroNote,.homeHero__down{display:none!important}
+.homeHero{position:relative;height:100vh;height:100svh}
+.mainContent{position:relative;height:100vh;height:100svh}
 .homeHero__mainOverlay{background:rgba(0,0,0,.42)!important}
-.op{position:fixed;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6vh 4rem 5vh;text-align:center;color:#fff;opacity:0;transform:translateY(1.2rem);transition:opacity 1.4s ease .2s,transform 1.4s ease .2s;overflow:auto}
+.op{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6vh 4rem 5vh;text-align:center;color:#fff;opacity:0;transform:translateY(1.2rem);transition:opacity 1.4s ease .2s,transform 1.4s ease .2s;overflow:auto}
 html:not(.is-intro) .op{opacity:1;transform:none}
 .op__logo{width:clamp(14rem,16vw,22rem);height:auto;margin:0 0 3.2rem;display:block}
 .op__eng{margin:0 0 1.4rem;font-family:Figtree,sans-serif;font-size:1.5rem;letter-spacing:.24em;text-transform:uppercase;color:#d2d2d7}
@@ -121,10 +122,11 @@ html:not(.is-intro) .op{opacity:1;transform:none}
 .op__eps{width:min(140rem,100%);margin-top:6rem;gap:2.4rem}
 .op .chqEp__thumb{border-radius:1.2rem;background:#1d1d1f;box-shadow:0 1.2rem 3rem rgba(0,0,0,.35)}
 .op .chqEp__no{color:#fff;font-size:1.7rem;margin-top:1.4rem}
-.op__foot{margin:5rem 0 0;font-size:1.6rem;color:#a1a1a6;display:flex;gap:1.2rem;align-items:center}
-.op__foot a{color:#f5f5f7;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35)}
+.navigationFooter__contactOne .contactInfo{min-height:0}
+body{background:#262626}
+.navigationFooter{padding-top:0!important;background:#262626!important}
 @media (max-width:1023px){.op{padding:6vh 2.4rem 4rem;justify-content:flex-start}.op__logo{width:14rem;margin-bottom:2.4rem}.op__eps{margin-top:4rem;gap:1.6rem}}
-@media (max-width:767px){.op{padding:8vh 1.6rem 3rem}.op__logo{width:12rem}.op__sub{font-size:1.5rem}.op__title{font-size:4rem}.op__eps{margin-top:3rem;grid-template-columns:repeat(2,1fr);gap:1.2rem}.op .chqEp__no{font-size:1.2rem}.op__foot{flex-direction:column;gap:.6rem}.op__foot span{display:none}}
+@media (max-width:767px){.op{padding:8vh 1.6rem 3rem}.op__logo{width:12rem}.op__sub{font-size:1.5rem}.op__title{font-size:4rem}.op__eps{margin-top:3rem;grid-template-columns:repeat(2,1fr);gap:1.2rem}.op .chqEp__no{font-size:1.2rem}}
 </style>
 </head>
 	<body class="chqApple" data-logoColor="light" data-page="home">
@@ -390,14 +392,288 @@ focusable="false">
     </div>
 </section>
 <div class="op" aria-live="polite">
-  <img class="op__logo" src="img/logo_white.png" alt="청산도 취향섬">
+  <img class="op__logo" src="img/logo_white_mark.png" alt="청산도 취향섬">
   <p class="op__eng">Coming soon</p>
   <h1 class="op__title">오픈 준비중</h1>
   <p class="op__sub">청산도 취향섬 분양 사이트를 준비하고 있습니다. <br class="chqBrD">설계 과정은 유튜브 설계 노트에서 먼저 보실 수 있습니다.</p>
   <ol class="chqEps op__eps"><li class="chqEp"><a class="chqEp__link" href="https://www.youtube.com/watch?v=PgENcSFiBqI" target="_blank" rel="noopener"><div class="chqEp__thumb"><img src="https://i.ytimg.com/vi/PgENcSFiBqI/maxresdefault.jpg" alt="취향섬 EP.1 청산도 · 섬을 발견하다"></div><span class="chqEp__no">EP.1 청산도 · 섬을 발견하다</span></a></li><li class="chqEp"><a class="chqEp__link" href="https://www.youtube.com/watch?v=k1awDcS7ALI" target="_blank" rel="noopener"><div class="chqEp__thumb"><img src="https://i.ytimg.com/vi/k1awDcS7ALI/maxresdefault.jpg" alt="취향섬 EP.2 세종 · 바다를 만들다"></div><span class="chqEp__no">EP.2 세종 · 바다를 만들다</span></a></li><li class="chqEp"><a class="chqEp__link" href="https://www.youtube.com/watch?v=Vcyj1ZxZGYg" target="_blank" rel="noopener"><div class="chqEp__thumb"><img src="https://i.ytimg.com/vi/Vcyj1ZxZGYg/maxresdefault.jpg" alt="취향섬 EP.3 제주 · 섬의 생태계"></div><span class="chqEp__no">EP.3 제주 · 섬의 생태계</span></a></li><li class="chqEp"><a class="chqEp__link" href="https://www.youtube.com/watch?v=ipzJ-WPWsHM" target="_blank" rel="noopener"><div class="chqEp__thumb"><img src="https://i.ytimg.com/vi/ipzJ-WPWsHM/maxresdefault.jpg" alt="취향섬 EP.4 화성 · 군도를 짓다"></div><span class="chqEp__no">EP.4 화성 · 군도를 짓다</span></a></li></ol>
-  <p class="op__foot"><a href="https://www.youtube.com/@we2look/videos" target="_blank" rel="noopener">취향섬 설계 노트 채널</a><span>·</span><a href="tel:07086820255">070-8682-0255</a></p>
 </div>
 </main>
+							<footer  data-watchfooter id="swupFooter" data-grid="grid-template" class="navigationFooter" data-control="NavigationFooter">
+    <div class="navigationFooter__topSection">
+        <div class="navigationFooter__mainImage">
+                    
+        
+<img class="image" src="img/footer_premium_interior.jpg" alt="유닛 실내 렌더링">
+        </div>
+                            <div class="navigationFooter__line"></div>
+                            <ul class="navigationFooter__mainMenu">
+                    <li class="font-S--Semibold">Our Focus</li>
+                                            <li class="font-XL navigationFooter__menuItemWrapper">
+                            <a class="navigationFooter__menuItem" href="cheongsando.html" target="_self">청산도 취향섬<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>취향섬 소개</span></a>
+                        </li>
+                                            <li class="font-XL navigationFooter__menuItemWrapper">
+                            <a class="navigationFooter__menuItem" href="masterplan.html" target="_self">마스터플랜<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>15 Islands</span></a>
+                        </li>
+                                            <li class="font-XL navigationFooter__menuItemWrapper">
+                            <a class="navigationFooter__menuItem" href="invest.html" target="_self">선택의 이유<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Why Choose</span></a>
+                        </li>
+                                            <li class="font-XL navigationFooter__menuItemWrapper">
+                            <a class="navigationFooter__menuItem" href="ecosystem.html" target="_self">건축과 운영<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Ecosystem</span></a>
+                        </li>
+                                            <li class="font-XL navigationFooter__menuItemWrapper">
+                            <a class="navigationFooter__menuItem" href="archive.html" target="_self">설계 노트<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Archive</span></a>
+                        </li>
+                                            <li class="font-XL navigationFooter__menuItemWrapper">
+                            <a class="navigationFooter__menuItem" href="consult.html" target="_self">분양 문의<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Contact us</span></a>
+                        </li>
+                                    </ul>
+                        <div class="navigationFooter__subMenu chqFooterSub">
+                    <ul class="chqFooterSub__group">
+                        <li class="font-S--Semibold chqFooterSub__title">Explore our</li>
+                        <li class="font-M navigationFooter__menuItemWrapper chqFooterSub__item">
+                            <a class="navigationFooter__menuItem navigationFooter__menuItem--sub" href="https://www.2look.co.kr/" target="_blank" rel="noopener noreferrer">Portfolio</a>
+                        </li>
+                    </ul>
+                    <ul class="chqFooterSub__group">
+                        <li class="font-S--Semibold chqFooterSub__title">Company</li>
+                        <li class="font-M navigationFooter__menuItemWrapper chqFooterSub__item">
+                            <a class="navigationFooter__menuItem navigationFooter__menuItem--sub" href="https://2look.co.kr" target="_blank" rel="noopener noreferrer">2LOOK</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    <div class="navigationFooter__bottomSection">
+        <div class="navigationFooter__bottomSection--1">
+            <a href="index.html" class="navigationFooter__bottomSectionLogo" aria-label="청산도 취향섬 홈으로">
+                <img class="chqFooterLogo" src="img/logo_white_mark.png" alt="청산도 취향섬">
+            </a>
+            <div class="navigationFooter__bottomMenu">
+                <div class="navigationFooter__bottomMenuWrapper" data-menustatetoggle>
+                                            <ul class="navigationFooter__bottomMenuList" data-footer-menu="close">
+                            <li class="navigationFooter__bottomMenuButton">
+                                <span class="navigationFooter__buttonTitle">Our Focus</span>
+                                <svg class="icon icon-plus
+"
+aria-hidden="true"
+focusable="false">
+    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-plus"></use>
+</svg>
+                            </li>
+                                                            <li class="navigationFooter__bottomMenuItem">
+                                    
+<a  href="cheongsando.html"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_self"      data-hideline="true" >
+            <span class="font-s">청산도 취향섬</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                            <li class="navigationFooter__bottomMenuItem">
+                                    
+<a  href="masterplan.html"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_self"      data-hideline="true" >
+            <span class="font-s">마스터플랜</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                            <li class="navigationFooter__bottomMenuItem">
+                                    
+<a  href="invest.html"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_self"      data-hideline="true" >
+            <span class="font-s">선택의 이유</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                            <li class="navigationFooter__bottomMenuItem">
+                                    
+<a  href="ecosystem.html"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_self"      data-hideline="true" >
+            <span class="font-s">건축과 운영</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                            <li class="navigationFooter__bottomMenuItem">
+                                    
+<a  href="archive.html"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_self"      data-hideline="true" >
+            <span class="font-s">설계 노트</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                            <li class="navigationFooter__bottomMenuItem">
+                                    
+<a  href="consult.html"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_self"      data-hideline="true" >
+            <span class="font-s">분양 문의</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                    </ul>
+                                                                <ul class="navigationFooter__bottomSubMenu">
+                                                            <li>
+                                    
+<a  href="https://www.2look.co.kr/"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank" rel="noopener noreferrer"      data-hideline="true" >
+            <span class="font-s">Portfolio</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                                                        <li>
+                                    
+<a  href="https://2look.co.kr"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank" rel="noopener noreferrer"      data-hideline="true" >
+            <span class="font-s">2LOOK</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                </li>
+                                                    </ul>
+                                    </div>
+                <div class="navigationFooter__social">
+                                            
+<a  href="https://www.youtube.com/@we2look"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank"     >
+            <span class="font-s">유튜브</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                            
+<a  href="https://www.instagram.com/we2look/"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank"     >
+            <span class="font-s">인스타그램</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                            
+<a  href="https://m.blog.naver.com/we2look"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank"     >
+            <span class="font-s">블로그</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                    </div>
+            </div>
+        </div>
+        <div class="navigationFooter__bottomSection--2">
+            <div class="navigationFooter__social--sm">
+                                    
+<a  href="https://www.youtube.com/@we2look"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank"     >
+            <span class="font-s">유튜브</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                    
+<a  href="https://www.instagram.com/we2look/"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank"     >
+            <span class="font-s">인스타그램</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                    
+<a  href="https://m.blog.naver.com/we2look"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank"     >
+            <span class="font-s">블로그</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                            </div>
+                            <div class="navigationFooter__contactOne">
+                    <div class="contactInfo">
+    <h2 class="font-S--SemiBold contactInfo__Label">주식회사 이룩</h2>
+    </div>
+                </div>
+                                        
+                                        <button class="navigationFooter__bottomText">
+                    Back to top
+                    <svg class="icon icon-Arrow
+"
+aria-hidden="true"
+focusable="false">
+    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use>
+</svg>
+                </button>
+                    </div>
+        <div class="navigationFooter__bottomSection--3 font-S">
+            <div class="navigationFooter__copyright font-S">
+                © 2026. All rights reserved.
+            </div>
+                            <button class="navigationFooter__bottomText navigationFooter__bottomText--sm">
+                    Back to top
+                    <svg class="icon icon-Arrow
+"
+aria-hidden="true"
+focusable="false">
+    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-Arrow"></use>
+</svg>
+                </button>
+            
+        </div>
+    </div>
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
