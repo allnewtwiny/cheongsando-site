@@ -508,3 +508,6 @@ body.chqApple.is-pastHero.is-overDark[data-page=home] .topBarMenu a{color:#f5f5f
 .chqSub .chqSec--darkFixed .chqSec--state,.chqSub .chqSec--darkFixed.chqSec--state{background:#000}
 .chqSub .chqSec--darkFixed .chqGlass,.chqSub .chqSec--darkFixed .chqBento{--line:#424245}
 @media (max-width:1023px){.chqSub .chqHero--photo+.chqSec--state{padding-top:14rem}.chqApple .chqV7fade+.chqSec--darkFixed{padding-top:2rem}}
+
+/* 메인 첫 화면 제목 문구 제거 (2026-10-24 사용자 요청) */
+.homeHero__title:has(.chqHeroTitleOff),.chqHeroTitleOff{display:none!important}
