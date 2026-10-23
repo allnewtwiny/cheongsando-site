@@ -112,18 +112,19 @@ html,body{height:100%;overflow:hidden}
 .mainHeader,.homeHero__title,.homeHero__list,.chqHeroNote,.homeHero__down,.navigationFooter{display:none!important}
 .homeHero{position:fixed;inset:0;height:100vh;height:100svh}
 .homeHero__mainOverlay{background:rgba(0,0,0,.42)!important}
-.op{position:fixed;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:12vh 4rem 4rem;text-align:center;color:#fff;opacity:0;transform:translateY(1.2rem);transition:opacity 1.4s ease .2s,transform 1.4s ease .2s;overflow:auto}
+.op{position:fixed;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6vh 4rem 5vh;text-align:center;color:#fff;opacity:0;transform:translateY(1.2rem);transition:opacity 1.4s ease .2s,transform 1.4s ease .2s;overflow:auto}
 html:not(.is-intro) .op{opacity:1;transform:none}
-.op__eng{margin:0 0 1.2rem;font-family:Figtree,sans-serif;font-size:1.3rem;letter-spacing:.24em;text-transform:uppercase;color:#d2d2d7}
-.op__title{margin:0;font-size:clamp(3.2rem,5vw,6rem);font-weight:600;letter-spacing:-.02em;line-height:1.1}
-.op__sub{margin:2rem 0 0;font-size:1.6rem;font-weight:300;line-height:1.8;color:#e5e5ea}
-.op__eps{width:min(120rem,100%);margin-top:6rem;gap:2rem}
+.op__logo{width:clamp(14rem,16vw,22rem);height:auto;margin:0 0 3.2rem;display:block}
+.op__eng{margin:0 0 1.4rem;font-family:Figtree,sans-serif;font-size:1.5rem;letter-spacing:.24em;text-transform:uppercase;color:#d2d2d7}
+.op__title{margin:0;font-size:clamp(4rem,6.4vw,8rem);font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.op__sub{margin:2.4rem 0 0;font-size:2rem;font-weight:300;line-height:1.8;color:#e5e5ea}
+.op__eps{width:min(140rem,100%);margin-top:6rem;gap:2.4rem}
 .op .chqEp__thumb{border-radius:1.2rem;background:#1d1d1f;box-shadow:0 1.2rem 3rem rgba(0,0,0,.35)}
-.op .chqEp__no{color:#fff;font-size:1.4rem;margin-top:1.2rem}
-.op__foot{margin:5rem 0 0;font-size:1.3rem;color:#a1a1a6;display:flex;gap:1.2rem;align-items:center}
+.op .chqEp__no{color:#fff;font-size:1.7rem;margin-top:1.4rem}
+.op__foot{margin:5rem 0 0;font-size:1.6rem;color:#a1a1a6;display:flex;gap:1.2rem;align-items:center}
 .op__foot a{color:#f5f5f7;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35)}
-@media (max-width:1023px){.op{padding:14vh 2.4rem 4rem}.op__eps{margin-top:4rem;gap:1.6rem}}
-@media (max-width:767px){.op{padding:12vh 1.6rem 3rem}.op__sub{font-size:1.4rem}.op__eps{margin-top:3rem;grid-template-columns:repeat(2,1fr);gap:1.2rem}.op .chqEp__no{font-size:1.2rem}.op__foot{flex-direction:column;gap:.6rem}.op__foot span{display:none}}
+@media (max-width:1023px){.op{padding:6vh 2.4rem 4rem;justify-content:flex-start}.op__logo{width:14rem;margin-bottom:2.4rem}.op__eps{margin-top:4rem;gap:1.6rem}}
+@media (max-width:767px){.op{padding:8vh 1.6rem 3rem}.op__logo{width:12rem}.op__sub{font-size:1.5rem}.op__title{font-size:4rem}.op__eps{margin-top:3rem;grid-template-columns:repeat(2,1fr);gap:1.2rem}.op .chqEp__no{font-size:1.2rem}.op__foot{flex-direction:column;gap:.6rem}.op__foot span{display:none}}
 </style>
 </head>
 	<body class="chqApple" data-logoColor="light" data-page="home">
@@ -389,6 +390,7 @@ focusable="false">
     </div>
 </section>
 <div class="op" aria-live="polite">
+  <img class="op__logo" src="img/logo_white.png" alt="청산도 취향섬">
   <p class="op__eng">Coming soon</p>
   <h1 class="op__title">오픈 준비중</h1>
   <p class="op__sub">청산도 취향섬 분양 사이트를 준비하고 있습니다. <br class="chqBrD">설계 과정은 유튜브 설계 노트에서 먼저 보실 수 있습니다.</p>
