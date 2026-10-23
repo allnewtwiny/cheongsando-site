@@ -457,3 +457,16 @@ body.chqApple.is-pastHero[data-page=home] .navigationMain__topBar{background:rgb
 @media (max-width:767px){.chqApple .homeHero+.chqSec--state{padding-top:12.3rem}}
 .chqApple .chqSmall.chqFigNote--l{text-align:left}
 @media (max-width:1023px){.chqApple .chqChapters .chqChapBtn{display:none}.chqApple .chqChapters .chqPin__step .chqChapM{display:flex}}
+/* v7: 메인 간격과 검정 전환 (2026-10-24) */
+.chqApple .chqSec--state.chqV7join{padding-top:15rem;padding-bottom:0}
+.chqApple .chqV7joined{padding-top:0}
+.chqApple .chqV7joined .chqPin__stage{align-items:flex-start;padding-top:10rem;box-sizing:border-box}
+.chqApple .chqV7fade{height:100vh;background:linear-gradient(to bottom,#f5f5f7 0%,#000 100%)}
+.chqApple .chqSec--darkFixed+.chqSec--darkFixed,.chqApple .chqV7fade+.chqSec--darkFixed{border-top:0}
+.chqApple:has(main .chqSec--cta.chqSec--darkFixed) .navigationFooter{padding-top:0}
+@media (max-width:1023px){.chqApple .chqV7joined .chqPin__stage{padding-top:0}.chqApple .chqSec--state.chqV7join{padding-top:8rem}.chqApple .chqV7fade{height:60vh}}
+/* v7: 검정 섹션 위 상단바 */
+body.chqApple.is-pastHero.is-overDark[data-page=home] .navigationMain__topBar{background:rgba(0,0,0,.6)!important;box-shadow:inset 0 -1px 0 rgba(255,255,255,.1)!important}
+body.chqApple.is-pastHero.is-overDark[data-page=home] .buttonMenu,body.chqApple.is-pastHero.is-overDark[data-page=home] .buttonChat{filter:none!important}
+body.chqApple.is-pastHero.is-overDark[data-page=home] .navigationMain__topBarLogo .topBarMark{filter:brightness(0) invert(1)!important}
+body.chqApple.is-pastHero.is-overDark[data-page=home] .topBarMenu a{color:#f5f5f7}

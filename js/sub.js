@@ -250,3 +250,22 @@
     if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function () { ST.refresh(); }); }
   }
 })();
+
+/* v7 (2026-10-24): 옛 첫 화면이 있는 메인에서 상단바 아래가 검정 섹션이면 body.is-overDark (apple.css에서 검정 반투명 바, 흰 글자) */
+(function () {
+  if (document.body.getAttribute('data-page') !== 'home' || !document.querySelector('.homeHero')) return;
+  var sel = '.chqSec--darkFixed,.chqSec.is-dark,.chqV7fade', raf = 0;
+  var check = function () {
+    raf = 0;
+    var on = Array.prototype.some.call(document.querySelectorAll(sel), function (el) {
+      var r = el.getBoundingClientRect();
+      if (el.classList.contains('chqV7fade')) return r.top <= -r.height * 0.5 && r.bottom > 30;
+      return r.top <= 30 && r.bottom > 30;
+    });
+    document.body.classList.toggle('is-overDark', on);
+  };
+  var q = function () { if (!raf) raf = requestAnimationFrame(check); };
+  window.addEventListener('scroll', q, { passive: true });
+  window.addEventListener('resize', q);
+  check();
+})();
