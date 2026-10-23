@@ -417,3 +417,11 @@ body.chqApple.is-pastHero[data-page=home] .navigationMain__topBar{background:rgb
 .chqApple .chqKm .b.is-on :is(path,polygon){fill-opacity:0}
 .chqApple .chqPin.is-in:not(.is-pinned) .chqKm .b :is(path,polygon){fill-opacity:0}
 .chqApple .chqKm text.halo{stroke-width:16px}
+/* v4: 그림 안내 문구 (2026-10-23) */
+.chqApple .chqFigNote{margin:1.2rem 0 0;font-size:1.2rem;line-height:1.5;color:var(--fg3);text-align:center;font-weight:400;letter-spacing:0}
+.chqApple figcaption .chqFigNote{display:block;margin-top:.6rem}
+.chqApple .chqPin__figs .chqFigNote{grid-column:1;margin-top:0}
+.chqApple .chqSec__head .chqSec__title{margin-top:0}
+.chqApple .chqHero__title{margin-top:0}
+.chqApple .homeHero .chqHeroNote{position:absolute;left:2.4rem;bottom:2rem;margin:0;font-size:1.1rem;color:rgba(255,255,255,.55);z-index:3;pointer-events:none}
+.chqApple .homeHero__main{position:relative}
