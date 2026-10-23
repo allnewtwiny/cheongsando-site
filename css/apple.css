@@ -470,3 +470,13 @@ body.chqApple.is-pastHero.is-overDark[data-page=home] .navigationMain__topBar{ba
 body.chqApple.is-pastHero.is-overDark[data-page=home] .buttonMenu,body.chqApple.is-pastHero.is-overDark[data-page=home] .buttonChat{filter:none!important}
 body.chqApple.is-pastHero.is-overDark[data-page=home] .navigationMain__topBarLogo .topBarMark{filter:brightness(0) invert(1)!important}
 body.chqApple.is-pastHero.is-overDark[data-page=home] .topBarMenu a{color:#f5f5f7}
+/* v8: 문단 줄바꿈 기준 (2026-10-24) */
+@media (min-width:768px){.chqApple .chqV8one .chqState__sub{max-width:none;white-space:nowrap}}
+.chqApple .chqChapters .chqPin__step{max-width:none}
+.chqApple .chqPin__figs .chqFigNote--l,.chqApple .chqFigNote--l{text-align:left}
+/* v8: 땅값 문구와 숫자 섹션 한 화면 고정 */
+.chqApple .chqV8hold{padding-top:13.4rem}
+.chqApple .chqV8hold .chqPin__stage{align-items:center}
+.chqApple .chqV8state{margin:0 auto 9.6rem;text-align:center}
+@media (max-width:1023px){.chqApple .chqV8state{margin-bottom:5.6rem}}
+.chqApple .chqV8state{padding:0}
