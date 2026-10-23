@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko" data-istoch="false">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>청산도 취향섬 · 오픈 준비중</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=20261022200000">
+<link rel="stylesheet" href="css/fix.css?v=20261022120000">
+<link rel="stylesheet" href="css/sub.css?v=20261024060000">
+<link rel="stylesheet" href="css/apple.css?v=20261024051000">
+<style>
+  @media screen { html { margin-top: 0 !important; } }
+/* 푸터 보조메뉴: 메뉴 패널(navigationMain__subMenu)과 같은 구성과 세로 간격 */
+.navigationFooter__subMenu.chqFooterSub{gap:0}
+.chqFooterSub__group{display:flex;flex-direction:column;gap:.3rem}
+.chqFooterSub__title{padding:1rem 0;color:#fff}
+.chqFooterSub__item{margin-bottom:1rem}
+@media (min-width:768px){.navigationFooter__subMenu.chqFooterSub{gap:4.5rem}.chqFooterSub__title{padding:1.6rem 0 1rem}.chqFooterSub__item{margin-bottom:0}}
+.navigationFooter__bottomSectionLogo .chqFooterLogo{display:block;height:2.5rem;width:auto}
+/* 푸터 보조메뉴 호버: 올린 항목만 선명, 나머지 블러(큰 메뉴와 같은 .2rem) */
+.chqFooterSub li{transition:filter .2s}
+.navigationFooter__mainMenu>li{transition:filter .2s}
+/* 푸터 메뉴 전체 호버: 올린 항목과 그 그룹의 이름표만 선명, 나머지 전부 블러 */
+@media (min-width:768px){
+.navigationFooter .navigationFooter__mainMenu:hover>li{filter:none}
+.navigationFooter:has(.navigationFooter__menuItemWrapper:hover) :is(.navigationFooter__mainMenu>li,.chqFooterSub li){filter:blur(.2rem)}
+.navigationFooter :is(.navigationFooter__mainMenu,.chqFooterSub__group):has(>.navigationFooter__menuItemWrapper:hover)>li:first-child,
+.navigationFooter:has(.navigationFooter__menuItemWrapper:hover) .navigationFooter__menuItemWrapper:hover{filter:none}
+}
+/* 푸터 상담 신청 호버 시 브랜드 컨설팅 표시 (상단 메뉴와 동일) */
+.navigationFooter__menuItem:hover .navigationMain__hoverExtra,.navigationFooter__menuItem:focus-visible .navigationMain__hoverExtra{opacity:1;transform:translateX(0)}
+/* 상단 메뉴 패널 호버 블러를 푸터 방식으로: 올린 항목과 그 그룹 이름표만 선명, 나머지 전부 블러 */
+#mainNavigation :is(.navigationMain__mainMenuTitle,.navigationMain__subMenuTitle){transition:filter .2s;color:#fff}
+@media (min-width:768px){
+#mainNavigation :is(.navigationMain__mainMenuItem,.navigationMain__subMenu--explore,.navigationMain__subMenuItem){filter:none}
+#mainNavigation:has(:is(.navigationMain__mainMenuWrapper,.navigationMain__subMenuWrapper,.navigationMain__companyMenuWrapper):hover) :is(.navigationMain__mainMenuTitle,.navigationMain__subMenuTitle,.navigationMain__mainMenuItem,.navigationMain__subMenuItem){filter:blur(.2rem)}
+#mainNavigation :is(.navigationMain__mainMenu,.navigationMain__subMenu--explore,.navigationMain__subMenu--company):has(>:is(.navigationMain__mainMenuWrapper,.navigationMain__subMenuWrapper,.navigationMain__companyMenuWrapper):hover)>li:first-child,
+#mainNavigation:has(:is(.navigationMain__mainMenuWrapper,.navigationMain__subMenuWrapper,.navigationMain__companyMenuWrapper):hover) :is(.navigationMain__mainMenuWrapper,.navigationMain__subMenuWrapper,.navigationMain__companyMenuWrapper):hover>a{filter:none}
+}
+/* 주소 한 줄 처리 */
+.contactInfo a p{white-space:nowrap}
+/* 메뉴 6개: 상단바 한 줄 메뉴와 마켓 메뉴 폭 */
+.marketsMenu__wrapper{width:23.8rem!important;grid-template-columns:13rem 2rem 2rem 2rem 2rem 2rem}
+.topBarMenu{display:none}
+@media (min-width:1360px){
+[data-page=home] .topBarMenu{display:block;grid-column:3;grid-row:1;justify-self:end;margin-right:5rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility .35s}
+body.is-pastHero[data-page=home] .topBarMenu{opacity:1;visibility:visible;pointer-events:all}
+.topBarMenu ul{display:flex;gap:2rem;margin:0;padding:0;list-style:none}
+.topBarMenu a{font-size:1.3rem;letter-spacing:.02em;color:#0e0e0e;text-decoration:none;white-space:nowrap;opacity:.6;transition:opacity .25s}
+.topBarMenu a:hover,.topBarMenu a:focus-visible{opacity:1}
+.topBarMenu a[aria-current=page]{opacity:1;font-weight:600}
+}
+/* 스크롤 시 상단바 색 전환을 부드럽게 (흰 바탕, 검은 아이콘으로 서서히) */
+[data-page=home] .navigationMain__topBar{transition:background-color .35s ease,box-shadow .35s ease,opacity .5s ease,visibility .5s!important}
+[data-page=home] .buttonMenu,[data-page=home] .buttonChat,[data-page=home] .topBarMark{transition:filter .35s ease!important}
+body.is-pastHero[data-page=home] .navigationMain__topBarLogo .topBarMark{content:normal;filter:brightness(0)!important}
+/* 첫 화면 로고 재생 중에는 상단바 숨김 */
+html.is-intro [data-page=home] .navigationMain__topBar{opacity:0;visibility:hidden}
+body,h1,h2,h3,p,a,li,span{word-break:keep-all;overflow-wrap:break-word}
+.navigationFooter__menuItem,.buttonLine .font-s{white-space:nowrap}
+</style>
+<script>
+/* 첫 화면은 항상 맨 위에서 시작하고, 로고 재생이 끝날 때까지 상단바를 숨긴다 (로드 시 흰 메뉴 깜빡임 방지) */
+if("scrollRestoration" in history)history.scrollRestoration="manual";
+document.documentElement.classList.add("is-intro");
+setTimeout(function(){document.documentElement.classList.remove("is-intro");},15000);
+</script>
+<script>
+/* 페이지 전환 종류 결정: 홈에서 Our Focus 페이지로 갈 때(PC 1024 이상)는 아래에서 올라오는 효과, 그 외는 페이드 */
+(function(){
+  var KEY="vtType",MARKETS=["cheongsando.html","masterplan.html","invest.html","ecosystem.html","archive.html","consult.html"];
+  try{window.__vtIncoming=sessionStorage.getItem(KEY);}catch(e){}
+  function file(p){return p.split("/").pop()||"index.html";}
+  function store(v){try{v?sessionStorage.setItem(KEY,v):sessionStorage.removeItem(KEY);}catch(e){}}
+  function take(){try{var v=sessionStorage.getItem(KEY);sessionStorage.removeItem(KEY);return v;}catch(e){return null;}}
+  document.addEventListener("click",function(e){
+    var a=e.target.closest&&e.target.closest("a[href]");
+    if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+    if(a.target&&a.target!=="_self")return;
+    var u=new URL(a.href,location.href);
+    if(u.origin!==location.origin||!/(\.html|\/)$/.test(u.pathname)||u.pathname===location.pathname)return;
+    var home=file(location.pathname)==="index.html";
+    var toMarket=MARKETS.indexOf(file(u.pathname))>-1,fromMarket=MARKETS.indexOf(file(location.pathname))>-1;
+    /* 자식 페이지끼리도 상단 글자 메뉴로 이동할 때는 메인에서 갈 때와 같은 올라오는 효과 */
+    store(toMarket&&innerWidth>=1024&&(home||(fromMarket&&a.closest(".topBarMenu")))?"market":"fade");
+  });
+  var current=null;
+  window.addEventListener("pageswap",function(e){
+    if(!e.viewTransition)return;
+    try{current=sessionStorage.getItem(KEY);}catch(x){}
+    if(!current){e.viewTransition.skipTransition();return;}
+    document.documentElement.classList.add("vt-"+current);
+    e.viewTransition.finished.then(function(){document.documentElement.classList.remove("vt-"+current);});
+  });
+  window.addEventListener("pagereveal",function(e){
+    var t=take();
+    if(!e.viewTransition)return;
+    if(!t){e.viewTransition.skipTransition();return;}
+    document.documentElement.classList.add("vt-"+t);
+    e.viewTransition.finished.then(function(){document.documentElement.classList.remove("vt-"+t);});
+  });
+  window.addEventListener("pageshow",function(e){if(e.persisted){store(null);document.documentElement.classList.remove("vt-fade","vt-market");}});
+})();
+</script>
+<style>
+/* 오픈 준비중: 로고 인트로와 첫 화면 배경만 두고 메뉴, 문구를 숨긴다 */
+html,body{height:100%;overflow:hidden}
+.mainHeader,.homeHero__title,.homeHero__list,.chqHeroNote,.homeHero__down,.navigationFooter{display:none!important}
+.homeHero{position:fixed;inset:0;height:100vh;height:100svh}
+.homeHero__mainOverlay{background:rgba(0,0,0,.42)!important}
+.op{position:fixed;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:12vh 4rem 4rem;text-align:center;color:#fff;opacity:0;transform:translateY(1.2rem);transition:opacity 1.4s ease .2s,transform 1.4s ease .2s;overflow:auto}
+html:not(.is-intro) .op{opacity:1;transform:none}
+.op__eng{margin:0 0 1.2rem;font-family:Figtree,sans-serif;font-size:1.3rem;letter-spacing:.24em;text-transform:uppercase;color:#d2d2d7}
+.op__title{margin:0;font-size:clamp(3.2rem,5vw,6rem);font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.op__sub{margin:2rem 0 0;font-size:1.6rem;font-weight:300;line-height:1.8;color:#e5e5ea}
+.op__eps{width:min(120rem,100%);margin-top:6rem;gap:2rem}
+.op .chqEp__thumb{border-radius:1.2rem;background:#1d1d1f;box-shadow:0 1.2rem 3rem rgba(0,0,0,.35)}
+.op .chqEp__no{color:#fff;font-size:1.4rem;margin-top:1.2rem}
+.op__foot{margin:5rem 0 0;font-size:1.3rem;color:#a1a1a6;display:flex;gap:1.2rem;align-items:center}
+.op__foot a{color:#f5f5f7;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35)}
+@media (max-width:1023px){.op{padding:14vh 2.4rem 4rem}.op__eps{margin-top:4rem;gap:1.6rem}}
+@media (max-width:767px){.op{padding:12vh 1.6rem 3rem}.op__sub{font-size:1.4rem}.op__eps{margin-top:3rem;grid-template-columns:repeat(2,1fr);gap:1.2rem}.op .chqEp__no{font-size:1.2rem}.op__foot{flex-direction:column;gap:.6rem}.op__foot span{display:none}}
+</style>
+</head>
+	<body class="chqApple" data-logoColor="light" data-page="home">
+<svg id="sprite" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position:absolute;width:0;height:0" aria-hidden="true"><symbol fill="none"  viewBox="0 0 19 19" id="icon-Arrow"><path d="m13.731 10.498-4.23 3.328M13.731 8.506l-4.23-3.328M10.5 9.5h-6" stroke="currentColor" stroke-linecap="round" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-Chevron"><path d="M11.23 10.498 7 13.826M11.23 8.506 7 5.178" stroke="currentColor" stroke-linecap="round" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-arrowOut"><path d="M7.026 5.611h6.364v6.364M5.611 13.39l7.425-7.425" stroke="currentColor" stroke-linecap="round" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-close"><path d="m14.096 4.904-9.192 9.192M14.096 14.096l-2.298-2.298-.884-.884m-6.01-6.01 2.298 2.298.884.884" stroke="currentColor" stroke-linecap="round" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-eye"><mask id="icon-eye_a" fill="#fff"><path d="M9.423 5c3.248 0 6.17 1.51 8.208 3.917a.901.901 0 0 1 0 1.166C15.593 12.491 12.671 14 9.423 14s-6.17-1.51-8.208-3.917a.901.901 0 0 1 0-1.166C3.253 6.51 6.175 5 9.423 5Z" /></mask><path d="M9.423 5V4v1Zm0 9v1-1Zm8.208-5.083.763-.647-.763.647Zm0 1.166-.763-.646.763.646ZM9.423 5v1C12.349 6 15 7.358 16.868 9.563l.763-.646.763-.647C16.185 5.661 12.993 4 9.423 4v1Zm8.208 5.083-.763-.646C15.001 11.642 12.348 13 9.423 13v2c3.57 0 6.762-1.661 8.971-4.27l-.763-.647ZM9.423 14v-1c-2.926 0-5.578-1.358-7.445-3.563l-.763.646-.764.647C2.661 13.339 5.853 15 9.423 15v-1ZM1.215 8.917l.763.646C3.845 7.358 6.497 6 9.423 6V4C5.853 4 2.66 5.661.45 8.27l.764.647Zm0 1.166.763-.646c.03.036.03.09 0 .126l-.763-.646L.45 8.27a1.901 1.901 0 0 0 0 2.46l.764-.647ZM17.63 8.917l-.763.646a.099.099 0 0 1 0-.126l.763.646.763.647a1.901 1.901 0 0 0 0-2.46l-.763.647Z" fill="currentColor" mask="url(#icon-eye_a)" /><circle cx="9.501" cy="8" r="2.5" stroke="currentColor" /></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-insta"><path d="M11.776 6.564a.66.66 0 1 1 1.32 0 .66.66 0 0 1-1.32 0Z" fill="currentColor" /><path fill-rule="evenodd" clip-rule="evenodd" d="M7.008 9.586a2.578 2.578 0 1 1 5.156 0 2.578 2.578 0 0 1-5.156 0Zm4.25 0a1.66 1.66 0 1 1-3.321 0 1.66 1.66 0 0 1 3.322 0Z" fill="currentColor" /><path fill-rule="evenodd" clip-rule="evenodd" d="M9.5 4c-1.493 0-1.68.007-2.267.033-.586.027-.986.12-1.335.256-.362.14-.669.328-.975.634a2.7 2.7 0 0 0-.634.974c-.137.35-.23.75-.256 1.335C4.007 7.819 4 8.006 4 9.5c0 1.494.007 1.68.033 2.267.027.586.12.985.256 1.335.14.362.328.669.634.974.306.306.613.495.974.635.35.136.75.229 1.335.256.587.026.774.033 2.268.033 1.494 0 1.68-.007 2.267-.033.586-.027.986-.12 1.336-.256.361-.14.668-.329.973-.635.306-.305.494-.612.635-.974.136-.35.228-.75.256-1.335.026-.586.033-.773.033-2.267 0-1.494-.007-1.681-.033-2.268-.028-.585-.12-.985-.256-1.335a2.698 2.698 0 0 0-.635-.974 2.687 2.687 0 0 0-.974-.634c-.35-.136-.75-.229-1.336-.256C11.18 4.007 10.993 4 9.5 4H9.5Zm-.183.991h.184c1.468 0 1.642.005 2.222.032.536.024.827.114 1.021.19.257.099.44.218.632.41.193.193.312.376.412.633.075.194.165.485.19 1.021.026.58.031.754.031 2.222 0 1.467-.005 1.642-.032 2.221-.024.537-.114.828-.19 1.021a1.7 1.7 0 0 1-.41.632 1.702 1.702 0 0 1-.633.412c-.193.075-.485.165-1.021.19-.58.026-.754.031-2.222.031-1.47 0-1.643-.005-2.223-.032-.536-.025-.827-.114-1.021-.19-.257-.1-.44-.218-.633-.41a1.704 1.704 0 0 1-.411-.633c-.076-.194-.165-.485-.19-1.021-.026-.58-.031-.754-.031-2.223 0-1.468.005-1.642.031-2.221.025-.537.114-.828.19-1.022.1-.256.219-.44.411-.632.193-.193.376-.312.633-.412.194-.075.485-.165 1.021-.19.507-.022.704-.03 1.73-.03v.001h.31Z" fill="currentColor" /></symbol><symbol fill="none"  viewBox="0 0 78 26" id="icon-logo"><path d="M2.516 23.907h14.276V26H0V.035h2.516v23.872ZM68.752 0c1.406 0 2.679.194 3.746.584 1.067.388 1.952.92 2.655 1.595a6.576 6.576 0 0 1 1.583 2.35c.353.89.527 1.84.527 2.845h-2.286c0-.937-.171-1.748-.51-2.436a4.611 4.611 0 0 0-1.39-1.68 6.016 6.016 0 0 0-2.005-.961 8.767 8.767 0 0 0-2.322-.309c-1.22 0-2.246.167-3.078.497-.832.331-1.496.76-1.988 1.287a4.32 4.32 0 0 0-1.02 1.749 4.103 4.103 0 0 0-.106 1.92c.14.8.468 1.439.985 1.92.515.48 1.149.874 1.9 1.183.75.309 1.577.56 2.479.754.902.194 1.823.4 2.762.617.938.218 1.846.475 2.725.77.88.298 1.659.697 2.339 1.2a5.578 5.578 0 0 1 1.636 1.937c.41.79.616 1.778.616 2.966 0 2.286-.809 4.059-2.428 5.316-1.618 1.256-3.894 1.886-6.824 1.886-1.313 0-2.532-.166-3.658-.497-1.126-.33-2.098-.833-2.92-1.508a6.935 6.935 0 0 1-1.915-2.505c-.457-.996-.687-2.165-.687-3.514h2.323l.002.008c.093 1.097.344 2.029.755 2.794a5.51 5.51 0 0 0 1.583 1.868c.645.48 1.39.83 2.233 1.046.843.218 1.746.326 2.709.326 1.126 0 2.098-.138 2.919-.413.82-.274 1.49-.645 2.006-1.114a4.362 4.362 0 0 0 1.142-1.629c.247-.617.37-1.269.37-1.954 0-.962-.224-1.738-.668-2.334a5.105 5.105 0 0 0-1.74-1.458c-.717-.377-1.537-.68-2.464-.909-.927-.229-1.876-.45-2.848-.669a32.416 32.416 0 0 1-2.849-.77 9.01 9.01 0 0 1-2.463-1.201 5.845 5.845 0 0 1-1.741-1.938c-.446-.789-.67-1.789-.67-3 0-.845.182-1.67.546-2.47.364-.8.902-1.508 1.619-2.126.716-.617 1.613-1.108 2.691-1.474C66.102.183 67.346 0 68.752 0ZM29.341.035c1.717 0 3.134.192 4.253.574 1.116.383 2.002.91 2.652 1.58a5.538 5.538 0 0 1 1.362 2.317c.258.874.387 1.789.387 2.746 0 1.436-.301 2.62-.902 3.554a6.614 6.614 0 0 1-2.34 2.209c-.956.537-2.043.914-3.258 1.13a20.885 20.885 0 0 1-3.664.324h-5.67v11.418h-2.507V.035h9.687Zm18.755 0 .798 2.085-5.192 13.57h10.385l.798 2.082h-12.03l-3.13 8.115h-2.578L47.569.035h.528ZM22.16 12.385h5.741c1.18 0 2.234-.07 3.168-.215.933-.144 1.725-.412 2.375-.808a4.051 4.051 0 0 0 1.511-1.615c.356-.682.534-1.575.534-2.675 0-1.628-.546-2.86-1.637-3.697-1.094-.837-2.83-1.257-5.211-1.257h-6.48v10.268Z" fill="currentcolor" /></symbol><symbol class="menuLine" viewBox="0 0 29 29" fill="none"  id="icon-menu"><path class="menuLineTwo" d="M4 18h21" stroke="currentColor" stroke-linecap="round" /><g class="menuLinesGroup" stroke="currentColor" stroke-linecap="round"><path class="menuLineOne" d="M4 11h21" /><path class="menuLineThree" d="M4 11h21" /></g></symbol><symbol fill="none"  viewBox="0 0 19 19" id="icon-plus"><path d="M16 9.5H3M9.5 16v-4m0-9v4" stroke="currentColor" stroke-linecap="round" /></symbol></svg>
+		
+		
+					<div class="preloader" data-control="Preloader" aria-hidden="true">
+<svg class="preloader__logo" viewBox="200 230 500 300" aria-hidden="true"></svg>
+<div class="preloader__wordWrapper">
+  <div class="preloader__section preloader__section--1">
+    <div class="preloader__word font-XXL"  data-word="one">
+      <span class="preloader__wordFl">L</span>
+      <span class="preloader__wordRl">isten</span>
+    </div>
+    <div class="preloader__word font-XXL"  data-word="two">
+      <span class="preloader__wordFl">P</span>
+      <span class="preloader__wordRl">lan</span>
+    </div>
+  </div>
+
+  <div class="preloader__section preloader__section--2">
+    <div class="preloader__word font-XXL" data-word="three">
+      <span class="preloader__wordFl">A</span>
+      <span class="preloader__wordRl">nalyze</span>
+    </div>
+    <div class="preloader__word font-XXL" data-word="four">
+      <span class="preloader__wordFl">S</span>
+      <span class="preloader__wordRl">hape</span>
+    </div>
+  </div>
+  </div>
+
+  <div class="preloader__imageWrapper">
+                            <img data-homeHeroImage="" class="preloader__image" src="img/hero.jpg" alt="청산도 취향섬 렌더링">
+                </div>
+</div>
+
+				
+					<header class="mainHeader">
+									<div class="navigationMain" data-control="NavigationMain" data-grid="grid-template">
+    <div class="navigationMain__topBar">
+        <a href="index.html" class="navigationMain__topBarLogo" aria-label="청산도 취향섬 홈으로">
+            <img class="icon icon-logo" src="img/logo_white_wide.png" alt="청산도 취향섬"><img class="topBarMark" src="img/logo_white_mark.png" alt="청산도 취향섬">
+        </a>
+        <nav class="topBarMenu" aria-label="상단 메뉴"><ul><li><a href="cheongsando.html">청산도 취향섬</a></li><li><a href="masterplan.html">마스터플랜</a></li><li><a href="invest.html">선택의 이유</a></li><li><a href="ecosystem.html">건축과 운영</a></li><li><a href="archive.html">설계 노트</a></li><li><a href="consult.html">분양 문의</a></li></ul></nav>
+        <div class="navigationMain__topBarItems">
+            <div class="navigationMain__subItems">
+                <div class="navigationMain__projects">
+                    <a href="https://lpas.com/portfolio/" class="buttonClose" data-history-back >
+    <svg class="icon icon-close
+"
+aria-hidden="true"
+focusable="false">
+    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use>
+</svg>
+</a>
+                </div>
+                <div class="marketsMenu" data-menustatetoggle>
+    <span class="marketsMenu__text font-S" >Shift your focus</span>
+    <nav aria-label="Markets navigation">
+        <ul class="marketsMenu__wrapper" >
+                <li class="marketsMenu__item" data-marketcolor="housing" data-marketindex="1">
+                    <a href="cheongsando.html" aria-label="청산도 취향섬 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">청산도 취향섬</span>
+                    </a>
+                </li>
+                <li class="marketsMenu__item" data-marketcolor="interiors" data-marketindex="2">
+                    <a href="masterplan.html" aria-label="마스터플랜 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">마스터플랜</span>
+                    </a>
+                </li>
+                <li class="marketsMenu__item" data-marketcolor="civic" data-marketindex="3">
+                    <a href="invest.html" aria-label="선택의 이유 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">선택의 이유</span>
+                    </a>
+                </li>
+                <li class="marketsMenu__item" data-marketcolor="higherEducation" data-marketindex="4">
+                    <a href="ecosystem.html" aria-label="건축과 운영 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">건축과 운영</span>
+                    </a>
+                </li>
+                <li class="marketsMenu__item" data-marketcolor="sand" data-marketindex="5">
+                    <a href="archive.html" aria-label="설계 노트 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">설계 노트</span>
+                    </a>
+                </li>
+                <li class="marketsMenu__item" data-marketcolor="commercial" data-marketindex="6">
+                    <a href="consult.html" aria-label="분양 문의 페이지로 이동">
+                        <span class="marketsMenu__itemTitle font-S">분양 문의</span>
+                    </a>
+                </li>
+                    </ul>
+    </nav>
+</div>
+            </div>
+            <button tabindex="0" class="buttonMenu" data-menu="closed" aria-expanded="false" aria-controls="mainNavigation" aria-label="Toggle navigation menu">
+    <span class="buttonMenu__text buttonMenu__text font-XS" aria-hidden="true">
+    <span class="buttonMenu__textMenu">Menu</span>
+    <span class="buttonMenu__textClose">Close</span>
+    </span>
+    <svg class="menuLine" width="100%" height="100%" viewbox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="menuLineTwo" d="M4 18H25" stroke="currentColor" stroke-linecap="round"/>
+
+        <g class="menuLinesGroup">
+            <path class="menuLineOne" d="M4 11H25" stroke="currentColor" stroke-linecap="round"/>
+            <path class="menuLineThree" d="M4 11H25" stroke="currentColor" stroke-linecap="round"/>
+        </g>
+    </svg>
+</button>
+            <button type="button" class="buttonChat" aria-label="챗봇 상담 (준비 중)">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5h16v10H9.5L5.5 19v-3.5H4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <nav id="mainNavigation" class="navigationMain__dropDown" aria-hidden="true" data-menustatetoggle>
+        <div class="navigationMain__dropDownLine"></div>
+        <div class="navigationMain__dropDownWrapper">
+                            <ul class="navigationMain__mainMenu">
+                    <li class="font-S--Semibold navigationMain__mainMenuTitle">Our Focus</li>
+                                            <li class="font-XL navigationMain__mainMenuWrapper">
+                            <a class="navigationMain__mainMenuItem" href="cheongsando.html" target="_self">청산도 취향섬<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>취향섬 소개</span></a>
+                        </li>
+                                            <li class="font-XL navigationMain__mainMenuWrapper">
+                            <a class="navigationMain__mainMenuItem" href="masterplan.html" target="_self">마스터플랜<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>15 Islands</span></a>
+                        </li>
+                                            <li class="font-XL navigationMain__mainMenuWrapper">
+                            <a class="navigationMain__mainMenuItem" href="invest.html" target="_self">선택의 이유<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Why Choose</span></a>
+                        </li>
+                                            <li class="font-XL navigationMain__mainMenuWrapper">
+                            <a class="navigationMain__mainMenuItem" href="ecosystem.html" target="_self">건축과 운영<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Ecosystem</span></a>
+                        </li>
+                                            <li class="font-XL navigationMain__mainMenuWrapper">
+                            <a class="navigationMain__mainMenuItem" href="archive.html" target="_self">설계 노트<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Archive</span></a>
+                        </li>
+                                            <li class="font-XL navigationMain__mainMenuWrapper">
+                            <a class="navigationMain__mainMenuItem" href="consult.html" target="_self">분양 문의<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Contact us</span></a>
+                        </li>
+                                            </ul>
+                        <div class="navigationMain__subMenu">
+                                    <ul class="navigationMain__subMenu--explore">
+                        <li class="font-S--Semibold navigationMain__subMenuTitle">Explore our</li>
+                                                    <li class="font-M navigationMain__subMenuWrapper">
+                                <a class="navigationMain__subMenuItem" href="https://www.2look.co.kr/" target="_blank" rel="noopener noreferrer">Portfolio</a>
+                            </li>
+                                            </ul>
+                                                    <ul class="navigationMain__subMenu--company">
+                        <li class="font-S--Semibold navigationMain__subMenuTitle">Company</li>
+                                                    <li class="font-M navigationMain__companyMenuWrapper">
+                                <a class="navigationMain__subMenuItem" href="https://2look.co.kr" target="_blank" rel="noopener noreferrer">2LOOK</a>
+                            </li>
+                                                    <li class="font-M navigationMain__companyMenuWrapper">
+                                <a class="navigationMain__subMenuItem" href="https://miicon.com" target="_blank" rel="noopener noreferrer">Miicon</a>
+                            </li>
+                                                    </ul>
+                            </div>
+
+            <div class="navigationMain__social">
+                                    
+<a  href="https://www.youtube.com/@we2look"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank" rel="noopener noreferrer"     >
+            <span class="font-s">유튜브</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                    
+<a  href="https://www.instagram.com/we2look/"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank" rel="noopener noreferrer"     >
+            <span class="font-s">인스타그램</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                                    
+<a  href="https://m.blog.naver.com/we2look"    data-color="white" data-open=""
+    class="buttonLine"
+    target="_blank" rel="noopener noreferrer"     >
+            <span class="font-s">블로그</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+                            </div>
+
+                            <div class="navigationMain__contactOne">
+                    <div class="contactInfo">
+    <h2 class="font-S--SemiBold contactInfo__Label">주식회사 이룩</h2>
+            <a class="font-S" href="https://maps.google.com/?q=서울특별시%20구로구%20구로중앙로25길%202-9" target="_blank" rel="noopener noreferrer" aria-label="서울특별시 구로구 구로중앙로25길 2-9 지도에서 보기"><p>서울특별시 구로구 구로중앙로25길 2-9</p>
+</a>
+                <a class="font-S" href="tel:070-8682-0255" aria-label="070-8682-0255로 전화하기">070-8682-0255</a>
+                
+<a href="mailto:we2look@gmail.com" data-color="white" data-open="" class="buttonLine" target="_blank">
+            <span class="font-s">E-mail</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+    </div>
+                </div>
+                                        <div class="navigationMain__contactTwo">
+                    <div class="contactInfo">
+    <h2 class="font-S--SemiBold contactInfo__Label">청산도 취향섬</h2>
+            <a class="font-S" href="https://maps.google.com/?q=전라남도%20완도군%20청산면%20동촌리" target="_blank" rel="noopener noreferrer" aria-label="전라남도 완도군 청산면 동촌리 지도에서 보기"><p>전라남도 완도군 청산면 동촌리</p>
+</a>
+                <a class="font-S" href="tel:070-8682-0255" aria-label="070-8682-0255로 전화하기">070-8682-0255</a>
+                
+<a href="mailto:we2look@gmail.com" data-color="white" data-open="" class="buttonLine" target="_blank">
+            <span class="font-s">E-mail</span>
+        <span class="buttonLine__line">
+            <span class="buttonLine__line--one"></span>
+            <span class="buttonLine__line--two"></span>
+        </span>
+
+    </a>
+    </div>
+                </div>
+                    </div>
+    </nav>
+</div>
+
+							</header>
+			<main id="swup" class="mainContent" aria-label="Content">
+<section  class="homeHero" data-control="HomeHero">
+    <div class="homeHero__main">
+        <div class="homeHero__mainOverlay" aria-hidden="true"></div>
+        <img class="homeHero__mainBackground" src="img/hero.jpg" alt="청산도 취향섬 전경 렌더링">
+        <img class="homeHero__bg" data-bg="0" src="img/card1_cheongsando.jpg" alt="" aria-hidden="true" decoding="async">
+        <img class="homeHero__bg" data-bg="1" src="img/card2_stay_v4.jpg" alt="" aria-hidden="true" decoding="async">
+        <img class="homeHero__bg" data-bg="2" src="img/card4_sale_v4.jpg" alt="" aria-hidden="true" decoding="async">
+        <img class="homeHero__bg" data-bg="3" src="img/card3_operation_v4.jpg" alt="" aria-hidden="true" decoding="async">
+        <img class="homeHero__bg" data-bg="4" src="img/hero.jpg" alt="" aria-hidden="true" decoding="async">
+        <img class="homeHero__bg" data-bg="5" src="img/card5_consult_v4.jpg" alt="" aria-hidden="true" decoding="async">
+
+        <header class="homeHero__title">
+            <h1 class="font-3XL" aria-label="메인 제목">섬 하나를 나누어 갖는<br>세컨하우스 마을,<br>청산도 취향섬</h1>
+        </header>
+
+        <nav class="homeHero__list" aria-label="주요 메뉴">
+          <ul>
+            <li><a class="homeHero__listItem" data-bg="0" href="cheongsando.html">청산도 취향섬<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>취향섬 소개</span></a></li>
+            <li><a class="homeHero__listItem" data-bg="1" href="masterplan.html">마스터플랜<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>15 Islands</span></a></li>
+            <li><a class="homeHero__listItem" data-bg="2" href="invest.html">선택의 이유<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Why Choose</span></a></li>
+            <li><a class="homeHero__listItem" data-bg="3" href="ecosystem.html">건축과 운영<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Ecosystem</span></a></li>
+            <li><a class="homeHero__listItem" data-bg="4" href="archive.html">설계 노트<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Archive</span></a></li>
+            <li><a class="homeHero__listItem" data-bg="5" href="consult.html">분양 문의<span class="navigationMain__hoverExtra" aria-hidden="true"><span class="navigationMain__hoverDot">·</span>Contact us</span></a></li>
+          </ul>
+        </nav>
+
+        <p class="chqHeroNote">렌더링 이미지로 실제와 다를 수 있습니다.</p><button type="button" class="homeHero__down" aria-label="아래로 스크롤">
+            <svg viewBox="0 0 20 72" fill="none" aria-hidden="true"><path d="M10 1V70M2 62l8 8 8-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+    </div>
+</section>
+<div class="op" aria-live="polite">
+  <p class="op__eng">Coming soon</p>
+  <h1 class="op__title">오픈 준비중</h1>
+  <p class="op__sub">청산도 취향섬 분양 사이트를 준비하고 있습니다. <br class="chqBrD">설계 과정은 유튜브 설계 노트에서 먼저 보실 수 있습니다.</p>
+  <ol class="chqEps op__eps"><li class="chqEp"><a class="chqEp__link" href="https://www.youtube.com/watch?v=PgENcSFiBqI" target="_blank" rel="noopener"><div class="chqEp__thumb"><img src="https://i.ytimg.com/vi/PgENcSFiBqI/maxresdefault.jpg" alt="취향섬 EP.1 청산도 · 섬을 발견하다"></div><span class="chqEp__no">EP.1 청산도 · 섬을 발견하다</span></a></li><li class="chqEp"><a class="chqEp__link" href="https://www.youtube.com/watch?v=k1awDcS7ALI" target="_blank" rel="noopener"><div class="chqEp__thumb"><img src="https://i.ytimg.com/vi/k1awDcS7ALI/maxresdefault.jpg" alt="취향섬 EP.2 세종 · 바다를 만들다"></div><span class="chqEp__no">EP.2 세종 · 바다를 만들다</span></a></li><li class="chqEp"><a class="chqEp__link" href="https://www.youtube.com/watch?v=Vcyj1ZxZGYg" target="_blank" rel="noopener"><div class="chqEp__thumb"><img src="https://i.ytimg.com/vi/Vcyj1ZxZGYg/maxresdefault.jpg" alt="취향섬 EP.3 제주 · 섬의 생태계"></div><span class="chqEp__no">EP.3 제주 · 섬의 생태계</span></a></li><li class="chqEp"><a class="chqEp__link" href="https://www.youtube.com/watch?v=ipzJ-WPWsHM" target="_blank" rel="noopener"><div class="chqEp__thumb"><img src="https://i.ytimg.com/vi/ipzJ-WPWsHM/maxresdefault.jpg" alt="취향섬 EP.4 화성 · 군도를 짓다"></div><span class="chqEp__no">EP.4 화성 · 군도를 짓다</span></a></li></ol>
+  <p class="op__foot"><a href="https://www.youtube.com/@we2look/videos" target="_blank" rel="noopener">취향섬 설계 노트 채널</a><span>·</span><a href="tel:07086820255">070-8682-0255</a></p>
+</div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
+<script src="js/logointro.js?v=20261014213500"></script>
+<script src="js/main.js?v=20261022130000"></script>
+<script src="js/sub.js?v=20261024060000"></script>
+<script src="js/keymap.js?v=20261016181000"></script>
+</body>
+</html>
