@@ -410,8 +410,10 @@ body.chqApple.is-pastHero[data-page=home] .navigationMain__topBar{background:rgb
 /* 도식 라벨 글자 테두리(선 위에 겹칠 때 가독성) 2026-10-23 */
 .chqApple svg text.halo{paint-order:stroke;stroke:var(--bg,#fff);stroke-width:7px;stroke-linejoin:round}
 
-/* 메인 01 배치 키맵 도면 2026-10-23 */
+/* 메인 01 배치 키맵 도면 2026-10-23: 건물은 옅게 덮였다가 차례가 오면 원래 도면대로 진해짐 */
 .chqApple .chqKm .hit{fill:transparent}
-.chqApple .chqKm .b :is(path,polygon){fill:var(--acc,#30d158);fill-opacity:.6}
-.chqApple .chqKm .b.kmF :is(path,polygon){fill:#1d1d1f;fill-opacity:.45}
+.chqApple .chqKm .b.chqPop{opacity:1;transform:none}
+.chqApple .chqKm .b :is(path,polygon){fill:#f4f4f2;fill-opacity:.82;transition:fill-opacity .5s ease}
+.chqApple .chqKm .b.is-on :is(path,polygon){fill-opacity:0}
+.chqApple .chqPin.is-in:not(.is-pinned) .chqKm .b :is(path,polygon){fill-opacity:0}
 .chqApple .chqKm text.halo{stroke-width:16px}
