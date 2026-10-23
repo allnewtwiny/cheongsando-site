@@ -122,7 +122,9 @@
           pops.forEach(function (el, k) {
             var s = parseFloat(el.getAttribute('data-at')), off = parseFloat(el.getAttribute('data-off'));
             if (isNaN(s)) s = k / Math.max(1, pops.length) * 0.8;
-            el.classList.toggle('is-on', p >= s && (isNaN(off) || p < off));
+            if (!isNaN(off)) el.classList.toggle('is-on', p >= s && p < off);
+            else if (p >= s) el.classList.add('is-on');
+            else if (p <= 0.001) el.classList.remove('is-on');
           });
           var idx = Math.min(n - 1, Math.floor(p * n));
           steps.forEach(function (s, k) { s.classList.toggle('is-active', k === idx); });

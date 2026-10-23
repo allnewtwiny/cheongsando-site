@@ -499,3 +499,12 @@ body.chqApple.is-pastHero.is-overDark[data-page=home] .topBarMenu a{color:#f5f5f
 .chqApple .chqV7sea .chqStat__num{justify-content:center}
 .chqApple .chqV7sea .chqStat__lab{max-width:34rem;margin-left:auto;margin-right:auto}
 .chqApple .chqV7sea .chqPin__after .chqSmall{text-align:center}
+
+/* v11 자식 페이지 재정비 2026-10-24 */
+.chqApple .chqV7fade--w{background:linear-gradient(to bottom,#fff 0%,#000 100%)}
+.chqApple .chqSec--grey+.chqV7fade--w{background:linear-gradient(to bottom,#f5f5f7 0%,#000 100%)}
+.chqApple .chqV7fade+.chqSec--darkFixed{padding-top:4rem}
+.chqSub .chqHero--photo+.chqSec--state{padding-top:30rem}
+.chqSub .chqSec--darkFixed .chqSec--state,.chqSub .chqSec--darkFixed.chqSec--state{background:#000}
+.chqSub .chqSec--darkFixed .chqGlass,.chqSub .chqSec--darkFixed .chqBento{--line:#424245}
+@media (max-width:1023px){.chqSub .chqHero--photo+.chqSec--state{padding-top:14rem}.chqApple .chqV7fade+.chqSec--darkFixed{padding-top:2rem}}
