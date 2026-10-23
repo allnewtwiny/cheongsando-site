@@ -486,3 +486,8 @@ body.chqApple.is-pastHero.is-overDark[data-page=home] .topBarMenu a{color:#f5f5f
 /* v9: 첫 문구 위 간격 확대 (2026-10-24) */
 .chqApple .homeHero+.chqSec--state{padding-top:48rem}
 @media (max-width:767px){.chqApple .homeHero+.chqSec--state{padding-top:18rem}}
+/* v9: 여섯 장 2번 키맵 사진, 단지 전체가 보이게 오른쪽 기준으로 자름 */
+.chqApple .chqChapters img[src*="keymap_v3"]{object-position:100% 50%}
+/* v9: 세 장의 안내 위쪽 여백 확대 */
+.chqApple .chqV9guide{padding-top:24rem}
+@media (max-width:767px){.chqApple .chqV9guide{padding-top:12rem}}
