@@ -292,6 +292,8 @@
     var toneRaf = 0;
     var tone = function () {
       toneRaf = 0;
+      /* 하위 페이지는 어두운 섹션 위에서도 is-pastHero 를 유지해 상단 메뉴가 보이게 하고, 색은 아래 is-overDark 가 맡는다 */
+      if (document.body.classList.contains('chqSub')) { document.body.classList.toggle('is-pastHero', window.scrollY > 10); return; }
       var dark = $$(darkSel).some(function (el) { var r = el.getBoundingClientRect(); return r.top <= 30 && r.bottom > 30; });
       document.body.classList.toggle('is-pastHero', window.scrollY > 10 && !dark);
     };
@@ -327,8 +329,10 @@
 
 /* v7 (2026-10-24): 옛 첫 화면이 있는 메인에서 상단바 아래가 검정 섹션이면 body.is-overDark (apple.css에서 검정 반투명 바, 흰 글자) */
 (function () {
-  if (document.body.getAttribute('data-page') !== 'home' || !document.querySelector('.homeHero')) return;
-  var sel = '.chqSec--darkFixed,.chqSec.is-dark,.chqV7fade', raf = 0;
+  /* v8 (2026-10-29): 하위 페이지(chqSub)도 같은 방식. 사진 배경 섹션도 어두운 쪽으로 본다 */
+  var sub = document.body.classList.contains('chqSub');
+  if (!sub && (document.body.getAttribute('data-page') !== 'home' || !document.querySelector('.homeHero'))) return;
+  var sel = '.chqSec--darkFixed,.chqSec.is-dark,.chqV7fade' + (sub ? ',.chqSec--photo,.chqHero--photo' : ''), raf = 0;
   var check = function () {
     raf = 0;
     var on = Array.prototype.some.call(document.querySelectorAll(sel), function (el) {

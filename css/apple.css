@@ -542,3 +542,9 @@ body.chqApple.is-pastHero.is-overDark[data-page=home] .topBarMenu a{color:#f5f5f
 /* 청산도 취향섬: 우리는 바다를 건너 문단 위 여백 */
 .chqApple .chqSec--state.chqGapT{padding-top:16rem}
 @media (max-width:767px){.chqApple .chqSec--state.chqGapT{padding-top:8rem}}
+/* 하위 페이지: 상단바 아래가 검정이나 사진 섹션이면 검정 반투명 바에 흰 로고, 흰 메뉴 (메인과 같은 톤) */
+body.chqSub.chqApple.is-overDark .navigationMain__topBar{background:rgba(0,0,0,.6)!important;box-shadow:inset 0 -1px 0 rgba(255,255,255,.1)!important}
+body.chqSub.chqApple.is-overDark .buttonMenu,body.chqSub.chqApple.is-overDark .buttonChat{filter:none!important}
+body.chqSub.chqApple.is-overDark .navigationMain__topBarLogo .topBarMark{filter:brightness(0) invert(1)!important}
+body.chqSub.chqApple.is-overDark .topBarMenu a{color:#f5f5f7!important}
+body.chqSub.chqApple.is-overDark .topBarMenu a[aria-current=page]{opacity:1}
