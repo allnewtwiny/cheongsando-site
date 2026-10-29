@@ -548,3 +548,10 @@ body.chqSub.chqApple.is-overDark .buttonMenu,body.chqSub.chqApple.is-overDark .b
 body.chqSub.chqApple.is-overDark .navigationMain__topBarLogo .topBarMark{filter:brightness(0) invert(1)!important}
 body.chqSub.chqApple.is-overDark .topBarMenu a{color:#f5f5f7!important}
 body.chqSub.chqApple.is-overDark .topBarMenu a[aria-current=page]{opacity:1}
+/* 마스터플랜: 표 아래 안내 문구는 표 폭 안에 */
+.chqApple .chqTableNote{margin:1.6rem 0 0;text-align:left}
+/* 마스터플랜 대지를 하나의 바다로: 고정 화면 안 그림 아래 세 항목 */
+.chqApple .chqTrio--pin{margin-top:3.2rem}
+.chqApple .chqPinStack .chqPin__stage{flex-direction:column;justify-content:center;align-items:stretch;padding:6rem 0}
+.chqApple .chqPinStack .chqPin__stage>.chqWrap{width:100%}
+@media (max-width:1023px){.chqApple .chqPinStack .chqPin__stage{display:block;padding:0}}
