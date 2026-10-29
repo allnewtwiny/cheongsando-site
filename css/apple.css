@@ -555,3 +555,9 @@ body.chqSub.chqApple.is-overDark .topBarMenu a[aria-current=page]{opacity:1}
 .chqApple .chqPinStack .chqPin__stage{flex-direction:column;justify-content:center;align-items:stretch;padding:6rem 0}
 .chqApple .chqPinStack .chqPin__stage>.chqWrap{width:100%}
 @media (max-width:1023px){.chqApple .chqPinStack .chqPin__stage{display:block;padding:0}}
+
+/* 기본형과 확장형 평면 (10/29) */
+.chqPlanSec .chqPin__grid{grid-template-columns:1fr 2fr;gap:4.8rem}
+.chqPlanSec .chqFigNote{text-align:left}
+.chqPlanSec .chqPin__after .chqText{text-align:right;margin-left:auto;margin-right:0;font-size:1.7rem;line-height:1.7}
+@media (max-width:767px){.chqPlanSec .chqPin__grid{grid-template-columns:1fr}.chqPlanSec .chqPin__after .chqText{font-size:1.5rem}}
