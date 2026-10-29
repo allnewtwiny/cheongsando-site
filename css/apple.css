@@ -586,3 +586,10 @@ body.chqSub.chqApple.is-overDark .topBarMenu a[aria-current=page]{opacity:1}
 .chqApple .chqSec--state.chqGapT.chqGapT--xl{padding-top:28rem}
 @media (max-width:767px){.chqApple .chqSec--state.chqGapT.chqGapT--xl{padding-top:12rem}}
 .chqApple .chqCopyNote{margin:2.4rem 0 0;max-width:44rem;color:var(--fg3)}
+
+/* 설계 노트: 두 수치 가운데 균형 (10/29) */
+.chqApple .chqStats--center .chqStat{text-align:center;align-items:center;justify-items:center}
+
+/* 설계 노트 더 보기: 버튼만 링크, 안내 문구는 글 (10/29) */
+.chqApple .chqEp__moreRow{display:flex;justify-content:space-between;align-items:center;gap:1.6rem;flex-wrap:wrap;padding:2.4rem 0}
+.chqApple .chqEp__moreRow .chqEp__no{margin:0}
