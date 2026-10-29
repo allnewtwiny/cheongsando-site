@@ -144,6 +144,8 @@
         };
         /* data-autoplay="초": 고정되는 순간 스크롤 양과 상관없이 끝까지 한 번에 재생 */
         var auto = parseFloat(pin.getAttribute('data-autoplay')), played = false;
+        /* data-manual: 스크롤로는 단계가 바뀌지 않고 클릭과 앞뒤 버튼으로만 넘긴다 */
+        var manual = pin.hasAttribute('data-manual'), mIdx = 0;
         var play = function () {
           if (played) return; played = true;
           var t0 = performance.now(), dur = auto * 1000;
@@ -152,8 +154,8 @@
         };
         var trig = ST.create({
           trigger: pin, start: 'top top', end: '+=' + (parseInt(pin.getAttribute('data-len'), 10) || n * 90) + '%', pin: stage, scrub: 0.4, anticipatePin: 1,
-          onUpdate: function (self) { if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); },
-          onRefresh: function (self) { if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); }
+          onUpdate: function (self) { if (manual) return; if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); },
+          onRefresh: function (self) { if (manual) return; if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); }
         });
         created.push(trig);
         render(0);
@@ -165,6 +167,11 @@
         if (stops.length) {
           var goStop = function (dir) {
             var p = trig.progress, nx = null, i;
+            if (manual) {
+              var nt = mIdx + (dir > 0 ? 1 : -1);
+              if (nt >= 0 && nt < n) { mIdx = nt; render(stops[mIdx]); }
+              return;
+            }
             if (sAttr === 'auto') {
               var cur = Math.min(n - 1, Math.floor(p * n)), to = cur + (dir > 0 ? 1 : -1);
               if (to >= 0 && to < n) nx = stops[to];
