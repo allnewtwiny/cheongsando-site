@@ -581,3 +581,8 @@ body.chqSub.chqApple.is-overDark .topBarMenu a[aria-current=page]{opacity:1}
 
 /* 문장 안 강조 (10/29) */
 .chqApple .chqBold{font-weight:700;color:var(--fg)}
+
+/* 더 큰 위 여백, 왼쪽 글 아래 붙는 안내 (10/29) */
+.chqApple .chqSec--state.chqGapT.chqGapT--xl{padding-top:28rem}
+@media (max-width:767px){.chqApple .chqSec--state.chqGapT.chqGapT--xl{padding-top:12rem}}
+.chqApple .chqCopyNote{margin:2.4rem 0 0;max-width:44rem;color:var(--fg3)}
