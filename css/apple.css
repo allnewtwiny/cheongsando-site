@@ -539,3 +539,6 @@ body.chqApple.is-pastHero.is-overDark[data-page=home] .topBarMenu a{color:#f5f5f
 .chqApple .chqPinFix .chqPin__step .chqText{margin:0}
 .chqApple .chqPinFix .chqPin__step .chqText+.chqText{margin-top:1.6rem}
 @media (max-width:1023px){.chqApple .chqPinFix .chqPin__steps{min-height:0}}
+/* 청산도 취향섬: 우리는 바다를 건너 문단 위 여백 */
+.chqApple .chqSec--state.chqGapT{padding-top:16rem}
+@media (max-width:767px){.chqApple .chqSec--state.chqGapT{padding-top:8rem}}
