@@ -145,7 +145,19 @@
         /* data-autoplay="초": 고정되는 순간 스크롤 양과 상관없이 끝까지 한 번에 재생 */
         var auto = parseFloat(pin.getAttribute('data-autoplay')), played = false;
         /* data-manual: 스크롤로는 단계가 바뀌지 않고 클릭과 앞뒤 버튼으로만 넘긴다. 끝에서 다음은 처음으로, 처음에서 이전은 끝으로 */
-        var manual = pin.hasAttribute('data-manual'), mIdx = 0;
+        var manual = pin.hasAttribute('data-manual'), mIdx = 0, mP = 0, mRaf = 0, mGo = false;
+        /* 단계 q 의 그림이 다 그려진 지점까지 0.8초 동안 이어서 그린다 */
+        var mTo = function (q) {
+          var from = mP, to = (q + 1) / n - 0.001, t0 = performance.now();
+          cancelAnimationFrame(mRaf);
+          /* 뒤로 갈 때는 거꾸로 지우지 않고 바로 그 장면으로. 1번으로 돌아오면 처음부터 다시 그린다 */
+          if (to < from) { from = q === 0 ? 0 : to; mP = from; render(from); }
+          var tick = function (now) {
+            var k = clamp((now - t0) / 800); mP = from + (to - from) * easeOut(k); render(mP);
+            if (k < 1) mRaf = requestAnimationFrame(tick);
+          };
+          mRaf = requestAnimationFrame(tick);
+        };
         var play = function () {
           if (played) return; played = true;
           var t0 = performance.now(), dur = auto * 1000;
@@ -154,8 +166,8 @@
         };
         var trig = ST.create({
           trigger: pin, start: 'top top', end: '+=' + (parseInt(pin.getAttribute('data-len'), 10) || n * 90) + '%', pin: stage, scrub: 0.4, anticipatePin: 1,
-          onUpdate: function (self) { if (manual) return; if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); },
-          onRefresh: function (self) { if (manual) return; if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); }
+          onUpdate: function (self) { if (manual) { if (!mGo && self.progress > 0) { mGo = true; mTo(0); } return; } if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); },
+          onRefresh: function (self) { if (manual) { if (!mGo && self.progress > 0) { mGo = true; mTo(0); } return; } if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); }
         });
         created.push(trig);
         render(0);
@@ -168,7 +180,7 @@
           var goStop = function (dir) {
             var p = trig.progress, nx = null, i;
             if (manual) {
-              mIdx = (mIdx + (dir > 0 ? 1 : -1) + n) % n; render(stops[mIdx]);
+              mIdx = (mIdx + (dir > 0 ? 1 : -1) + n) % n; mGo = true; mTo(mIdx);
               return;
             }
             if (sAttr === 'auto') {
@@ -181,26 +193,11 @@
             if (window.__lenis) window.__lenis.scrollTo(y, { duration: 0.6 }); else window.scrollTo({ top: y, behavior: 'smooth' });
           };
           var onStop = function (e) {
-            if (pin.hasAttribute('data-no-click') || !trig.isActive || (e.target.closest && e.target.closest('a,button'))) return;
+            if (!trig.isActive || (e.target.closest && e.target.closest('a,button'))) return;
             goStop(1);
           };
           document.addEventListener('click', onStop);
           clickOffs.push(function () { document.removeEventListener('click', onStop); });
-          /* data-snap: 고정된 동안 휠 한 번에 한 장면씩. 첫 장면 위, 마지막 장면 아래로는 평소처럼 스크롤 */
-          if (pin.hasAttribute('data-snap')) {
-            var lockT = 0;
-            var onWheel = function (e) {
-              if (!trig.isActive || Math.abs(e.deltaY) < 2) return;
-              var dir = e.deltaY > 0 ? 1 : -1, now = performance.now();
-              var c = Math.min(n - 1, Math.floor(trig.progress * n)), to = c + dir;
-              if (now < lockT) { e.preventDefault(); e.stopPropagation(); lockT = now + 250; return; }
-              if (to < 0 || to >= n) return;
-              e.preventDefault(); e.stopPropagation(); lockT = now + 900;
-              goStop(dir);
-            };
-            document.addEventListener('wheel', onWheel, { capture: true, passive: false });
-            clickOffs.push(function () { document.removeEventListener('wheel', onWheel, { capture: true }); });
-          }
           $$('.chqPinNav__prev,.chqPinNav__next', pin).forEach(function (btn) {
             var h = function (e) { e.preventDefault(); goStop(btn.classList.contains('chqPinNav__prev') ? -1 : 1); };
             btn.addEventListener('click', h);
