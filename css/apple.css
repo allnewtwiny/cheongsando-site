@@ -593,3 +593,9 @@ body.chqSub.chqApple.is-overDark .topBarMenu a[aria-current=page]{opacity:1}
 /* 설계 노트 더 보기: 버튼만 링크, 안내 문구는 글 (10/29) */
 .chqApple .chqEp__moreRow{display:flex;justify-content:space-between;align-items:center;gap:1.6rem;flex-wrap:wrap;padding:2.4rem 0}
 .chqApple .chqEp__moreRow .chqEp__no{margin:0}
+
+/* 분양 문의: 설명 줄 수와 상관없이 칸 제목 높이 통일, 온라인 상담 위 여백 (10/29) */
+.chqApple .chqBento--even .chqCell__k{margin-bottom:12rem}
+@media (max-width:767px){.chqApple .chqBento--even .chqCell__k{margin-bottom:4rem}}
+.chqApple .chqSec.chqGapT2{padding-top:24rem}
+@media (max-width:767px){.chqApple .chqSec.chqGapT2{padding-top:12rem}}
