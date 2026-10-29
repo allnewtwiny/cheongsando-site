@@ -87,7 +87,7 @@
   if (pins.length && gsap && ST && !reduce && typeof gsap.matchMedia === 'function') {
     var mm = gsap.matchMedia();
     mm.add('(min-width: 1024px)', function () {
-      var created = [];
+      var created = [], clickOffs = [];
       pins.forEach(function (pin) {
         var stage = pin.querySelector('.chqPin__stage');
         if (!stage) return;
@@ -142,15 +142,54 @@
             b.classList.toggle('is-dim', any && !on);
           });
         };
-        created.push(ST.create({
+        /* data-autoplay="초": 고정되는 순간 스크롤 양과 상관없이 끝까지 한 번에 재생 */
+        var auto = parseFloat(pin.getAttribute('data-autoplay')), played = false;
+        var play = function () {
+          if (played) return; played = true;
+          var t0 = performance.now(), dur = auto * 1000;
+          var tick = function (now) { var k = clamp((now - t0) / dur); render(k); if (k < 1) requestAnimationFrame(tick); };
+          requestAnimationFrame(tick);
+        };
+        var trig = ST.create({
           trigger: pin, start: 'top top', end: '+=' + (parseInt(pin.getAttribute('data-len'), 10) || n * 90) + '%', pin: stage, scrub: 0.4, anticipatePin: 1,
-          onUpdate: function (self) { render(self.progress); },
-          onRefresh: function (self) { render(self.progress); }
-        }));
+          onUpdate: function (self) { if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); },
+          onRefresh: function (self) { if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); }
+        });
+        created.push(trig);
         render(0);
+        /* 5-1. data-click-stops: 고정된 동안 화면 아무 곳이나 누르면 다음 멈춤 지점으로 바로 넘긴다 (링크, 버튼 클릭은 제외).
+           값이 auto 이면 단계마다 가운데 지점. .chqPinNav__prev / __next 버튼은 앞뒤 단계로 넘긴다. */
+        var sAttr = pin.getAttribute('data-click-stops') || '', stops;
+        if (sAttr === 'auto') { stops = []; for (var q = 0; q < n; q++) stops.push((q + 0.5) / n); }
+        else stops = sAttr.split(',').map(parseFloat).filter(function (v) { return !isNaN(v); });
+        if (stops.length) {
+          var goStop = function (dir) {
+            var p = trig.progress, nx = null, i;
+            if (sAttr === 'auto') {
+              var cur = Math.min(n - 1, Math.floor(p * n)), to = cur + (dir > 0 ? 1 : -1);
+              if (to >= 0 && to < n) nx = stops[to];
+            } else if (dir > 0) { for (i = 0; i < stops.length; i++) { if (stops[i] > p + 0.02) { nx = stops[i]; break; } } }
+            else { for (i = stops.length - 1; i >= 0; i--) { if (stops[i] < p - 0.02) { nx = stops[i]; break; } } }
+            if (nx === null) return;
+            var y = trig.start + (trig.end - trig.start) * nx;
+            if (window.__lenis) window.__lenis.scrollTo(y, { duration: 0.6 }); else window.scrollTo({ top: y, behavior: 'smooth' });
+          };
+          var onStop = function (e) {
+            if (!trig.isActive || (e.target.closest && e.target.closest('a,button'))) return;
+            goStop(1);
+          };
+          document.addEventListener('click', onStop);
+          clickOffs.push(function () { document.removeEventListener('click', onStop); });
+          $$('.chqPinNav__prev,.chqPinNav__next', pin).forEach(function (btn) {
+            var h = function (e) { e.preventDefault(); goStop(btn.classList.contains('chqPinNav__prev') ? -1 : 1); };
+            btn.addEventListener('click', h);
+            clickOffs.push(function () { btn.removeEventListener('click', h); });
+          });
+        }
       });
       return function () {
         created.forEach(function (t) { t.kill(); });
+        clickOffs.forEach(function (off) { off(); });
         pins.forEach(function (p) { p.classList.remove('is-pinned'); p.classList.add('is-in'); });
       };
     });
