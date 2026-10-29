@@ -181,11 +181,26 @@
             if (window.__lenis) window.__lenis.scrollTo(y, { duration: 0.6 }); else window.scrollTo({ top: y, behavior: 'smooth' });
           };
           var onStop = function (e) {
-            if (!trig.isActive || (e.target.closest && e.target.closest('a,button'))) return;
+            if (pin.hasAttribute('data-no-click') || !trig.isActive || (e.target.closest && e.target.closest('a,button'))) return;
             goStop(1);
           };
           document.addEventListener('click', onStop);
           clickOffs.push(function () { document.removeEventListener('click', onStop); });
+          /* data-snap: 고정된 동안 휠 한 번에 한 장면씩. 첫 장면 위, 마지막 장면 아래로는 평소처럼 스크롤 */
+          if (pin.hasAttribute('data-snap')) {
+            var lockT = 0;
+            var onWheel = function (e) {
+              if (!trig.isActive || Math.abs(e.deltaY) < 2) return;
+              var dir = e.deltaY > 0 ? 1 : -1, now = performance.now();
+              var c = Math.min(n - 1, Math.floor(trig.progress * n)), to = c + dir;
+              if (now < lockT) { e.preventDefault(); e.stopPropagation(); lockT = now + 250; return; }
+              if (to < 0 || to >= n) return;
+              e.preventDefault(); e.stopPropagation(); lockT = now + 900;
+              goStop(dir);
+            };
+            document.addEventListener('wheel', onWheel, { capture: true, passive: false });
+            clickOffs.push(function () { document.removeEventListener('wheel', onWheel, { capture: true }); });
+          }
           $$('.chqPinNav__prev,.chqPinNav__next', pin).forEach(function (btn) {
             var h = function (e) { e.preventDefault(); goStop(btn.classList.contains('chqPinNav__prev') ? -1 : 1); };
             btn.addEventListener('click', h);

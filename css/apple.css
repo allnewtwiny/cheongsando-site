@@ -519,7 +519,7 @@ body.chqApple.is-pastHero.is-overDark[data-page=home] .topBarMenu a{color:#f5f5f
 /* 한 장씩 넘겨 보세요: 앞뒤 카드 넘김 동그란 화살표 (고정 장면이 있는 데스크톱만) */
 .chqPinNav{display:none}
 @media (min-width:1024px){
-.chqPin.is-pinned .chqPinNav{display:flex;gap:1rem;margin-top:2.4rem}
+.chqPin.is-pinned .chqPinNav{position:relative;z-index:3;display:flex;gap:1rem;margin-top:2.4rem}
 .chqPinNav button{width:4.4rem;height:4.4rem;padding:0;border:1px solid var(--fg);border-radius:50%;background:none;color:var(--fg);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .25s,color .25s}
 .chqPinNav button:hover{background:var(--fg);color:var(--bg)}
 .chqPinNav svg{width:2rem;height:2rem;display:block}
@@ -528,3 +528,7 @@ body.chqApple.is-pastHero.is-overDark[data-page=home] .topBarMenu a{color:#f5f5f
 
 /* 바다 너머의 일상 아래 홍보 문구: 본문보다 크게 */
 .chqApple .chqPromo{margin:5.6rem auto 0;text-wrap:balance;max-width:80rem;font-size:clamp(2rem,2.2vw,3rem);line-height:1.5;font-weight:500;letter-spacing:-.02em;text-align:center;color:var(--fg);word-break:keep-all}
+
+/* 청산도 취향섬: 길은 깎지 않고 문단 아래 여백 */
+.chqApple .chqSec--state.chqGapB{padding-bottom:16rem}
+@media (max-width:767px){.chqApple .chqSec--state.chqGapB{padding-bottom:8rem}}
