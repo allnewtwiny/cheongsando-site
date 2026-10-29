@@ -144,7 +144,7 @@
         };
         /* data-autoplay="초": 고정되는 순간 스크롤 양과 상관없이 끝까지 한 번에 재생 */
         var auto = parseFloat(pin.getAttribute('data-autoplay')), played = false;
-        /* data-manual: 스크롤로는 단계가 바뀌지 않고 클릭과 앞뒤 버튼으로만 넘긴다 */
+        /* data-manual: 스크롤로는 단계가 바뀌지 않고 클릭과 앞뒤 버튼으로만 넘긴다. 끝에서 다음은 처음으로, 처음에서 이전은 끝으로 */
         var manual = pin.hasAttribute('data-manual'), mIdx = 0;
         var play = function () {
           if (played) return; played = true;
@@ -168,8 +168,7 @@
           var goStop = function (dir) {
             var p = trig.progress, nx = null, i;
             if (manual) {
-              var nt = mIdx + (dir > 0 ? 1 : -1);
-              if (nt >= 0 && nt < n) { mIdx = nt; render(stops[mIdx]); }
+              mIdx = (mIdx + (dir > 0 ? 1 : -1) + n) % n; render(stops[mIdx]);
               return;
             }
             if (sAttr === 'auto') {
