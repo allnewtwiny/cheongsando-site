@@ -187,6 +187,21 @@
           });
         }
       });
+      /* 5-2. 고정 장면이 화면 안에 보이기 시작했는데 아직 고정 전이면, 아무 곳이나 누를 때 고정 시작 지점까지 바로 내려간다 (링크, 버튼 클릭은 제외). */
+      var onApproach = function (e) {
+        if (e.target.closest && e.target.closest('a,button')) return;
+        if (created.some(function (t) { return t.isActive; })) return;
+        var vh = window.innerHeight, y = window.scrollY || window.pageYOffset;
+        for (var i = 0; i < created.length; i++) {
+          var t = created[i], top = t.trigger.getBoundingClientRect().top;
+          if (t.start > y + 2 && top > 0 && top < vh) {
+            if (window.__lenis) window.__lenis.scrollTo(t.start + 2, { duration: 0.8 }); else window.scrollTo({ top: t.start + 2, behavior: 'smooth' });
+            return;
+          }
+        }
+      };
+      document.addEventListener('click', onApproach);
+      clickOffs.push(function () { document.removeEventListener('click', onApproach); });
       return function () {
         created.forEach(function (t) { t.kill(); });
         clickOffs.forEach(function (off) { off(); });

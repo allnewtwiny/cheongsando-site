@@ -527,4 +527,4 @@ body.chqApple.is-pastHero.is-overDark[data-page=home] .topBarMenu a{color:#f5f5f
 }
 
 /* 바다 너머의 일상 아래 홍보 문구: 본문보다 크게 */
-.chqApple .chqPromo{margin:4rem auto 0;max-width:80rem;font-size:clamp(2rem,2.2vw,3rem);line-height:1.5;font-weight:500;letter-spacing:-.02em;text-align:center;color:var(--fg);word-break:keep-all}
+.chqApple .chqPromo{margin:5.6rem auto 0;text-wrap:balance;max-width:80rem;font-size:clamp(2rem,2.2vw,3rem);line-height:1.5;font-weight:500;letter-spacing:-.02em;text-align:center;color:var(--fg);word-break:keep-all}
