@@ -575,3 +575,9 @@ body.chqSub.chqApple.is-overDark .topBarMenu a[aria-current=page]{opacity:1}
 
 /* 한 줄로 두는 문단은 폭 제한을 푼다 (10/29) */
 .chqApple .chqNoMax{max-width:none}
+
+/* 그림 안내를 한 줄 왼쪽 정렬로 (10/29) */
+.chqApple .chqFigNote--line{text-align:left}
+
+/* 문장 안 강조 (10/29) */
+.chqApple .chqBold{font-weight:700;color:var(--fg)}
