@@ -548,3 +548,6 @@ body.chqSub.chqApple.is-overDark .buttonMenu,body.chqSub.chqApple.is-overDark .b
 body.chqSub.chqApple.is-overDark .navigationMain__topBarLogo .topBarMark{filter:brightness(0) invert(1)!important}
 body.chqSub.chqApple.is-overDark .topBarMenu a{color:#f5f5f7!important}
 body.chqSub.chqApple.is-overDark .topBarMenu a[aria-current=page]{opacity:1}
+/* 하위 페이지 문단: 마지막 줄에 한 단어만 떨어지지 않게(pretty), 가운데 정렬 문단은 줄 길이를 고르게(balance) */
+.chqSub.chqApple main :is(p,.chqStat__lab,li){text-wrap:pretty}
+.chqSub.chqApple main :is(.chqState__txt,.chqState__sub,.chqHero__sub){text-wrap:balance}
