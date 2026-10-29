@@ -145,19 +145,33 @@
         /* data-autoplay="초": 고정되는 순간 스크롤 양과 상관없이 끝까지 한 번에 재생 */
         var auto = parseFloat(pin.getAttribute('data-autoplay')), played = false;
         /* data-manual: 스크롤로는 단계가 바뀌지 않고 클릭과 앞뒤 버튼으로만 넘긴다. 끝에서 다음은 처음으로, 처음에서 이전은 끝으로 */
-        var manual = pin.hasAttribute('data-manual'), mIdx = 0, mP = 0, mRaf = 0, mGo = false;
-        /* 단계 q 의 그림이 다 그려진 지점까지 0.8초 동안 이어서 그린다 */
-        var mTo = function (q) {
-          var from = mP, to = (q + 1) / n - 0.001, t0 = performance.now();
+        /* data-phases="0.5,1": 고정되면 첫 구간까지 자동 재생, 휠 한 번이나 클릭 한 번에 다음 구간까지. 다 끝난 뒤 휠은 다음 화면으로, 클릭은 처음부터 다시 */
+        var phAttr = pin.getAttribute('data-phases'), phases = phAttr ? phAttr.split(',').map(parseFloat) : null, ph = 0, phLock = 0;
+        var manual = pin.hasAttribute('data-manual') || !!phases, mIdx = 0, mP = 0, mRaf = 0, mGo = false;
+        /* 지금 지점에서 to 까지 dur 밀리초 동안 이어서 그린다 */
+        var mAnim = function (to, dur) {
+          var from = mP, t0 = performance.now();
           cancelAnimationFrame(mRaf);
-          /* 뒤로 갈 때는 거꾸로 지우지 않고 바로 그 장면으로. 1번으로 돌아오면 처음부터 다시 그린다 */
-          if (to < from) { from = q === 0 ? 0 : to; mP = from; render(from); }
           var tick = function (now) {
-            var k = clamp((now - t0) / 800); mP = from + (to - from) * easeOut(k); render(mP);
+            var k = clamp((now - t0) / dur); mP = from + (to - from) * easeOut(k); render(mP);
             if (k < 1) mRaf = requestAnimationFrame(tick);
           };
           mRaf = requestAnimationFrame(tick);
         };
+        var mReset = function () { cancelAnimationFrame(mRaf); mP = 0; render(0); };
+        /* 단계 q 의 그림이 다 그려진 지점까지 0.8초 동안 이어서 그린다 */
+        var mTo = function (q) {
+          var to = (q + 1) / n - 0.001;
+          /* 뒤로 갈 때는 거꾸로 지우지 않고 바로 그 장면으로. 1번으로 돌아오면 처음부터 다시 그린다 */
+          if (to < mP) { cancelAnimationFrame(mRaf); mP = q === 0 ? 0 : to; render(mP); }
+          mAnim(to, 800);
+        };
+        var phNext = function () {
+          if (ph >= phases.length) return false;
+          mAnim(phases[ph], 1400); ph++; phLock = performance.now() + 1000;
+          return true;
+        };
+        var mEnter = function () { if (phases) { mReset(); ph = 0; phNext(); } else mTo(0); };
         var play = function () {
           if (played) return; played = true;
           var t0 = performance.now(), dur = auto * 1000;
@@ -166,11 +180,30 @@
         };
         var trig = ST.create({
           trigger: pin, start: 'top top', end: '+=' + (parseInt(pin.getAttribute('data-len'), 10) || n * 90) + '%', pin: stage, scrub: 0.4, anticipatePin: 1,
-          onUpdate: function (self) { if (manual) { if (!mGo && self.progress > 0) { mGo = true; mTo(0); } return; } if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); },
-          onRefresh: function (self) { if (manual) { if (!mGo && self.progress > 0) { mGo = true; mTo(0); } return; } if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); }
+          onUpdate: function (self) { if (manual) { if (!mGo && self.progress > 0) { mGo = true; mEnter(); } return; } if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); },
+          onRefresh: function (self) { if (manual) { if (!mGo && self.progress > 0) { mGo = true; mEnter(); } return; } if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); },
+          /* 구간 재생 장면은 위로 빠져나가면 처음 상태로, 다시 들어오면 서울부터 */
+          onLeaveBack: function () { if (phases) { mGo = false; ph = 0; mReset(); } }
         });
         created.push(trig);
         render(0);
+        if (phases) {
+          var onPhClick = function (e) {
+            if (!trig.isActive || (e.target.closest && e.target.closest('a,button'))) return;
+            if (!phNext()) { mReset(); ph = 0; phNext(); }
+          };
+          var onPhWheel = function (e) {
+            if (!trig.isActive || e.deltaY <= 0) return;
+            var now = performance.now();
+            /* 트랙패드 관성으로 이어지는 신호는 한 번으로 친다 */
+            if (now < phLock) { e.preventDefault(); e.stopPropagation(); phLock = now + 250; return; }
+            if (ph >= phases.length) return;
+            e.preventDefault(); e.stopPropagation(); phNext();
+          };
+          document.addEventListener('click', onPhClick);
+          document.addEventListener('wheel', onPhWheel, { capture: true, passive: false });
+          clickOffs.push(function () { document.removeEventListener('click', onPhClick); document.removeEventListener('wheel', onPhWheel, { capture: true }); });
+        }
         /* 5-1. data-click-stops: 고정된 동안 화면 아무 곳이나 누르면 다음 멈춤 지점으로 바로 넘긴다 (링크, 버튼 클릭은 제외).
            값이 auto 이면 단계마다 가운데 지점. .chqPinNav__prev / __next 버튼은 앞뒤 단계로 넘긴다. */
         var sAttr = pin.getAttribute('data-click-stops') || '', stops;
