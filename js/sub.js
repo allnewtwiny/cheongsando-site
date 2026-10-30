@@ -401,10 +401,11 @@
   }
   function arrow() {
     var v = [[0, -19], [4.5, -19], [4.5, 2], [16, 2], [0, 20], [-16, 2], [-4.5, 2], [-4.5, -19]], M = v.length;
-    var toward = function (a, b) { var l = Math.hypot(b[0] - a[0], b[1] - a[1]), u = Math.min(RC / l, .45); return [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u]; };
+    var rc = [0, RC, 0, RC, RC, RC, 0, RC]; /* 막대와 삼각형이 만나는 안쪽 두 곳은 각지게 */
+    var toward = function (a, b, r) { var l = Math.hypot(b[0] - a[0], b[1] - a[1]), u = Math.min(r / l, .45); return [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u]; };
     var line = function (p0, p1) { return [p0[0] + (p1[0] - p0[0]) / 3, p0[1] + (p1[1] - p0[1]) / 3, p0[0] + (p1[0] - p0[0]) * 2 / 3, p0[1] + (p1[1] - p0[1]) * 2 / 3, p1[0], p1[1]]; };
     var ins = [], outs = [], pts = [];
-    for (var i = 0; i < M; i++) { ins.push(toward(v[i], v[(i + M - 1) % M])); outs.push(toward(v[i], v[(i + 1) % M])); }
+    for (var i = 0; i < M; i++) { ins.push(toward(v[i], v[(i + M - 1) % M], rc[i])); outs.push(toward(v[i], v[(i + 1) % M], rc[i])); }
     for (var j = 1; j <= M; j++) {
       var k = j % M, a = ins[k], b = outs[k], c = v[k];
       pts.push(line(outs[j - 1], a));
