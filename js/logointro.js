@@ -40,7 +40,7 @@ const E = {
 
 // 정사각 등장 (squares.html 2, 5, 14번)
 const INTROS = [
-  { key: '1-2', name: '순차 페이드인', dur: 2900, frame: (t, i) => [SQ_H, E.out(seg(t, i * 650, 1600))] },
+  { key: '1-2', name: '동시 페이드인', dur: 1600, frame: (t, i) => [SQ_H, E.out(seg(t, 0, 1600))] }, /* 2026-10-30 세 블록 동시(전에는 i * 650 순차, dur 2900) */
   { key: '1-5', name: '바닥에서 솟아오름', dur: 1200, frame: (t, i) => [SQ_H * E.outExpo(seg(t, i * 200, 800)), 1] },
   { key: '1-14', name: '2분의 1씩 톡톡', dur: 740, frame: (t, i) => { const n = 2, P = 250, M = 140, l = t - i * 120, k = Math.min(n, Math.max(0, Math.floor(l / P)));
       return [k >= n ? SQ_H : SQ_H / n * (k + E.back(c01((l - k * P) / M))), l >= 0 ? 1 : 0]; } }
