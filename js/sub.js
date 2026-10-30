@@ -459,7 +459,9 @@
     el.classList.add('is-on');
     el.classList.toggle('is-text', !!(t && t.closest(TEXT)));
     el.classList.toggle('is-link', !!(t && t.closest(LINK)));
-    hot = !!(t && t.closest(HOT));
+    var h = t && t.closest(HOT);
+    /* 메인 첫 화면 배경 사진은 화면 전체라 사진으로 치지 않는다(버튼만 동그라미) */
+    hot = !!h && !(h.closest('.homeHero') && !h.closest(LINK));
     if (hot) morph(0);
     else if (idleDone && canScroll()) morph(1);
   }, { passive: true });
