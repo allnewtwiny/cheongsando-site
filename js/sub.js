@@ -3,7 +3,7 @@
    v3 (2026-10-23): 고정 장면 안 그림 교차(.chqPin__fig[data-step]), 요소 등장(.chqPop[data-at]), 선과 막대 자람(.chqGrowLine/.chqGrowY/.chqGrowX[data-at]), 단계별 어두워짐(data-dark-at).
    v4 (2026-10-23): [data-parallax] 패럴랙스, 고정 장면 안 모든 [data-count] 진행도 구동.
    v5 (2026-10-23): 메인 상단바 톤(is-pastHero 대행), 모바일 그림 끼워 넣기(.chqPin--interleave).
-   v6 (2026-10-30): 동그라미 커서, 3.5초 동안 스크롤이 없으면 아래 화살표로 모핑하고 위아래로 흔들림(맨 끝에서는 안 바뀜). */
+   v6 (2026-10-30): 동그라미 커서, 3초 동안 스크롤이 없으면 아래 화살표로 모핑하고 위아래로 흔들림(맨 끝에서는 안 바뀜). */
 (function () {
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -382,12 +382,12 @@
   check();
 })();
 
-/* 동그라미 커서. 마우스가 있는 화면에서만. 3.5초 동안 스크롤이 없으면 동그라미가 아래 화살표로 바뀌어 흔들리고, 스크롤하면 다시 동그라미. */
+/* 동그라미 커서. 마우스가 있는 화면에서만. 3초 동안 스크롤이 없으면 동그라미가 아래 화살표로 바뀌어 흔들리고, 스크롤하면 다시 동그라미. */
 (function () {
   'use strict';
   if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var IDLE = 3500, DUR = 450, N = 16, R = 11, RC = 4.5;
+  var IDLE = 3000, DUR = 450, N = 16, R = 11, RC = 4.5;
   /* 동그라미와 화살표를 같은 곡선 16개로 만들어 숫자만 섞는다(사파리도 동작). 화살표는 꼭짓점 8개를 둥글린 모서리 8개와 직선 8개 */
   var K = 4 / 3 * Math.tan(Math.PI / (2 * N));
   function circle() {
