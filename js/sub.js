@@ -433,7 +433,20 @@
   var path = el.querySelector('path');
 
   var x = -100, y = -100, posRaf = 0;
-  function place() { posRaf = 0; el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)'; }
+  function place() { posRaf = 0; el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)'; tone(); }
+  /* 커서 아래 바탕이 검정 계열이면 흰 커서. 위에서부터 처음 만나는 칠해진 배경색으로 판단, 사진과 영상은 밝은 쪽으로 둔다 */
+  function tone() {
+    var list = document.elementsFromPoint ? document.elementsFromPoint(x, y) : [], dark = false;
+    for (var i = 0; i < list.length; i++) {
+      var n = list[i];
+      if (/^(IMG|VIDEO|CANVAS|PICTURE)$/.test(n.tagName)) break;
+      var m = getComputedStyle(n).backgroundColor.match(/[\d.]+/g);
+      if (!m || (m.length > 3 && +m[3] < .5)) continue;
+      dark = (.2126 * m[0] + .7152 * m[1] + .0722 * m[2]) < 90;
+      break;
+    }
+    el.classList.toggle('is-dark', dark);
+  }
   var TEXT = 'input, textarea, select, [contenteditable="true"]';
   var LINK = 'a, button, label, [role="button"], .chqChip span, .projKeymap__ov .b';
   document.addEventListener('mousemove', function (e) {
@@ -465,10 +478,13 @@
     morphRaf = requestAnimationFrame(step);
   }
 
-  /* 맨 끝이거나 첫 화면 연출(프리로더)로 스크롤이 잠겨 있으면 화살표를 띄우지 않는다 */
+  /* 맨 끝이거나, 하단 메뉴 구간이거나, 첫 화면 연출(프리로더)로 스크롤이 잠겨 있으면 화살표를 띄우지 않는다 */
   var canScroll = function () {
     if (window.__lenis && window.__lenis.isStopped) return false;
     if (getComputedStyle(document.body).overflowY === 'hidden' && getComputedStyle(document.documentElement).overflowY !== 'auto') return false;
+    /* 하단 메뉴가 화면에 들어온 뒤부터 푸터까지는 화살표 없음 */
+    var menu = document.querySelector('.navigationFooter__mainMenu') || document.querySelector('.navigationFooter');
+    if (menu && menu.getBoundingClientRect().top < window.innerHeight) return false;
     return window.innerHeight + (window.scrollY || window.pageYOffset) < document.documentElement.scrollHeight - 4;
   };
   var timer = 0;
@@ -476,6 +492,6 @@
     clearTimeout(timer);
     timer = setTimeout(function () { if (canScroll()) morph(1); else arm(); }, IDLE);
   }
-  window.addEventListener('scroll', function () { morph(0); arm(); }, { passive: true });
+  window.addEventListener('scroll', function () { morph(0); arm(); if (!posRaf) posRaf = requestAnimationFrame(place); }, { passive: true });
   arm();
 })();

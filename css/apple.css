@@ -613,6 +613,9 @@ body.chqSub.chqApple.is-overDark .topBarMenu a[aria-current=page]{opacity:1}
 .chqCursor path{fill:#1a1a1a;stroke:rgba(255,255,255,.85);stroke-width:1.6;stroke-linejoin:round;vector-effect:non-scaling-stroke}
 .chqCursor.is-link svg{transform:scale(1.8)}
 .chqCursor.is-link path{fill:rgba(26,26,26,.25)}
+.chqCursor path{transition:fill .25s,stroke .25s}
+.chqCursor.is-dark path{fill:#fff;stroke:rgba(0,0,0,.55)}
+.chqCursor.is-dark.is-link path{fill:rgba(255,255,255,.3)}
 .chqCursor.is-arrow .chqCursor__bob{animation:chqCursorBob 1.4s ease-in-out infinite}
 .chqCursor.is-arrow.is-link svg{transform:none}
 @keyframes chqCursorBob{0%,100%{transform:translateY(-4px)}50%{transform:translateY(5px)}}
