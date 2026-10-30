@@ -113,7 +113,7 @@ function makeCell(intro, wave, svg, noLine = false, ink = INK) {
       line.setAttribute('opacity', noLine ? 0 : lineIn * (1 - seg(t, T.fade, dur('fade'))));
       // 4. 워드마크
       // 취, 향, 섬 순서로 0.45초씩 늦게 페이드인 (글자마다 1초)
-      letters.forEach((l, i) => l.setAttribute('opacity', E.out(seg(t, T.word - 300 + i * 450, 1000))));
+      letters.forEach(l => l.setAttribute('opacity', E.out(seg(t, T.word - 300, 1000)))); /* 2026-10-30 글자 동시(전에는 i * 450 순차) */
     }
   };
 }
