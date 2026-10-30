@@ -599,3 +599,21 @@ body.chqSub.chqApple.is-overDark .topBarMenu a[aria-current=page]{opacity:1}
 @media (max-width:767px){.chqApple .chqBento--even .chqCell__k{margin-bottom:4rem}}
 .chqApple .chqSec.chqGapT2{padding-top:24rem}
 @media (max-width:767px){.chqApple .chqSec.chqGapT2{padding-top:12rem}}
+
+/* 동그라미 커서(js/sub.js 맨 끝). 마우스가 있는 화면에서만 기본 커서를 숨긴다 */
+@media (hover:hover) and (pointer:fine){
+  html.chqCur, html.chqCur *{cursor:none!important}
+  html.chqCur :is(input,textarea,select,[contenteditable="true"]){cursor:text!important}
+}
+.chqCursor{position:fixed;left:0;top:0;z-index:2147483000;width:0;height:0;pointer-events:none;opacity:0;transition:opacity .25s}
+.chqCursor.is-on{opacity:1}
+.chqCursor.is-text{opacity:0}
+.chqCursor__bob{position:absolute;left:-16px;top:-16px;width:32px;height:32px}
+.chqCursor svg{display:block;overflow:visible;transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.chqCursor path{fill:#1a1a1a;stroke:rgba(255,255,255,.85);stroke-width:1.2;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.chqCursor.is-link svg{transform:scale(2.2)}
+.chqCursor.is-link path{fill:rgba(26,26,26,.25)}
+.chqCursor.is-arrow .chqCursor__bob{animation:chqCursorBob 1.4s ease-in-out infinite}
+.chqCursor.is-arrow.is-link svg{transform:none}
+@keyframes chqCursorBob{0%,100%{transform:translateY(-4px)}50%{transform:translateY(5px)}}
+@media (prefers-reduced-motion:reduce){.chqCursor.is-arrow .chqCursor__bob{animation:none}}

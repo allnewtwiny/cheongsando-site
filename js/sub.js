@@ -2,7 +2,8 @@
    v2 (2026-10-22): 숫자 카운트업, 어두운 섹션 전환(is-dark), 화면 고정 장면(.chqPin, gsap ScrollTrigger), 막대 차트 추가.
    v3 (2026-10-23): 고정 장면 안 그림 교차(.chqPin__fig[data-step]), 요소 등장(.chqPop[data-at]), 선과 막대 자람(.chqGrowLine/.chqGrowY/.chqGrowX[data-at]), 단계별 어두워짐(data-dark-at).
    v4 (2026-10-23): [data-parallax] 패럴랙스, 고정 장면 안 모든 [data-count] 진행도 구동.
-   v5 (2026-10-23): 메인 상단바 톤(is-pastHero 대행), 모바일 그림 끼워 넣기(.chqPin--interleave). */
+   v5 (2026-10-23): 메인 상단바 톤(is-pastHero 대행), 모바일 그림 끼워 넣기(.chqPin--interleave).
+   v6 (2026-10-30): 동그라미 커서, 5초 동안 스크롤이 없으면 아래 화살표로 모핑하고 위아래로 흔들림(맨 끝에서는 안 바뀜). */
 (function () {
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -379,4 +380,96 @@
   window.addEventListener('scroll', q, { passive: true });
   window.addEventListener('resize', q);
   check();
+})();
+
+/* 동그라미 커서. 마우스가 있는 화면에서만. 5초 동안 스크롤이 없으면 동그라미가 아래 화살표로 바뀌어 흔들리고, 스크롤하면 다시 동그라미. */
+(function () {
+  'use strict';
+  if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var IDLE = 5000, DUR = 450, N = 8, R = 8;
+  /* 동그라미와 화살표를 같은 점 8개, 같은 곡선 8개로 만들어 숫자만 섞는다(사파리도 동작) */
+  var K = 4 / 3 * Math.tan(Math.PI / 16);
+  function circle() {
+    var pts = [];
+    for (var i = 0; i < N; i++) {
+      var a = -Math.PI / 2 + i * 2 * Math.PI / N, b = a + 2 * Math.PI / N;
+      var p0 = [R * Math.cos(a), R * Math.sin(a)], p1 = [R * Math.cos(b), R * Math.sin(b)];
+      pts.push([p0[0] - K * R * Math.sin(a), p0[1] + K * R * Math.cos(a), p1[0] + K * R * Math.sin(b), p1[1] - K * R * Math.cos(b), p1[0], p1[1]]);
+    }
+    return { m: [0, -R], c: pts };
+  }
+  function arrow() {
+    var v = [[0, -13], [3, -13], [3, 1], [11, 1], [0, 14], [-11, 1], [-3, 1], [-3, -13]], pts = [];
+    for (var i = 0; i < N; i++) {
+      var p0 = v[i], p1 = v[(i + 1) % N];
+      pts.push([p0[0] + (p1[0] - p0[0]) / 3, p0[1] + (p1[1] - p0[1]) / 3, p0[0] + (p1[0] - p0[0]) * 2 / 3, p0[1] + (p1[1] - p0[1]) * 2 / 3, p1[0], p1[1]]);
+    }
+    return { m: v[0], c: pts };
+  }
+  var A = circle(), B = arrow();
+  function shape(t) {
+    var f = function (x, y) { return (x + (y - x) * t).toFixed(2); };
+    var d = 'M' + f(A.m[0], B.m[0]) + ' ' + f(A.m[1], B.m[1]);
+    for (var i = 0; i < N; i++) {
+      var a = A.c[i], b = B.c[i];
+      d += 'C' + f(a[0], b[0]) + ' ' + f(a[1], b[1]) + ' ' + f(a[2], b[2]) + ' ' + f(a[3], b[3]) + ' ' + f(a[4], b[4]) + ' ' + f(a[5], b[5]);
+    }
+    return d + 'Z';
+  }
+
+  var el = document.createElement('div');
+  el.className = 'chqCursor';
+  el.setAttribute('aria-hidden', 'true');
+  el.innerHTML = '<div class="chqCursor__bob"><svg viewBox="-16 -16 32 32" width="32" height="32"><path d="' + shape(0) + '"/></svg></div>';
+  document.body.appendChild(el);
+  document.documentElement.classList.add('chqCur');
+  var path = el.querySelector('path');
+
+  var x = -100, y = -100, posRaf = 0;
+  function place() { posRaf = 0; el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)'; }
+  var TEXT = 'input, textarea, select, [contenteditable="true"]';
+  var LINK = 'a, button, label, [role="button"], .chqChip span, .projKeymap__ov .b';
+  document.addEventListener('mousemove', function (e) {
+    x = e.clientX; y = e.clientY;
+    if (!posRaf) posRaf = requestAnimationFrame(place);
+    var t = e.target && e.target.closest ? e.target : null;
+    el.classList.add('is-on');
+    el.classList.toggle('is-text', !!(t && t.closest(TEXT)));
+    el.classList.toggle('is-link', !!(t && t.closest(LINK)));
+  }, { passive: true });
+  document.documentElement.addEventListener('mouseleave', function () { el.classList.remove('is-on'); });
+  window.addEventListener('blur', function () { el.classList.remove('is-on'); });
+
+  /* 모핑: 0은 동그라미, 1은 화살표 */
+  var cur = 0, from = 0, to = 0, start = 0, morphRaf = 0;
+  var ease = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+  function step(now) {
+    var k = reduce ? 1 : Math.min(1, (now - start) / DUR);
+    cur = from + (to - from) * ease(k);
+    path.setAttribute('d', shape(cur));
+    if (k < 1) morphRaf = requestAnimationFrame(step);
+    else { morphRaf = 0; el.classList.toggle('is-arrow', to === 1); }
+  }
+  function morph(target) {
+    if (to === target) return;
+    if (morphRaf) cancelAnimationFrame(morphRaf);
+    from = cur; to = target; start = performance.now();
+    if (target === 0) el.classList.remove('is-arrow');
+    morphRaf = requestAnimationFrame(step);
+  }
+
+  /* 맨 끝이거나 첫 화면 연출(프리로더)로 스크롤이 잠겨 있으면 화살표를 띄우지 않는다 */
+  var canScroll = function () {
+    if (window.__lenis && window.__lenis.isStopped) return false;
+    if (getComputedStyle(document.body).overflowY === 'hidden' && getComputedStyle(document.documentElement).overflowY !== 'auto') return false;
+    return window.innerHeight + (window.scrollY || window.pageYOffset) < document.documentElement.scrollHeight - 4;
+  };
+  var timer = 0;
+  function arm() {
+    clearTimeout(timer);
+    timer = setTimeout(function () { if (canScroll()) morph(1); else arm(); }, IDLE);
+  }
+  window.addEventListener('scroll', function () { morph(0); arm(); }, { passive: true });
+  arm();
 })();
