@@ -387,9 +387,9 @@
   'use strict';
   if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var IDLE = 5000, DUR = 450, N = 8, R = 8;
-  /* 동그라미와 화살표를 같은 점 8개, 같은 곡선 8개로 만들어 숫자만 섞는다(사파리도 동작) */
-  var K = 4 / 3 * Math.tan(Math.PI / 16);
+  var IDLE = 5000, DUR = 450, N = 16, R = 11, RC = 4.5;
+  /* 동그라미와 화살표를 같은 곡선 16개로 만들어 숫자만 섞는다(사파리도 동작). 화살표는 꼭짓점 8개를 둥글린 모서리 8개와 직선 8개 */
+  var K = 4 / 3 * Math.tan(Math.PI / (2 * N));
   function circle() {
     var pts = [];
     for (var i = 0; i < N; i++) {
@@ -400,12 +400,17 @@
     return { m: [0, -R], c: pts };
   }
   function arrow() {
-    var v = [[0, -13], [3, -13], [3, 1], [11, 1], [0, 14], [-11, 1], [-3, 1], [-3, -13]], pts = [];
-    for (var i = 0; i < N; i++) {
-      var p0 = v[i], p1 = v[(i + 1) % N];
-      pts.push([p0[0] + (p1[0] - p0[0]) / 3, p0[1] + (p1[1] - p0[1]) / 3, p0[0] + (p1[0] - p0[0]) * 2 / 3, p0[1] + (p1[1] - p0[1]) * 2 / 3, p1[0], p1[1]]);
+    var v = [[0, -19], [4.5, -19], [4.5, 2], [16, 2], [0, 20], [-16, 2], [-4.5, 2], [-4.5, -19]], M = v.length;
+    var toward = function (a, b) { var l = Math.hypot(b[0] - a[0], b[1] - a[1]), u = Math.min(RC / l, .45); return [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u]; };
+    var line = function (p0, p1) { return [p0[0] + (p1[0] - p0[0]) / 3, p0[1] + (p1[1] - p0[1]) / 3, p0[0] + (p1[0] - p0[0]) * 2 / 3, p0[1] + (p1[1] - p0[1]) * 2 / 3, p1[0], p1[1]]; };
+    var ins = [], outs = [], pts = [];
+    for (var i = 0; i < M; i++) { ins.push(toward(v[i], v[(i + M - 1) % M])); outs.push(toward(v[i], v[(i + 1) % M])); }
+    for (var j = 1; j <= M; j++) {
+      var k = j % M, a = ins[k], b = outs[k], c = v[k];
+      pts.push(line(outs[j - 1], a));
+      pts.push([a[0] + (c[0] - a[0]) * .55, a[1] + (c[1] - a[1]) * .55, b[0] + (c[0] - b[0]) * .55, b[1] + (c[1] - b[1]) * .55, b[0], b[1]]);
     }
-    return { m: v[0], c: pts };
+    return { m: outs[0], c: pts };
   }
   var A = circle(), B = arrow();
   function shape(t) {
@@ -421,7 +426,7 @@
   var el = document.createElement('div');
   el.className = 'chqCursor';
   el.setAttribute('aria-hidden', 'true');
-  el.innerHTML = '<div class="chqCursor__bob"><svg viewBox="-16 -16 32 32" width="32" height="32"><path d="' + shape(0) + '"/></svg></div>';
+  el.innerHTML = '<div class="chqCursor__bob"><svg viewBox="-24 -24 48 48" width="48" height="48"><path d="' + shape(0) + '"/></svg></div>';
   document.body.appendChild(el);
   document.documentElement.classList.add('chqCur');
   var path = el.querySelector('path');
