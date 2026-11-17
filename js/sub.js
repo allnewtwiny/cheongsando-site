@@ -387,8 +387,8 @@
   'use strict';
   if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var IDLE = 3000, DUR = 450, N = 16, R = 11, RC = 4.5;
-  /* 동그라미와 화살표를 같은 곡선 16개로 만들어 숫자만 섞는다(사파리도 동작). 화살표는 꼭짓점 8개를 둥글린 모서리 8개와 직선 8개 */
+  var IDLE = 3000, DUR = 450, N = 18, R = 11;
+  /* 동그라미와 화살표를 같은 곡선 18개로 만들어 숫자만 섞는다(사파리도 동작). 화살표는 꼭짓점 9개를 둥글린 모서리 9개와 직선 9개 */
   var K = 4 / 3 * Math.tan(Math.PI / (2 * N));
   function circle() {
     var pts = [];
@@ -400,8 +400,8 @@
     return { m: [0, -R], c: pts };
   }
   function arrow() {
-    var v = [[0, -19], [4.5, -19], [4.5, 2], [16, 2], [0, 20], [-16, 2], [-4.5, 2], [-4.5, -19]], M = v.length;
-    var rc = [0, RC, 0, RC, RC, RC, 0, RC]; /* 막대와 삼각형이 만나는 안쪽 두 곳은 각지게 */
+    var v = [[-2, -19], [2, -19], [2, 15.17], [15.59, 1.59], [18.41, 4.41], [0, 22.83], [-18.41, 4.41], [-15.59, 1.59], [-2, 15.17]], M = v.length;
+    var rc = [.35, .35, .35, .35, .35, .35, .35, .35, .35]; /* 가는 선 화살표, 끝은 각지게(0이면 곡선이 겹쳐 모핑이 튄다) */
     var toward = function (a, b, r) { var l = Math.hypot(b[0] - a[0], b[1] - a[1]), u = Math.min(r / l, .45); return [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u]; };
     var line = function (p0, p1) { return [p0[0] + (p1[0] - p0[0]) / 3, p0[1] + (p1[1] - p0[1]) / 3, p0[0] + (p1[0] - p0[0]) * 2 / 3, p0[1] + (p1[1] - p0[1]) * 2 / 3, p1[0], p1[1]]; };
     var ins = [], outs = [], pts = [];
@@ -436,24 +436,29 @@
   function place() { posRaf = 0; el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)'; tone(); }
   /* 커서 아래 바탕이 검정 계열이면 흰 커서. 위에서부터 처음 만나는 칠해진 배경색으로 판단, 사진과 영상은 밝은 쪽으로 둔다 */
   function tone() {
-    var list = document.elementsFromPoint ? document.elementsFromPoint(x, y) : [], dark = false;
+    var list = document.elementsFromPoint ? document.elementsFromPoint(x, y) : [], dark = false, light = false;
     for (var i = 0; i < list.length; i++) {
       var n = list[i];
       if (/^(IMG|VIDEO|CANVAS|PICTURE)$/.test(n.tagName)) break;
       var m = getComputedStyle(n).backgroundColor.match(/[\d.]+/g);
       if (!m || (m.length > 3 && +m[3] < .5)) continue;
-      dark = (.2126 * m[0] + .7152 * m[1] + .0722 * m[2]) < 90;
+      var lum = .2126 * m[0] + .7152 * m[1] + .0722 * m[2];
+      dark = lum < 90; light = lum > 200;
       break;
     }
     el.classList.toggle('is-dark', dark);
+    el.classList.toggle('is-light', light);
   }
   var TEXT = 'input, textarea, select, [contenteditable="true"]';
   var LINK = 'a, button, label, [role="button"], .chqChip span, .projKeymap__ov .b';
   /* 버튼, 사진, 다이어그램 위에서는 화살표 대신 동그라미 */
   var HOT = LINK + ', img, picture, video, canvas, svg, figure, .chqFig, [data-parallax], .projKeymap';
   var hot = false, idleDone = false;
+  /* 화살표가 된 자리에서 마우스를 MOVE 픽셀 넘게 움직이면 다시 동그라미 */
+  var MOVE = 120, ax = 0, ay = 0;
   document.addEventListener('mousemove', function (e) {
     x = e.clientX; y = e.clientY;
+    if (idleDone && Math.hypot(x - ax, y - ay) > MOVE) { idleDone = false; morph(0); arm(); }
     if (!posRaf) posRaf = requestAnimationFrame(place);
     var t = e.target && e.target.closest ? e.target : null;
     el.classList.add('is-on');
@@ -500,7 +505,7 @@
     clearTimeout(timer);
     timer = setTimeout(function () {
       if (!canScroll()) return arm();
-      idleDone = true;
+      idleDone = true; ax = x; ay = y;
       if (!hot) morph(1);
     }, IDLE);
   }
