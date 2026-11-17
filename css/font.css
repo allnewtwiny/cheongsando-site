@@ -1,0 +1,4 @@
+/* 사이트 전체 글꼴: 프리텐다드 (2026-11-17 회장 결정, SIL OFL 무료). 굵기 100에서 900까지 한 파일(가변) */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+:root{--font-main:"Pretendard Variable",Pretendard,sans-serif;--mono:"Pretendard Variable",Pretendard,sans-serif}
+html,body,body *,body *::before,body *::after,svg text{font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif!important}
