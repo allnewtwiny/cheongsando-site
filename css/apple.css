@@ -672,3 +672,6 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 
 /* 메인 고정 장면 다음 15개의 섬 섹션을 마지막 흰 화면 위로 겹쳐 빈 화면 없이 바로 이어지게 (11-26) */
 .chqHeroNext{position:relative;z-index:6}
+/* 20261126 한 장씩 넘겨 보세요: 렌더링 안내 문구는 2,3,4단계에서만 */
+.chqApple .chqChapters .chqFigNote{opacity:0;visibility:hidden;transition:opacity .4s ease,visibility 0s linear .4s}
+.chqApple .chqChapters .chqPin:has(.chqPin__fig:nth-child(2).is-active,.chqPin__fig:nth-child(3).is-active,.chqPin__fig:nth-child(4).is-active) .chqFigNote{opacity:1;visibility:visible;transition:opacity .4s ease,visibility 0s}
