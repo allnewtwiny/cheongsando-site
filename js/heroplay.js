@@ -1,4 +1,4 @@
-/* 첫 화면 메뉴: 글자 양끝 맞춤 + 호버 시 로고 블록 줄과 일렁이는 밑선 (2026-11-16) */
+/* 첫 화면 메뉴: 글자 양끝 맞춤 + 호버 시 로고 블록 줄, 정적 (2026-11-26 파도 제거) */
 (function () {
   var list = document.querySelector('.homeHero__list');
   var NS = 'http://www.w3.org/2000/svg';
@@ -8,7 +8,7 @@
     { top: [[518.10, 316.41], [510.12, 296.06], [412.90, 296.06], [395.38, 316.41], [389.34, 333.44]], l: 389.34, r: 518.10 },
     { top: [[666.07, 331.61], [647.12, 296.06], [560.86, 296.06], [528.76, 356.42]], l: 528.76, r: 666.07 }
   ];
-  var COUNT = 8, TRIPLE = 441, BASE = 403, AMP = 7, WAVE = 520, SPEED = 2.4, SAMPLES = 1; /* 밑변은 블록마다 곧은 선 하나: 곡선 없이 각진 출렁임 */
+  var COUNT = 8, TRIPLE = 441, BASE = 403, SAMPLES = 1; /* 밑변은 곧은 수평선: 원래 로고를 연달아 놓은 정적 모양 */
   var blocks = [];
   for (var i = 0; i < COUNT; i++) {
     var s = SHAPES[i % 3], dx = Math.floor(i / 3) * TRIPLE;
@@ -20,7 +20,7 @@
     var d = 'M' + b.top.map(function (p) { return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join('L');
     for (var k = 0; k <= SAMPLES; k++) {
       var x = b.l + (b.r - b.l) * k / SAMPLES;
-      var y = BASE + AMP * Math.sin((x - X0) / WAVE * Math.PI * 2 - t * SPEED);
+      var y = BASE;
       d += 'L' + x.toFixed(1) + ' ' + y.toFixed(1);
     }
     return d + 'Z';
@@ -69,20 +69,4 @@
     plays.push({ a: a, paths: m.paths });
   });
 
-  var raf = 0, t0 = 0;
-  function tick(now) {
-    if (!t0) t0 = now;
-    var t = (now - t0) / 1000, any = false;
-    plays.forEach(function (pl) {
-      if (!pl.a.matches(':hover') && !pl.a.matches(':focus-visible')) return;
-      any = true;
-      pl.paths.forEach(function (p, i) { p.setAttribute('d', pathAt(blocks[i], t)); });
-    });
-    raf = any ? requestAnimationFrame(tick) : 0;
-  }
-  function start() { if (!raf) raf = requestAnimationFrame(tick); }
-  items.forEach(function (a) {
-    a.addEventListener('mouseenter', start);
-    a.addEventListener('focus', start);
-  });
 })();
