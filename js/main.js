@@ -789,8 +789,23 @@
       if (!list) return;
       var items = list.querySelectorAll(".homeHero__listItem");
       var bgs = document.querySelectorAll(".homeHero__bg");
+      /* 같은 data-bg 사진이 여러 장이면 호버하는 동안 3.5초마다 서서히 넘김 */
+      var timer = null;
       function show(i) {
-        bgs.forEach(function (b) { b.classList.toggle("is-on", b.getAttribute("data-bg") === i); });
+        clearInterval(timer);
+        var group = [];
+        bgs.forEach(function (b) {
+          var mine = b.getAttribute("data-bg") === i;
+          if (mine) group.push(b);
+          b.classList.toggle("is-on", mine && group.length === 1);
+        });
+        if (group.length < 2) return;
+        var k = 0;
+        timer = setInterval(function () {
+          group[k].classList.remove("is-on");
+          k = (k + 1) % group.length;
+          group[k].classList.add("is-on");
+        }, 3500);
       }
       items.forEach(function (a) {
         a.addEventListener("mouseenter", function () {
