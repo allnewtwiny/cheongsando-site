@@ -356,6 +356,65 @@
     });
   }
 
+  /* 11. 메인 첫 화면 고정 장면 (2026-11-26, 데스크톱 1024 이상).
+     사진은 그대로 두고 스크롤하면 좌하단 메뉴가 위로 빠지고, 흰 글씨 문장이 떠오른 뒤, 배경이 하얗게 바뀌며 15개의 섬으로 이어진다.
+     원래 문장 섹션(.homeHero + .chqSec--state)은 이 장면이 켜져 있을 때만 숨긴다. */
+  (function () {
+    var hero = document.querySelector('.homeHero');
+    var main = hero && hero.querySelector('.homeHero__main');
+    var orig = hero && hero.nextElementSibling;
+    if (!main || !orig || !orig.classList.contains('chqSec--state') || !gsap || !ST || reduce || typeof gsap.matchMedia !== 'function') return;
+    var txt0 = orig.querySelector('.chqState__txt'), sub0 = orig.querySelector('.chqState__sub');
+    if (!txt0) return;
+    var dim = document.createElement('div'); dim.className = 'chqHeroDim'; dim.setAttribute('aria-hidden', 'true');
+    var white = document.createElement('div'); white.className = 'chqHeroWhite'; white.setAttribute('aria-hidden', 'true');
+    var box = document.createElement('div'); box.className = 'chqHeroState';
+    box.innerHTML = '<div class="chqWrap"><div class="chqState"></div></div>';
+    var st = box.querySelector('.chqState');
+    var txt = txt0.cloneNode(true), sub = sub0 ? sub0.cloneNode(true) : null;
+    st.appendChild(txt); if (sub) st.appendChild(sub);
+    var em = txt.querySelector('em');
+    gsap.matchMedia().add('(min-width: 1024px)', function () {
+      main.appendChild(dim); main.appendChild(white); main.appendChild(box);
+      document.body.classList.add('chqHeroPinOn');
+      orig.style.display = 'none';
+      window.__chqHeroHold = true;
+      var list = main.querySelector('.homeHero__list');
+      var fades = [main.querySelector('.homeHero__down'), main.querySelector('.chqHeroNote')].filter(Boolean);
+      gsap.set(box, { yPercent: -50 });
+      var tl = gsap.timeline({ defaults: { ease: 'none' } });
+      if (list) tl.to(list, { yPercent: -60, autoAlpha: 0, duration: 0.3 }, 0);
+      if (fades.length) tl.to(fades, { autoAlpha: 0, duration: 0.12 }, 0);
+      tl.to(dim, { opacity: 1, duration: 0.25 }, 0.15)
+        .fromTo(box, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.25, ease: 'power1.out' }, 0.25)
+        .to(white, { opacity: 1, duration: 0.25 }, 0.65)
+        .to(txt, { color: '#1d1d1f', duration: 0.25 }, 0.65);
+      if (em) tl.to(em, { color: '#1a9e4a', duration: 0.25 }, 0.65);
+      if (sub) tl.to(sub, { color: '#6e6e73', duration: 0.25 }, 0.65);
+      tl.to({}, { duration: 0.1 }, 0.9);
+      var bar = function (p) {
+        window.__chqHeroHold = p < 0.85;
+        document.body.classList.toggle('is-pastHero', (window.scrollY || window.pageYOffset) > 10 && !window.__chqHeroHold);
+      };
+      var trig = ST.create({
+        trigger: hero, start: 'top top', end: '+=240%', pin: true, scrub: 0.5, anticipatePin: 1,
+        animation: tl, refreshPriority: 10,
+        onUpdate: function (self) { bar(self.progress); },
+        onRefresh: function (self) { bar(self.progress); }
+      });
+      ST.sort();
+      return function () {
+        trig.kill(); tl.kill();
+        gsap.set([list, box, dim, white, txt, em, sub].concat(fades).filter(Boolean), { clearProps: 'all' });
+        [dim, white, box].forEach(function (el) { if (el.parentNode) el.parentNode.removeChild(el); });
+        document.body.classList.remove('chqHeroPinOn');
+        orig.style.display = '';
+        window.__chqHeroHold = false;
+        document.body.classList.toggle('is-pastHero', (window.scrollY || window.pageYOffset) > 10);
+      };
+    });
+  })();
+
   /* 7. 이미지와 글꼴이 다 실린 뒤 위치 다시 계산 */
   if (ST) {
     window.addEventListener('load', function () { ST.refresh(); });

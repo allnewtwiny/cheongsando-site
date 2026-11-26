@@ -662,3 +662,10 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqFig .chqLogoCard img.chqLogoCard__a,.chqFig .chqLogoCard img.chqLogoCard__b{display:block;width:min(50%,500px);height:auto;border-radius:0}
 
 @media (max-width:767px){.chqFigLink{border-radius:2rem}.chqFigLink__t{font-size:2.2rem}.chqPin__fig .chqPhoto.chqLogoCard{gap:1.6rem}}
+/* 2026-11-26 메인 첫 화면 고정 장면 (sub.js 11번, 데스크톱만) */
+.chqHeroPinOn .homeHero+.chqSec--state{display:none}
+.chqApple .homeHero .chqHeroDim{position:absolute;inset:0;z-index:2;background:rgba(0,0,0,.32);opacity:0;pointer-events:none}
+.chqApple .homeHero .chqHeroWhite{position:absolute;inset:0;z-index:4;background:#fff;opacity:0;pointer-events:none}
+.chqApple .homeHero .chqHeroState{position:absolute;left:0;right:0;top:50%;z-index:5;visibility:hidden;pointer-events:none}
+.chqApple .homeHero .chqHeroState .chqState{padding:0}
+.chqApple .homeHero .chqHeroState .chqState__txt,.chqApple .homeHero .chqHeroState .chqState__txt em,.chqApple .homeHero .chqHeroState .chqState__sub{color:#fff}

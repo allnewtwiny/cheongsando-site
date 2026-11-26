@@ -776,7 +776,7 @@
       var hero = document.querySelector(".homeHero");
       if (!hero) return;
       var update = function () {
-        document.body.classList.toggle("is-pastHero", window.scrollY > 10);
+        document.body.classList.toggle("is-pastHero", window.scrollY > 10 && !window.__chqHeroHold);
       };
       window.addEventListener("scroll", update, { passive: true });
       window.addEventListener("resize", update);
