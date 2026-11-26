@@ -651,13 +651,13 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqFigLink .chqPhoto{transition:filter .5s ease,transform .6s ease}
 .chqFigLink__t{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;gap:1rem;font-size:3rem;font-weight:600;letter-spacing:-.02em;color:#fff;background:rgba(0,0,0,.3);opacity:0;transition:opacity .4s ease;pointer-events:none;text-shadow:0 2px 16px rgba(0,0,0,.25)}
 .chqFigLink__t i{font-style:normal;font-weight:400}
-@media (hover:hover){.chqFigLink:hover .chqPhoto{filter:blur(10px);transform:scale(1.06)}.chqFigLink:hover .chqFigLink__t{opacity:1}}
+@media (hover:hover){.chqFigLink:hover .chqPhoto{filter:blur(3px);transform:scale(1.03)}.chqFigLink:hover .chqFigLink__t{opacity:1}}
 .chqFigLink:focus-visible .chqFigLink__t{opacity:1}
 @media (min-width:1024px){.chqChapters .chqPin__figs>.chqPin__fig:not(.is-active){pointer-events:none}}
 .chqXfade{display:grid}
 .chqXfade>.chqPhoto{grid-area:1/1}
-.chqXfade>.chqPhoto:last-child{opacity:0;animation:chqXf 8s ease-in-out infinite}
-@keyframes chqXf{0%,42%{opacity:0}50%,92%{opacity:1}100%{opacity:0}}
+.chqXfade>.chqPhoto:last-child{opacity:0;animation:chqXf 14s ease-in-out infinite}
+@keyframes chqXf{0%,45%{opacity:0}50%,95%{opacity:1}100%{opacity:0}}
 .chqPin__fig .chqPhoto.chqLogoCard{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5.6rem;background:#1d1d1f}
 .chqLogoCard__a{display:block;width:60%;height:auto}
 .chqLogoCard__b{display:block;font-size:clamp(4.4rem,6vw,9.6rem);font-weight:700;letter-spacing:.06em;line-height:1;color:#fff}
