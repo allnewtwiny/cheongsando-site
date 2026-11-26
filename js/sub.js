@@ -408,12 +408,25 @@
         window.__chqHeroHold = p < 0.9;
         document.body.classList.toggle('is-pastHero', (window.scrollY || window.pageYOffset) > 10 && !window.__chqHeroHold);
       };
+      var autoGo = false;
+      var go = function (y) {
+        autoGo = true;
+        var done = function () { setTimeout(function () { autoGo = false; }, 150); };
+        var ln = window.__lenis || window.lenis;
+        if (ln && typeof ln.scrollTo === 'function') ln.scrollTo(y, { duration: 1.3, lock: true, force: true, easing: function (t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }, onComplete: done });
+        else { window.scrollTo({ top: y, behavior: 'smooth' }); setTimeout(done, 1300); }
+      };
       var trig = ST.create({
         trigger: hero, start: 'top top', end: '+=170%', pin: true, scrub: true, anticipatePin: 1,
         animation: tl, refreshPriority: 10,
-        onUpdate: function (self) { bar(self.progress); },
+        onUpdate: function (self) {
+          bar(self.progress);
+          /* 문장이 다 뜬 뒤 아래로 조금만 굴려도 흰 화면, 15개의 섬까지 자동으로 넘어간다 */
+          if (!autoGo && self.direction > 0 && self.progress > 0.6 && self.progress < 1) go(self.end + 4);
+        },
         onLeave: function () { showNext(true); },
-        onEnterBack: function () { showNext(false); },
+        /* 15개의 섬에서 위로 올라오면 문장 화면으로 자동으로 돌아온다 */
+        onEnterBack: function (self) { showNext(false); if (!autoGo) go(self.start + (self.end - self.start) * 0.64); },
         onRefreshInit: place,
         onRefresh: function (self) { bar(self.progress); showNext(self.progress >= 1, true); }
       });
