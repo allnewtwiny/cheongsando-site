@@ -793,8 +793,14 @@
          같은 data-bg 사진이 여러 장이면 호버하는 동안 4.5초마다 넘김 */
       var timer = null, cleanT = null;
       function bring(el) {
+        /* 이미 켜져 있던 사진(위로 되짚어 올라갈 때)은 꺼진 상태로 되돌려 페이드와 줌을 처음부터 다시 돌림 */
+        if (el.classList.contains("is-on") && el !== el.parentNode.lastElementChild) {
+          el.style.transition = "none";
+          el.classList.remove("is-on");
+        }
         el.parentNode.appendChild(el);
         void el.offsetWidth;
+        el.style.transition = "";
         el.classList.add("is-on");
         clearTimeout(cleanT);
         cleanT = setTimeout(function () {
