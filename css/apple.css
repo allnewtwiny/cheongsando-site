@@ -659,6 +659,6 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqXfade>.chqPhoto:last-child{opacity:0;animation:chqXf 14s ease-in-out infinite}
 @keyframes chqXf{0%,45%{opacity:0}50%,95%{opacity:1}100%{opacity:0}}
 .chqPin__fig .chqPhoto.chqLogoCard{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.4rem;background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
-.chqLogoCard__a,.chqLogoCard__b{display:block;width:clamp(110px,20%,200px);height:auto}
+.chqFig .chqLogoCard img.chqLogoCard__a,.chqFig .chqLogoCard img.chqLogoCard__b{display:block;width:clamp(110px,20%,200px);height:auto;border-radius:0}
 
 @media (max-width:767px){.chqFigLink{border-radius:2rem}.chqFigLink__t{font-size:2.2rem}.chqPin__fig .chqPhoto.chqLogoCard{gap:1.6rem}}
