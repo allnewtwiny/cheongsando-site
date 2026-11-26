@@ -698,3 +698,5 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 @media (max-width:1023px){.chqApple .chqPhotoHold .chqV8hold{padding-bottom:4rem}.chqApple .chqPhotoHold .chqV7fade{height:4rem}}
 @media (min-width:1024px){.chqApple .chqPhotoHold+.chqSec--darkFixed{padding-top:14rem}.chqApple .chqPhotoHold+.chqSec--darkFixed+.chqSec--darkFixed{padding-top:26rem}}
 @media (max-width:1023px){.chqApple .chqPhotoHold+.chqSec--darkFixed{padding-top:8rem}.chqApple .chqPhotoHold+.chqSec--darkFixed+.chqSec--darkFixed{padding-top:16rem}}
+@media (min-width:1024px){.chqApple .chqPhotoHold+.chqSec--darkFixed{margin-top:-36rem;padding-top:48rem;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.12) 8rem,rgba(0,0,0,.4) 16rem,rgba(0,0,0,.75) 24rem,rgba(0,0,0,.95) 30rem,#000 34rem)}}
+@media (max-width:1023px){.chqApple .chqPhotoHold+.chqSec--darkFixed{position:relative;z-index:2;margin-top:-26rem;padding-top:36rem;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.3) 8rem,rgba(0,0,0,.7) 15rem,rgba(0,0,0,.95) 20rem,#000 22rem)}}
