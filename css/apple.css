@@ -712,3 +712,12 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqApple .chqGallery__item{position:relative}
 .chqApple .chqGallery__label{position:absolute;left:50%;bottom:2.4rem;transform:translateX(-50%);z-index:2;color:#fff;font-size:1.7rem;font-weight:600;letter-spacing:.02em;white-space:nowrap;text-shadow:0 1px 10px rgba(0,0,0,.35),0 0 2px rgba(0,0,0,.15);pointer-events:none}
 @media (max-width:767px){.chqApple .chqGallery__label{bottom:1.6rem;font-size:1.5rem}}
+/* 11-27 바다 너머의 일상 고정 배경 */
+.chqSeaBg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;visibility:hidden;overflow:hidden;background:#000}
+.chqSeaBg__img{position:absolute;inset:0;background:url(../img/sea_bg_v1.jpg) center/cover no-repeat;transform:scale(1.3);transform-origin:50% 50%;will-change:transform}
+.chqSeaBg::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.chqApple #swup,.chqApple .navigationFooter{position:relative;z-index:1}
+.chqApple #swup.mainContent{background:transparent}
+.chqApple .chqSec.chqV7sea,.chqApple .chqSec.chqSec--cta{--bg:transparent;background:transparent;position:relative}
+.chqApple .chqSec.chqV7sea::before{content:"";position:absolute;left:0;right:0;top:0;height:40vh;background:linear-gradient(180deg,#000,rgba(0,0,0,0));pointer-events:none}
+.chqApple .chqSec.chqSec--cta::after{content:"";position:absolute;left:0;right:0;bottom:0;height:30vh;background:linear-gradient(180deg,rgba(0,0,0,0),#000);pointer-events:none}
