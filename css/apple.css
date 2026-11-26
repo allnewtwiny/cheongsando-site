@@ -693,3 +693,4 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 @media (max-width:1023px){.chqApple .chqPhotoHold+.chqSec--darkFixed .chqState{padding-top:3rem}}
 .chqApple .chqBtn{line-height:2.2rem}
 .chqApple .chqPhotoHold .chqV7fade{height:15vh}
+@media (min-width:1280px){.chqApple .chqPhotoHold .chqStats{gap:3rem}.chqApple .chqPhotoHold .chqStat__lab{white-space:nowrap;font-size:min(1.5rem,1.04vw)}}
