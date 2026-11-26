@@ -629,3 +629,7 @@ body.chqSub.chqApple.is-overDark .topBarMenu a[aria-current=page]{opacity:1}
 .hhExtra .hhPlay{height:.92em;width:auto;display:block;overflow:visible;position:relative;top:.14em}
 .hhExtra .hhPlay path{fill:currentColor;opacity:0;transform:translateX(-.25em);transition:opacity .35s ease,transform .45s cubic-bezier(.2,.7,.2,1)}
 a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;transform:none}
+
+/* 한 장씩 넘겨 보세요 제목을 오른쪽 사진 윗선보다 아래로 (11-26) */
+@media (min-width:1024px){.chqApple .chqChapters .chqPin__grid{align-items:start}
+.chqApple .chqChapters .chqPin__copy{padding-top:2.4rem}}
