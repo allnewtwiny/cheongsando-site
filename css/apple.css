@@ -669,3 +669,6 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqApple .homeHero .chqHeroState{position:absolute;left:0;right:0;top:50%;z-index:5;visibility:hidden;pointer-events:none}
 .chqApple .homeHero .chqHeroState .chqState{padding:0}
 .chqApple .homeHero .chqHeroState .chqState__txt,.chqApple .homeHero .chqHeroState .chqState__txt em,.chqApple .homeHero .chqHeroState .chqState__sub{color:#fff}
+
+/* 메인 고정 장면 다음 15개의 섬 섹션을 마지막 흰 화면 위로 겹쳐 빈 화면 없이 바로 이어지게 (11-26) */
+.chqHeroNext{margin-top:-100vh;position:relative;z-index:6}

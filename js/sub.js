@@ -378,6 +378,8 @@
       main.appendChild(dim); main.appendChild(white); main.appendChild(box);
       document.body.classList.add('chqHeroPinOn');
       orig.style.display = 'none';
+      var next = orig.nextElementSibling;
+      if (next) next.classList.add('chqHeroNext');
       window.__chqHeroHold = true;
       var list = main.querySelector('.homeHero__list');
       var fades = [main.querySelector('.homeHero__down'), main.querySelector('.chqHeroNote')].filter(Boolean);
@@ -385,15 +387,13 @@
       var tl = gsap.timeline({ defaults: { ease: 'none' } });
       if (list) tl.to(list, { yPercent: -60, autoAlpha: 0, duration: 0.3 }, 0);
       if (fades.length) tl.to(fades, { autoAlpha: 0, duration: 0.12 }, 0);
-      tl.to(dim, { opacity: 1, duration: 0.25 }, 0.15)
-        .fromTo(box, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.25, ease: 'power1.out' }, 0.25)
-        .to(white, { opacity: 1, duration: 0.25 }, 0.65)
-        .to(txt, { color: '#1d1d1f', duration: 0.25 }, 0.65);
-      if (em) tl.to(em, { color: '#1a9e4a', duration: 0.25 }, 0.65);
-      if (sub) tl.to(sub, { color: '#6e6e73', duration: 0.25 }, 0.65);
-      tl.to({}, { duration: 0.1 }, 0.9);
+      tl.to(dim, { opacity: 1, duration: 0.2 }, 0.1)
+        .fromTo(box, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power1.out' }, 0.18)
+        .to(box, { autoAlpha: 0, y: -40, duration: 0.18, ease: 'power1.in' }, 0.52)
+        .to(white, { opacity: 1, duration: 0.2 }, 0.55);
+      tl.to({}, { duration: 0.25 }, 0.75);
       var bar = function (p) {
-        window.__chqHeroHold = p < 0.85;
+        window.__chqHeroHold = p < 0.75;
         document.body.classList.toggle('is-pastHero', (window.scrollY || window.pageYOffset) > 10 && !window.__chqHeroHold);
       };
       var trig = ST.create({
@@ -405,6 +405,7 @@
       ST.sort();
       return function () {
         trig.kill(); tl.kill();
+        if (next) next.classList.remove('chqHeroNext');
         gsap.set([list, box, dim, white, txt, em, sub].concat(fades).filter(Boolean), { clearProps: 'all' });
         [dim, white, box].forEach(function (el) { if (el.parentNode) el.parentNode.removeChild(el); });
         document.body.classList.remove('chqHeroPinOn');
