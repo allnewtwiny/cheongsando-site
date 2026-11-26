@@ -165,6 +165,8 @@
           var to = (q + 1) / n - 0.001;
           /* 뒤로 갈 때는 거꾸로 지우지 않고 바로 그 장면으로. 1번으로 돌아오면 처음부터 다시 그린다 */
           if (to < mP) { cancelAnimationFrame(mRaf); mP = q === 0 ? 0 : to; render(mP); }
+          /* 1번에서 이전으로 6번처럼 여러 단계를 건너뛸 때는 사이 장면을 훑지 않고 그 단계 시작점에서 바로 그린다 */
+          else if (mP < q / n) { cancelAnimationFrame(mRaf); mP = q / n; render(mP); }
           mAnim(to, 800);
         };
         var phNext = function () {
