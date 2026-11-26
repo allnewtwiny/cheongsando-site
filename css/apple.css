@@ -689,3 +689,6 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 @media (max-width:1023px){.chqApple .chqPhotoHold+.chqSec--darkFixed{padding-top:2rem}.chqApple .chqPhotoHold__note{margin-top:2.4rem}}
 .chqApple .chqPhotoHold .chqSec *{color:#fff}
 .chqApple .chqPhotoHold .chqPhotoHold__note{opacity:.4}
+.chqApple .chqPhotoHold+.chqSec--darkFixed .chqState{padding-top:4rem}
+@media (max-width:1023px){.chqApple .chqPhotoHold+.chqSec--darkFixed .chqState{padding-top:3rem}}
+.chqApple .chqBtn{line-height:2.2rem}
