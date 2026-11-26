@@ -694,3 +694,5 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqApple .chqBtn{line-height:2.2rem}
 .chqApple .chqPhotoHold .chqV7fade{height:15vh}
 @media (min-width:1280px){.chqApple .chqPhotoHold .chqStats{gap:3rem}.chqApple .chqPhotoHold .chqStat__lab{white-space:nowrap;font-size:min(1.5rem,1.04vw)}}
+@media (min-width:1024px){.chqApple .chqPhotoHold .chqV8hold{padding-bottom:0}.chqApple .chqPhotoHold .chqV7fade{height:0}.chqApple .chqPhotoHold+.chqSec--darkFixed{position:relative;z-index:2;margin-top:-12rem;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,#000 12rem)}}
+@media (max-width:1023px){.chqApple .chqPhotoHold .chqV8hold{padding-bottom:4rem}.chqApple .chqPhotoHold .chqV7fade{height:4rem}}
