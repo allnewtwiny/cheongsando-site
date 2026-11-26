@@ -11,8 +11,11 @@
   var COUNT = 8, TRIPLE = 441; /* 원래 로고를 441 간격으로 연달아 놓은 정적 모양 */
   var blocks = [];
   for (var i = 0; i < COUNT; i++) {
-    var s = SHAPES[i % 3], dx = Math.floor(i / 3) * TRIPLE;
-    blocks.push({ pts: s.pts.map(function (p) { return [p[0] + dx, p[1]]; }), l: s.l + dx, r: s.r + dx });
+    var g = Math.floor(i / 3), dx = g * TRIPLE, flip = g % 2 === 1; /* 세 개 묶음마다 좌우 반전 */
+    var s = SHAPES[flip ? 2 - i % 3 : i % 3], M = 237.41 + 666.07;
+    blocks.push(flip
+      ? { pts: s.pts.map(function (p) { return [M - p[0] + dx, p[1]]; }), l: M - s.r + dx, r: M - s.l + dx }
+      : { pts: s.pts.map(function (p) { return [p[0] + dx, p[1]]; }), l: s.l + dx, r: s.r + dx });
   }
   var X0 = 237.41, X1 = blocks[COUNT - 1].r;
 
