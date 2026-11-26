@@ -643,3 +643,6 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqApple .chqChapters .chqChapCtl .chqPinNav{margin-top:0}
 .chqApple .chqChapters .chqChapCtl .chqChapBtn{margin-top:0}
 }
+/* 한 장씩: 왼쪽 문구는 효과 없이 바로 바뀜, 페이드는 사진만 (11-26) */
+.chqApple .chqChapters .chqPin__step{transform:none;transition:none}
+.chqApple .chqChapters .chqChapBtn__a{transition:none}
