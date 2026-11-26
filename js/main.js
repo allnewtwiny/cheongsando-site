@@ -789,23 +789,35 @@
       if (!list) return;
       var items = list.querySelectorAll(".homeHero__listItem");
       var bgs = document.querySelectorAll(".homeHero__bg");
-      /* 같은 data-bg 사진이 여러 장이면 호버하는 동안 3.5초마다 서서히 넘김 */
-      var timer = null;
+      /* 새 사진을 맨 위로 올려 서서히 덮고, 다 덮은 뒤 아래 사진을 끔(중간에 어두워지지 않음).
+         같은 data-bg 사진이 여러 장이면 호버하는 동안 4.5초마다 넘김 */
+      var timer = null, cleanT = null;
+      function bring(el) {
+        el.parentNode.appendChild(el);
+        void el.offsetWidth;
+        el.classList.add("is-on");
+        clearTimeout(cleanT);
+        cleanT = setTimeout(function () {
+          bgs.forEach(function (b) { if (b !== el) b.classList.remove("is-on"); });
+        }, 1700);
+      }
       function show(i) {
         clearInterval(timer);
+        if (i === null) {
+          clearTimeout(cleanT);
+          bgs.forEach(function (b) { b.classList.remove("is-on"); });
+          return;
+        }
         var group = [];
-        bgs.forEach(function (b) {
-          var mine = b.getAttribute("data-bg") === i;
-          if (mine) group.push(b);
-          b.classList.toggle("is-on", mine && group.length === 1);
-        });
+        bgs.forEach(function (b) { if (b.getAttribute("data-bg") === i) group.push(b); });
+        if (!group.length) return;
+        bring(group[0]);
         if (group.length < 2) return;
         var k = 0;
         timer = setInterval(function () {
-          group[k].classList.remove("is-on");
           k = (k + 1) % group.length;
-          group[k].classList.add("is-on");
-        }, 3500);
+          bring(group[k]);
+        }, 4500);
       }
       items.forEach(function (a) {
         a.addEventListener("mouseenter", function () {
