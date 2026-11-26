@@ -387,25 +387,40 @@
       var tl = gsap.timeline({ defaults: { ease: 'none' } });
       if (list) tl.to(list, { yPercent: -60, autoAlpha: 0, duration: 0.3 }, 0);
       if (fades.length) tl.to(fades, { autoAlpha: 0, duration: 0.12 }, 0);
-      tl.to(dim, { opacity: 1, duration: 0.2 }, 0.1)
-        .fromTo(box, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power1.out' }, 0.18)
-        .to(box, { autoAlpha: 0, y: -40, duration: 0.18, ease: 'power1.in' }, 0.52)
-        .to(white, { opacity: 1, duration: 0.2 }, 0.55);
-      tl.to({}, { duration: 0.25 }, 0.75);
+      tl.to(dim, { opacity: 1, duration: 0.2 }, 0.05)
+        .fromTo(box, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power1.out' }, 0.12)
+        .to(box, { autoAlpha: 0, y: -40, duration: 0.15, ease: 'power1.in' }, 0.45)
+        .to(white, { opacity: 1, duration: 0.2 }, 0.5);
+      /* 다음 섹션(15개의 섬)은 미끄러져 올라오지 않고 제자리에서 나타나게:
+         고정 장면이 끝나는 순간 그 섹션의 고정 무대가 화면 맨 위에 오도록 겹쳐 두고, 숨겼다가 페이드인 */
+      var place = function () {
+        if (!next) return;
+        var inner = next.querySelector('.chqPin') || next;
+        var off = inner === next ? 0 : (inner.getBoundingClientRect().top - next.getBoundingClientRect().top);
+        next.style.marginTop = (-(hero.offsetHeight + off)) + 'px';
+      };
+      var showNext = function (on, quick) {
+        if (!next) return;
+        gsap.to(next, { autoAlpha: on ? 1 : 0, duration: quick ? 0 : (on ? 0.5 : 0.25), ease: 'power1.out', overwrite: true });
+      };
+      place(); showNext(false, true);
       var bar = function (p) {
-        window.__chqHeroHold = p < 0.75;
+        window.__chqHeroHold = p < 0.9;
         document.body.classList.toggle('is-pastHero', (window.scrollY || window.pageYOffset) > 10 && !window.__chqHeroHold);
       };
       var trig = ST.create({
-        trigger: hero, start: 'top top', end: '+=240%', pin: true, scrub: 0.5, anticipatePin: 1,
+        trigger: hero, start: 'top top', end: '+=170%', pin: true, scrub: true, anticipatePin: 1,
         animation: tl, refreshPriority: 10,
         onUpdate: function (self) { bar(self.progress); },
-        onRefresh: function (self) { bar(self.progress); }
+        onLeave: function () { showNext(true); },
+        onEnterBack: function () { showNext(false); },
+        onRefreshInit: place,
+        onRefresh: function (self) { bar(self.progress); showNext(self.progress >= 1, true); }
       });
       ST.sort();
       return function () {
         trig.kill(); tl.kill();
-        if (next) next.classList.remove('chqHeroNext');
+        if (next) { next.classList.remove('chqHeroNext'); next.style.marginTop = ''; gsap.set(next, { clearProps: 'opacity,visibility' }); }
         gsap.set([list, box, dim, white, txt, em, sub].concat(fades).filter(Boolean), { clearProps: 'all' });
         [dim, white, box].forEach(function (el) { if (el.parentNode) el.parentNode.removeChild(el); });
         document.body.classList.remove('chqHeroPinOn');
