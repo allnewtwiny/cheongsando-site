@@ -708,3 +708,7 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqType__d{min-height:3em}
 /* 11-27 안내 문구 투명도 (렌더링 고지 등) */
 .chqApple .chqFigNote,.chqApple .chqFigNote--l,.chqApple .chqNoteDim{color:rgba(134,134,139,.6)}
+/* 11-27 고요한 가족의 영역 사진 안 유형 이름 */
+.chqApple .chqGallery__item{position:relative}
+.chqApple .chqGallery__label{position:absolute;left:50%;bottom:2.4rem;transform:translateX(-50%);z-index:2;color:#fff;font-size:1.7rem;font-weight:600;letter-spacing:.02em;white-space:nowrap;text-shadow:0 1px 10px rgba(0,0,0,.35),0 0 2px rgba(0,0,0,.15);pointer-events:none}
+@media (max-width:767px){.chqApple .chqGallery__label{bottom:1.6rem;font-size:1.5rem}}
