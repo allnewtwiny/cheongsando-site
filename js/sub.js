@@ -388,9 +388,9 @@
       if (list) tl.to(list, { yPercent: -60, autoAlpha: 0, duration: 0.3 }, 0);
       if (fades.length) tl.to(fades, { autoAlpha: 0, duration: 0.12 }, 0);
       tl.to(dim, { opacity: 1, duration: 0.2 }, 0.05)
-        .fromTo(box, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power1.out' }, 0.12)
-        .to(box, { autoAlpha: 0, y: -40, duration: 0.15, ease: 'power1.in' }, 0.45)
-        .to(white, { opacity: 1, duration: 0.2 }, 0.5);
+        .fromTo(box, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power1.out' }, 0.32)
+        .to(box, { autoAlpha: 0, duration: 0.18, ease: 'none' }, 0.6)
+        .to(white, { opacity: 1, duration: 0.2 }, 0.6);
       /* 다음 섹션(15개의 섬)은 미끄러져 올라오지 않고 제자리에서 나타나게:
          고정 장면이 끝나는 순간 그 섹션의 고정 무대가 화면 맨 위에 오도록 겹쳐 두고, 숨겼다가 페이드인 */
       var place = function () {
