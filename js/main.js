@@ -816,7 +816,8 @@
         }
         var group = [];
         bgs.forEach(function (b) { if (b.getAttribute("data-bg") === i) group.push(b); });
-        if (!group.length) return;
+        /* 사진이 없는 메뉴(설계 노트, 분양 문의)는 호버 사진을 모두 꺼서 메인 화면을 그대로 보여 줌 */
+        if (!group.length) { show(null); return; }
         bring(group[0]);
         if (group.length < 2) return;
         var k = 0;
