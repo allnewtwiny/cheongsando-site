@@ -456,7 +456,7 @@
   /* v8 (2026-10-29): 하위 페이지(chqSub)도 같은 방식. 사진 배경 섹션도 어두운 쪽으로 본다 */
   var sub = document.body.classList.contains('chqSub');
   if (!sub && (document.body.getAttribute('data-page') !== 'home' || !document.querySelector('.homeHero'))) return;
-  var sel = '.chqSec--darkFixed,.chqSec.is-dark,.chqV7fade' + (sub ? ',.chqSec--photo,.chqHero--photo' : ''), raf = 0;
+  var sel = '.chqSec--darkFixed,.chqSec.is-dark,.chqV7fade,.chqPhotoHold' + (sub ? ',.chqSec--photo,.chqHero--photo' : ''), raf = 0;
   var check = function () {
     raf = 0;
     var on = Array.prototype.some.call(document.querySelectorAll(sel), function (el) {

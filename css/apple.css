@@ -675,3 +675,15 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 /* 20261126 한 장씩 넘겨 보세요: 렌더링 안내 문구는 2,3,4단계에서만 */
 .chqApple .chqChapters .chqFigNote{opacity:0;visibility:hidden;transition:opacity .4s ease,visibility 0s linear .4s}
 .chqApple .chqChapters .chqPin:has(.chqPin__fig:nth-child(2).is-active,.chqPin__fig:nth-child(3).is-active,.chqPin__fig:nth-child(4).is-active) .chqFigNote{opacity:1;visibility:visible;transition:opacity .4s ease,visibility 0s}
+
+/* 2026-11-26 땅값 섹션: chap1 사진 고정 배경, 다음 섹션으로 아래에서 위로 어두워짐 */
+.chqApple .chqPhotoHold{position:relative;background:#000;clip-path:inset(0)}
+.chqApple .chqPhotoHold__bg{position:sticky;top:0;height:100vh;margin-bottom:-100vh;z-index:0;overflow:hidden}
+.chqApple .chqPhotoHold__bg img{width:100%;height:100%;object-fit:cover;display:block}
+.chqApple .chqPhotoHold__bg:after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.chqApple .chqPhotoHold>.chqSec,.chqApple .chqPhotoHold>.chqV7fade{position:relative;z-index:1}
+.chqApple .chqPhotoHold .chqSec{background:transparent;--bg:transparent;--fg:#f5f5f7;--fg2:#d2d2d7;--fg3:#a1a1a6;--card:rgba(29,29,31,.6);--line:rgba(255,255,255,.25);--acc:#30d158;--accT:#30d158;--dot:rgba(0,0,0,.3);color:#f5f5f7}
+.chqApple .chqPhotoHold .chqV7fade{background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,.75) 45%,#000 70%)}
+.chqApple .chqPhotoHold__note{margin-top:4rem;text-align:center}
+.chqApple .chqPhotoHold+.chqSec--darkFixed{padding-top:4rem;border-top:0}
+@media (max-width:1023px){.chqApple .chqPhotoHold+.chqSec--darkFixed{padding-top:2rem}.chqApple .chqPhotoHold__note{margin-top:2.4rem}}
