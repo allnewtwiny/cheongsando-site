@@ -272,3 +272,7 @@ body.is-pastHero[data-page=home] .navigationMain__topBar{padding:.6rem 4rem}
 [data-page=home] .navigationMain__topBarLogo{opacity:1!important;pointer-events:auto!important}
 [data-page=home] .buttonMenu,[data-page=home] .buttonMenu *,[data-page=home] .topBarMark,[data-page=home] .navigationMain__topBarLogo img{transition:none!important}
 @media (max-width:767px){[data-page=home] .navigationMain__topBar{padding:.5rem 1.6rem}}
+
+/* 메인 메뉴 글자 1.5배 (11-26): 데스크톱 6.4rem -> 9.6rem, 모바일 3.4rem -> 5.1rem */
+.homeHero__listItem{font-size:9.6rem}
+@media (max-width: 767px){.homeHero__listItem{font-size:5.1rem}}
