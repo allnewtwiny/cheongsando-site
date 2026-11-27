@@ -630,6 +630,181 @@ body.chqSub.chqApple.is-overDark .topBarMenu a[aria-current=page]{opacity:1}
 .hhExtra .hhPlay path{fill:currentColor;opacity:0;transform:translateX(-.25em);transition:opacity .35s ease,transform .45s cubic-bezier(.2,.7,.2,1)}
 a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;transform:none}
 
+/* 한 장씩 넘겨 보세요 제목을 오른쪽 사진 윗선보다 아래로 (11-26) */
+@media (min-width:1024px){.chqApple .chqChapters .chqPin__grid{align-items:start}
+.chqApple .chqChapters .chqPin__copy{padding-top:2.4rem}}
+/* 한 장씩: 01 / 06 표기, 화살표 옆 버튼, 왼쪽 아래선을 사진 아래선에 맞춤 (11-26) */
+.chqApple .chqChapters .chqChapNum{font-size:1.3rem;letter-spacing:.12em;color:var(--fg3);margin-bottom:1.6rem}
+@media (min-width:1024px){
+.chqApple .chqChapters .chqPin__grid{align-items:stretch}
+.chqApple .chqChapters .chqPin__copy{display:flex;flex-direction:column}
+.chqApple .chqChapters .chqPin__steps{min-height:30rem}
+.chqApple .chqChapters .chqChapCtl{display:flex;align-items:center;gap:1.6rem;margin-top:auto;margin-bottom:1.8rem}
+.chqApple .chqChapters .chqChapCtl .chqPinNav{margin-top:0}
+.chqApple .chqChapters .chqChapCtl .chqChapBtn{margin-top:0}
+}
+/* 한 장씩: 왼쪽 문구는 효과 없이 바로 바뀜, 페이드는 사진만 (11-26) */
+.chqApple .chqChapters .chqPin__step{transform:none;transition:none}
+.chqApple .chqChapters .chqChapBtn__a{transition:none}
+/* 한 장씩 넘겨 보세요: 사진 클릭 이동, 호버 블러와 페이지 이름, 2번 교차 전환, 5번 로고 카드 (2026-11-26) */
+.chqFigLink{position:relative;display:block;overflow:hidden;border-radius:2.8rem;color:#fff;text-decoration:none;isolation:isolate}
+.chqFigLink .chqPhoto{transition:filter .5s ease,transform .6s ease}
+.chqFigLink__t{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;gap:1rem;font-size:3rem;font-weight:600;letter-spacing:-.02em;color:#fff;background:rgba(0,0,0,.3);opacity:0;transition:opacity .4s ease;pointer-events:none;text-shadow:0 2px 16px rgba(0,0,0,.25)}
+.chqFigLink__t i{font-style:normal;font-weight:400}
+@media (hover:hover){.chqFigLink:hover .chqPhoto{filter:blur(3px);transform:scale(1.03)}.chqFigLink:hover .chqFigLink__t{opacity:1}}
+.chqFigLink:focus-visible .chqFigLink__t{opacity:1}
+@media (min-width:1024px){.chqChapters .chqPin__figs>.chqPin__fig:not(.is-active){pointer-events:none}}
+.chqXfade{display:grid}
+.chqXfade>.chqPhoto{grid-area:1/1}
+.chqXfade>.chqPhoto:last-child{opacity:0;animation:chqXf 14s ease-in-out infinite}
+@keyframes chqXf{0%,45%{opacity:0}50%,95%{opacity:1}100%{opacity:0}}
+.chqPin__fig .chqPhoto.chqLogoCard{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.4rem;background:#fff;box-shadow:none}
+.chqFig .chqLogoCard img.chqLogoCard__a,.chqFig .chqLogoCard img.chqLogoCard__b{display:block;width:min(50%,500px);height:auto;border-radius:0}
+
+@media (max-width:767px){.chqFigLink{border-radius:2rem}.chqFigLink__t{font-size:2.2rem}.chqPin__fig .chqPhoto.chqLogoCard{gap:1.6rem}}
+/* 2026-11-26 메인 첫 화면 고정 장면 (sub.js 11번, 데스크톱만) */
+.chqHeroPinOn .homeHero+.chqSec--state{display:none}
+.chqApple .homeHero .chqHeroDim{position:absolute;inset:0;z-index:2;background:rgba(0,0,0,.32);opacity:0;pointer-events:none}
+.chqApple .homeHero .chqHeroWhite{position:absolute;inset:0;z-index:4;background:#fff;opacity:0;pointer-events:none}
+.chqApple .homeHero .chqHeroState{position:absolute;left:0;right:0;top:50%;z-index:5;visibility:hidden;pointer-events:none}
+.chqApple .homeHero .chqHeroState .chqState{padding:0}
+.chqApple .homeHero .chqHeroState .chqState__txt,.chqApple .homeHero .chqHeroState .chqState__txt em,.chqApple .homeHero .chqHeroState .chqState__sub{color:#fff}
+
+/* 메인 고정 장면 다음 15개의 섬 섹션을 마지막 흰 화면 위로 겹쳐 빈 화면 없이 바로 이어지게 (11-26) */
+.chqHeroNext{position:relative;z-index:6}
+/* 20261126 한 장씩 넘겨 보세요: 렌더링 안내 문구는 2,3,4단계에서만 */
+.chqApple .chqChapters .chqFigNote{opacity:0;visibility:hidden;transition:opacity .4s ease,visibility 0s linear .4s}
+.chqApple .chqChapters .chqPin:has(.chqPin__fig:nth-child(2).is-active,.chqPin__fig:nth-child(3).is-active,.chqPin__fig:nth-child(4).is-active) .chqFigNote{opacity:1;visibility:visible;transition:opacity .4s ease,visibility 0s}
+
+/* 2026-11-26 땅값 섹션: chap1 사진 고정 배경, 다음 섹션으로 아래에서 위로 어두워짐 */
+.chqApple .chqPhotoHold{position:relative;background:#000;clip-path:inset(0)}
+.chqApple .chqPhotoHold__bg{position:sticky;top:0;height:100vh;margin-bottom:-100vh;z-index:0;overflow:hidden}
+.chqApple .chqPhotoHold__bg img{width:100%;height:100%;object-fit:cover;display:block}
+.chqApple .chqPhotoHold__bg:after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.62)}
+.chqApple .chqPhotoHold>.chqSec,.chqApple .chqPhotoHold>.chqV7fade{position:relative;z-index:1}
+.chqApple .chqPhotoHold .chqSec{background:transparent;--bg:transparent;--fg:#fff;--fg2:#fff;--fg3:#fff;--card:rgba(29,29,31,.6);--line:rgba(255,255,255,.25);--acc:#fff;--accT:#fff;--dot:rgba(0,0,0,.3);color:#fff}
+.chqApple .chqPhotoHold .chqV7fade{background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,.75) 45%,#000 70%)}
+.chqApple .chqPhotoHold__note{margin-top:4rem;text-align:center}
+.chqApple .chqPhotoHold+.chqSec--darkFixed{padding-top:4rem;border-top:0}
+@media (max-width:1023px){.chqApple .chqPhotoHold+.chqSec--darkFixed{padding-top:2rem}.chqApple .chqPhotoHold__note{margin-top:2.4rem}}
+.chqApple .chqPhotoHold .chqSec *{color:#fff}
+.chqApple .chqPhotoHold .chqPhotoHold__note{opacity:.4}
+.chqApple .chqPhotoHold+.chqSec--darkFixed .chqState{padding-top:4rem}
+@media (max-width:1023px){.chqApple .chqPhotoHold+.chqSec--darkFixed .chqState{padding-top:3rem}}
+.chqApple .chqBtn{line-height:2.2rem}
+.chqApple .chqPhotoHold .chqV7fade{height:15vh}
+@media (min-width:1280px){.chqApple .chqPhotoHold .chqStats{gap:3rem}.chqApple .chqPhotoHold .chqStat__lab{white-space:nowrap;font-size:min(1.5rem,1.04vw)}}
+@media (min-width:1024px){.chqApple .chqPhotoHold .chqV8hold{padding-bottom:0}.chqApple .chqPhotoHold .chqV7fade{height:0}.chqApple .chqPhotoHold+.chqSec--darkFixed{position:relative;z-index:2;margin-top:-12rem;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,#000 12rem)}}
+@media (max-width:1023px){.chqApple .chqPhotoHold .chqV8hold{padding-bottom:4rem}.chqApple .chqPhotoHold .chqV7fade{height:4rem}}
+@media (min-width:1024px){.chqApple .chqPhotoHold+.chqSec--darkFixed{padding-top:14rem}.chqApple .chqPhotoHold+.chqSec--darkFixed+.chqSec--darkFixed{padding-top:26rem}}
+@media (max-width:1023px){.chqApple .chqPhotoHold+.chqSec--darkFixed{padding-top:8rem}.chqApple .chqPhotoHold+.chqSec--darkFixed+.chqSec--darkFixed{padding-top:16rem}}
+@media (min-width:1024px){.chqApple .chqPhotoHold+.chqSec--darkFixed{margin-top:-36rem;padding-top:48rem;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.12) 8rem,rgba(0,0,0,.4) 16rem,rgba(0,0,0,.75) 24rem,rgba(0,0,0,.95) 30rem,#000 34rem)}}
+@media (max-width:1023px){.chqApple .chqPhotoHold+.chqSec--darkFixed{position:relative;z-index:2;margin-top:-26rem;padding-top:36rem;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.3) 8rem,rgba(0,0,0,.7) 15rem,rgba(0,0,0,.95) 20rem,#000 22rem)}}
+@media (min-width:1024px){.chqApple .chqPhotoHold+.chqSec--darkFixed{margin-top:-56rem;padding-top:76rem;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.08) 14rem,rgba(0,0,0,.22) 24rem,rgba(0,0,0,.45) 33rem,rgba(0,0,0,.72) 42rem,rgba(0,0,0,.93) 50rem,#000 54rem)}}
+@media (max-width:1023px){.chqApple .chqPhotoHold+.chqSec--darkFixed{margin-top:-38rem;padding-top:54rem;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.15) 10rem,rgba(0,0,0,.45) 20rem,rgba(0,0,0,.8) 28rem,rgba(0,0,0,.96) 33rem,#000 35rem)}}
+@media (min-width:1024px){.chqApple .chqPhotoHold+.chqSec--darkFixed{margin-top:-74rem;padding-top:94rem;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.05) 14rem,rgba(0,0,0,.14) 26rem,rgba(0,0,0,.3) 38rem,rgba(0,0,0,.52) 48rem,rgba(0,0,0,.76) 58rem,rgba(0,0,0,.93) 66rem,#000 72rem)}}
+@media (max-width:1023px){.chqApple .chqPhotoHold+.chqSec--darkFixed{margin-top:-50rem;padding-top:66rem;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.1) 12rem,rgba(0,0,0,.3) 24rem,rgba(0,0,0,.6) 34rem,rgba(0,0,0,.88) 42rem,#000 47rem)}}
+
+.chqType__d{min-height:3em}
+/* 11-27 안내 문구 투명도 (렌더링 고지 등) */
+.chqApple .chqFigNote,.chqApple .chqFigNote--l,.chqApple .chqNoteDim{color:rgba(134,134,139,.6)}
+/* 11-27 고요한 가족의 영역 사진 안 유형 이름 */
+.chqApple .chqGallery__item{position:relative}
+.chqApple .chqGallery__label{position:absolute;left:50%;bottom:2.4rem;transform:translateX(-50%);z-index:2;color:#fff;font-size:1.7rem;font-weight:600;letter-spacing:.02em;white-space:nowrap;text-shadow:0 1px 10px rgba(0,0,0,.35),0 0 2px rgba(0,0,0,.15);pointer-events:none}
+@media (max-width:767px){.chqApple .chqGallery__label{bottom:1.6rem;font-size:1.5rem}}
+/* 11-27 바다 너머의 일상 고정 배경 */
+.chqSeaBg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;visibility:hidden;overflow:hidden;background:#000}
+.chqSeaBg__img{position:absolute;inset:0;background:url(../img/sea_bg_v1.jpg) center/cover no-repeat;transform:scale(1.3);transform-origin:50% 50%;will-change:transform}
+.chqSeaBg::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.chqApple #swup,.chqApple .navigationFooter{position:relative;z-index:1}
+.chqApple #swup.mainContent{background:transparent}
+.chqApple .chqSec.chqV7sea,.chqApple .chqSec.chqSec--cta{--bg:transparent;background:transparent;position:relative}
+.chqApple .chqSec.chqV7sea::before{content:"";position:absolute;left:0;right:0;top:0;height:40vh;background:linear-gradient(180deg,#000,rgba(0,0,0,0));pointer-events:none}
+.chqApple .chqSec.chqSec--cta::after{content:"";position:absolute;left:0;right:0;bottom:0;height:30vh;background:linear-gradient(180deg,rgba(0,0,0,0),#000);pointer-events:none}
+
+/* 한 장씩 넘겨 보세요: 애플식 가로 카드 넘김 (2026-11-27) */
+.chqApple .chqGal{overflow:hidden}
+.chqApple .chqGal .chqSec__head{text-align:left;justify-items:start;margin-bottom:0;margin-left:0;margin-right:0;max-width:none}
+.chqApple .chqGal .chqSec__title{max-width:none;margin-left:0;text-align:left;font-size:clamp(3.2rem,4vw,5.6rem)}
+.chqGal__track{list-style:none;margin:4.8rem calc(50% - 50vw) 0 0;padding:0 calc(50vw - 50%) .4rem 0;display:flex;gap:2.4rem;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-left:0;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+.chqGal__track::-webkit-scrollbar{display:none}
+.chqGal__card{flex:0 0 min(37vw,62rem);scroll-snap-align:start;display:flex;flex-direction:column}
+.chqGal__card:last-child{margin-right:0}
+.chqGal__fig{position:relative;display:block;aspect-ratio:6/5;border-radius:1.8rem;overflow:hidden;background:#f5f5f7}
+.chqGal__fig .chqPhoto,.chqGal__fig .chqXfade{position:absolute;inset:0;width:100%;height:100%}
+.chqGal__fig img.chqPhoto{display:block;width:100%;height:100%;object-fit:cover;border-radius:0;transform:scale(1);transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.chqGal__fig:hover img.chqPhoto{transform:scale(1.03)}
+.chqGal__fig .chqLogoCard{display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:14% 0;box-sizing:border-box;background:#f5f5f7}
+.chqGal__fig .chqLogoCard img{object-fit:contain;width:min(50%,280px);height:auto}
+.chqGal__fig .chqLogoCard img:hover{transform:none}
+.chqGal__cap{margin:2.4rem 0 0;max-width:46rem;font-size:1.7rem;line-height:1.5;font-weight:500;letter-spacing:-.01em;color:var(--fg2)}
+.chqGal__cap b{font-weight:600;color:var(--fg)}
+.chqGal__more{margin-top:1.4rem;align-self:flex-start;font-size:1.5rem;font-weight:500;color:var(--fg);text-decoration:none}
+.chqGal__more i{font-style:normal;margin-left:.4rem;display:inline-block;transition:transform .3s ease}
+.chqGal__more:hover i{transform:translateX(3px)}
+.chqGal__foot{display:flex;align-items:center;justify-content:flex-end;margin-top:3.2rem}
+.chqGal__note{margin:0;font-size:1.2rem;color:var(--fg3)}
+.chqGal__nav{display:flex;gap:1.4rem}
+.chqGal__btn{width:3.6rem;height:3.6rem;border:0;border-radius:50%;padding:0;display:grid;place-items:center;background:rgba(210,210,215,.64);color:rgba(0,0,0,.56);cursor:pointer;transition:background .25s ease,color .25s ease,opacity .25s ease}
+.chqGal__btn svg{width:1.8rem;height:1.8rem}
+.chqGal__btn:hover:not(:disabled){background:rgba(223,223,227,.9);color:rgba(0,0,0,.72)}
+.chqGal__btn:disabled{opacity:.42;cursor:default}
+@media (max-width:1023px){.chqGal__card{flex-basis:min(78vw,52rem)}.chqGal__track{gap:1.6rem;margin-top:3.2rem}.chqGal__cap{font-size:1.5rem}}
+@media (max-width:600px){.chqGal__card{flex-basis:84vw}}
+
+/* 넘김 카드: 사진 안 렌더링 안내, 화살표 3번째 사진 좌측선 정렬, 마우스 끌어 넘기기 (2026-11-27) */
+.chqGal__badge{position:absolute;left:1.6rem;bottom:1.4rem;z-index:2;font-size:1.1rem;line-height:1.3;letter-spacing:-.01em;color:#fff;opacity:.4;text-shadow:0 1px 3px rgba(0,0,0,.35);pointer-events:none}
+@media (min-width:1024px){.chqGal__foot{justify-content:flex-start}.chqGal__nav{margin-left:calc(2 * (min(37vw,62rem) + 2.4rem))}}
+@media (hover:hover) and (pointer:fine){.chqGal__track{cursor:grab}}
+.chqGal__track.is-drag{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto;user-select:none;-webkit-user-select:none}
+.chqGal__track.is-drag a{cursor:grabbing}
+.chqGal__track.is-snap{scroll-snap-type:none}
+.chqGal__track img{-webkit-user-drag:none;user-select:none}
+
+/* t9 20261127 */
+.chqApple,.chqApple .chqSec{--accImg:url(../img/accent_grad_v3.jpg)}
+.chqApple .chqSec.chqV8one{--accImg:url(../img/accent_grad_deep_v1.jpg)}
+/* 2 갤러리 좌우 끝까지, 로고 간격 */
+.chqApple .chqGal{overflow:visible;overflow-x:clip}
+.chqApple .chqGal__track{margin:4.8rem calc(50% - 50vw) 0;padding:0 calc(50vw - 50%) .4rem;scroll-padding-left:calc(50vw - 50%)}
+.chqGal__track.is-start>:nth-child(-n+8){visibility:hidden}
+.chqGal__blank{visibility:hidden;scroll-snap-align:none;pointer-events:none}
+.chqApple .chqGal__fig .chqLogoCard{justify-content:center;gap:2.4rem;padding:0}
+/* 3 기본형 확장형 */
+.chqApple .chqGallery__item::after{content:"";position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.45));z-index:1;pointer-events:none}
+.chqApple .chqGallery__label{font-size:2.1rem}
+@media (max-width:767px){.chqApple .chqGallery__label{font-size:1.7rem}}
+.chqApple .chqGallery+.chqFigNote--l{margin-top:.6rem}
+/* 4 바다 너머의 일상 전부 백색 */
+.chqApple .chqV7sea{--fg:#fff;--fg2:#fff;--fg3:#fff}
+.chqApple .chqV7sea,.chqApple .chqV7sea .chqSec__title,.chqApple .chqV7sea .chqStat__num,.chqApple .chqV7sea .chqStat__num small,.chqApple .chqV7sea .chqStat__lab,.chqApple .chqV7sea .chqPromo,.chqApple .chqV7sea .chqSmall,.chqApple .chqV7sea .chqFigNote,.chqApple .chqV7sea .chqFigNote--l{color:#fff}
+/* 5 마지막 CTA */
+.chqApple .chqSec--cta .chqSec__title span{background:linear-gradient(180deg,#fff 40%,#d2d2d7 100%);-webkit-background-clip:text;background-clip:text}
+.chqApple .chqSec--cta .chqBtn,.chqApple .chqSec--cta .chqBtn--fill{background:#fff;color:#000;border-color:#fff}
+.chqApple .chqSec--cta .chqBtn:hover,.chqApple .chqSec--cta .chqBtn--fill:hover{background:#000;color:#fff;border-color:#000}
+/* 6 강조 초록을 그라데이션 이미지 마스크로 */
+.chqApple .chqState__txt em,.chqApple .chqLabel b,.chqChart__bar--acc .chqChart__val,.chqChart__bar.is-hl .chqChart__val,.chqApple .chqValue__tag,.chqApple .chqStep__no,.chqApple .chqGantt__grp{background:var(--accImg) center/cover;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.chqMono i,.chqApple .chqList li::before,.chqLegend i.a,.chqApple .chqGantt__bar--light,.chqApple .chqGantt__legend i.l{background:var(--accImg) center/cover}
+.chqChart__bar--acc .chqChart__fill,.chqChart__bar.is-hl .chqChart__fill{background-image:radial-gradient(circle at 1.5px 1.5px,var(--dot) 1.1px,transparent 1.7px),var(--accImg);background-size:7px 7px,cover;background-position:0 0,center}
+.chqApple .homeHero .chqHeroState .chqState__txt em{background:none;color:#fff;-webkit-text-fill-color:#fff}
+.chqApple .chqPhotoHold .chqState__txt em,.chqApple .chqPhotoHold .chqLabel b,.chqApple .chqPhotoHold .chqChart__val,.chqApple .chqPhotoHold .chqValue__tag,.chqApple .chqPhotoHold .chqStep__no,.chqApple .chqPhotoHold .chqGantt__grp{background:none;color:#fff;-webkit-text-fill-color:#fff}
+.chqApple .chqPhotoHold .chqMono i,.chqApple .chqPhotoHold .chqList li::before,.chqApple .chqPhotoHold .chqLegend i.a,.chqApple .chqPhotoHold .chqGantt__bar--light,.chqApple .chqPhotoHold .chqGantt__legend i.l{background:#fff}
+.chqApple .chqPhotoHold .chqChart__bar--acc .chqChart__fill,.chqApple .chqPhotoHold .chqChart__bar.is-hl .chqChart__fill{background-image:radial-gradient(circle at 1.5px 1.5px,var(--dot) 1.1px,transparent 1.7px);background-size:7px 7px}
+
+/* 스크롤 강조 연출 t13 */
+.chqApple .chqV8one .chqState__txt em{background-image:linear-gradient(90deg,#5a8fb8 0%,#4f9a9e 16%,#6aa53e 32%,#93b432 42%,#56a06e 56%,#6593ba 70%,#4f9c90 84%,#86ad3a 100%);background-size:500% 100%;background-position:0% 50%;background-repeat:no-repeat}
+.chqApple .chqSlide__a{display:inline-block;will-change:transform}
+.chqApple .chqSlide__c{color:#fff;-webkit-text-fill-color:#fff}
+.chqApple .chqSlide__b{display:inline-block;-webkit-mask-image:linear-gradient(90deg,#000 0 40%,transparent 60% 100%);mask-image:linear-gradient(90deg,#000 0 40%,transparent 60% 100%);-webkit-mask-size:250% 100%;mask-size:250% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:0 0;mask-position:0 0}
+.chqApple .chqSlide.is-armed .chqSlide__c{opacity:0}
+.chqApple .chqSlide.is-armed .chqSlide__b{-webkit-mask-position:100% 0;mask-position:100% 0}
+.chqApple .chqSlide.is-play .chqSlide__a{transform:none!important;transition:transform .9s cubic-bezier(.65,0,.35,1)}
+.chqApple .chqSlide.is-play .chqSlide__c{opacity:1;transition:opacity .5s ease .7s}
+.chqApple .chqSlide.is-play .chqSlide__b{-webkit-mask-position:0 0;mask-position:0 0;transition:-webkit-mask-position 1.3s ease .9s,mask-position 1.3s ease .9s}
+@media (min-width:768px){.chqApple .chqV7sea .chqPromo{max-width:none;white-space:nowrap}}
+/* 푸터 Portfolio 와 2LOOK 사이 세로 구분선 */
+.navigationFooter__bottomSubMenu>li:first-child{position:relative}
+.navigationFooter__bottomSubMenu>li:first-child::after{content:"";position:absolute;right:-10px;top:50%;width:1px;height:14px;margin-top:-7px;background:rgba(255,255,255,.45);pointer-events:none}
 /* 11-27 첫 화면 다음 군도 사진: 제자리 페이드인 (사진은 .chqFade__img 고정층이 그림) */
 .chqApple .chqFade .chqSec--photo.chqFade__sec{background:transparent!important}
 .chqApple .chqFade .chqSec--photo.chqFade__sec::before{display:none}
