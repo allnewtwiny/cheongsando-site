@@ -788,3 +788,15 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqApple .chqPhotoHold .chqState__txt em,.chqApple .chqPhotoHold .chqLabel b,.chqApple .chqPhotoHold .chqChart__val,.chqApple .chqPhotoHold .chqValue__tag,.chqApple .chqPhotoHold .chqStep__no,.chqApple .chqPhotoHold .chqGantt__grp{background:none;color:#fff;-webkit-text-fill-color:#fff}
 .chqApple .chqPhotoHold .chqMono i,.chqApple .chqPhotoHold .chqList li::before,.chqApple .chqPhotoHold .chqLegend i.a,.chqApple .chqPhotoHold .chqGantt__bar--light,.chqApple .chqPhotoHold .chqGantt__legend i.l{background:#fff}
 .chqApple .chqPhotoHold .chqChart__bar--acc .chqChart__fill,.chqApple .chqPhotoHold .chqChart__bar.is-hl .chqChart__fill{background-image:radial-gradient(circle at 1.5px 1.5px,var(--dot) 1.1px,transparent 1.7px);background-size:7px 7px}
+
+/* 스크롤 강조 연출 t13 */
+.chqApple .chqV8one .chqState__txt em{background-size:240% 100%;background-position:0% 50%;background-repeat:no-repeat}
+.chqApple .chqSlide__a{display:inline-block;will-change:transform}
+.chqApple .chqSlide__c{color:#fff;-webkit-text-fill-color:#fff}
+.chqApple .chqSlide__b{display:inline-block;-webkit-mask-image:linear-gradient(90deg,#000 0 40%,transparent 60% 100%);mask-image:linear-gradient(90deg,#000 0 40%,transparent 60% 100%);-webkit-mask-size:250% 100%;mask-size:250% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:0 0;mask-position:0 0}
+.chqApple .chqSlide.is-armed .chqSlide__c{opacity:0}
+.chqApple .chqSlide.is-armed .chqSlide__b{-webkit-mask-position:100% 0;mask-position:100% 0}
+.chqApple .chqSlide.is-play .chqSlide__a{transform:none!important;transition:transform .9s cubic-bezier(.65,0,.35,1)}
+.chqApple .chqSlide.is-play .chqSlide__c{opacity:1;transition:opacity .5s ease .7s}
+.chqApple .chqSlide.is-play .chqSlide__b{-webkit-mask-position:0 0;mask-position:0 0;transition:-webkit-mask-position 1.3s ease .9s,mask-position 1.3s ease .9s}
+@media (min-width:768px){.chqApple .chqV7sea .chqPromo{max-width:none;white-space:nowrap}}

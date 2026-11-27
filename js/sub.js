@@ -605,3 +605,40 @@
   window.addEventListener('scroll', function () { idleDone = false; morph(0); arm(); if (!posRaf) posRaf = requestAnimationFrame(place); }, { passive: true });
   arm();
 })();
+
+/* t13 취향섬 강조 그라데이션 스크롤 흐름, 머물 때는 내 집 슬라이드 */
+(function () {
+  var em = document.querySelector('.chqV8one .chqState__txt em');
+  if (em) {
+    var sec = em.closest('section'), raf = 0;
+    var upd = function () {
+      raf = 0;
+      var r = sec.getBoundingClientRect(), vh = innerHeight;
+      var k = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+      em.style.backgroundPosition = (k * 100).toFixed(1) + '% 50%';
+    };
+    addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
+    addEventListener('resize', upd); upd();
+  }
+  var p = document.querySelector('.chqSlide');
+  if (!p || !window.IntersectionObserver) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var a = p.querySelector('.chqSlide__a'), done = false;
+  var place = function () {
+    if (done) return;
+    a.style.transform = 'none';
+    var pr = (p.closest('.chqState') || p).getBoundingClientRect(), ar = a.getBoundingClientRect();
+    a.style.transform = 'translateX(' + ((pr.left + pr.width / 2) - (ar.left + ar.width / 2)).toFixed(1) + 'px)';
+  };
+  p.classList.add('is-armed'); place();
+  addEventListener('resize', place);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      setTimeout(function () { done = true; p.classList.add('is-play'); }, 500);
+    });
+  }, { threshold: 0.6 });
+  io.observe(p);
+})();
