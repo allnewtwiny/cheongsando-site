@@ -734,7 +734,7 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqGal__fig .chqPhoto,.chqGal__fig .chqXfade{position:absolute;inset:0;width:100%;height:100%}
 .chqGal__fig img.chqPhoto{display:block;width:100%;height:100%;object-fit:cover;border-radius:0;transform:scale(1);transition:transform .8s cubic-bezier(.2,.7,.2,1)}
 .chqGal__fig:hover img.chqPhoto{transform:scale(1.03)}
-.chqGal__fig .chqLogoCard{display:flex;background:#f5f5f7}
+.chqGal__fig .chqLogoCard{display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:14% 0;box-sizing:border-box;background:#f5f5f7}
 .chqGal__fig .chqLogoCard img{object-fit:contain;width:min(50%,280px);height:auto}
 .chqGal__fig .chqLogoCard img:hover{transform:none}
 .chqGal__cap{margin:2.4rem 0 0;max-width:46rem;font-size:1.7rem;line-height:1.5;font-weight:500;letter-spacing:-.01em;color:var(--fg2)}
@@ -753,7 +753,7 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 @media (max-width:600px){.chqGal__card{flex-basis:84vw}}
 
 /* 넘김 카드: 사진 안 렌더링 안내, 화살표 3번째 사진 좌측선 정렬, 마우스 끌어 넘기기 (2026-11-27) */
-.chqGal__badge{position:absolute;left:1.6rem;bottom:1.4rem;z-index:2;font-size:1.1rem;line-height:1.3;letter-spacing:-.01em;color:#fff;opacity:.62;text-shadow:0 1px 3px rgba(0,0,0,.35);pointer-events:none}
+.chqGal__badge{position:absolute;left:1.6rem;bottom:1.4rem;z-index:2;font-size:1.1rem;line-height:1.3;letter-spacing:-.01em;color:#fff;opacity:.4;text-shadow:0 1px 3px rgba(0,0,0,.35);pointer-events:none}
 @media (min-width:1024px){.chqGal__foot{justify-content:flex-start}.chqGal__nav{margin-left:calc(2 * (min(37vw,62rem) + 2.4rem))}}
 @media (hover:hover) and (pointer:fine){.chqGal__track{cursor:grab}}
 .chqGal__track.is-drag{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto;user-select:none;-webkit-user-select:none}
