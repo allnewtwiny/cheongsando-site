@@ -762,7 +762,7 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqGal__track img{-webkit-user-drag:none;user-select:none}
 
 /* t9 20261127 */
-.chqApple,.chqApple .chqSec{--accImg:url(../img/accent_grad.jpg)}
+.chqApple,.chqApple .chqSec{--accImg:url(../img/accent_grad_v2.jpg)}
 /* 2 갤러리 좌우 끝까지, 로고 간격 */
 .chqApple .chqGal{overflow:visible;overflow-x:clip}
 .chqApple .chqGal__track{margin:4.8rem calc(50% - 50vw) 0;padding:0 calc(50vw - 50%) .4rem;scroll-padding-left:calc(50vw - 50%)}
@@ -778,7 +778,7 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 /* 5 마지막 CTA */
 .chqApple .chqSec--cta .chqSec__title span{background:linear-gradient(180deg,#fff 40%,#d2d2d7 100%);-webkit-background-clip:text;background-clip:text}
 .chqApple .chqSec--cta .chqBtn,.chqApple .chqSec--cta .chqBtn--fill{background:#fff;color:#000;border-color:#fff}
-.chqApple .chqSec--cta .chqBtn:hover,.chqApple .chqSec--cta .chqBtn--fill:hover{background:#e8e8ed;color:#000;border-color:#e8e8ed}
+.chqApple .chqSec--cta .chqBtn:hover,.chqApple .chqSec--cta .chqBtn--fill:hover{background:#000;color:#fff;border-color:#000}
 /* 6 강조 초록을 그라데이션 이미지 마스크로 */
 .chqApple .chqState__txt em,.chqApple .chqLabel b,.chqChart__bar--acc .chqChart__val,.chqChart__bar.is-hl .chqChart__val,.chqApple .chqValue__tag,.chqApple .chqStep__no,.chqApple .chqGantt__grp{background:var(--accImg) center/cover;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
 .chqMono i,.chqApple .chqList li::before,.chqLegend i.a,.chqApple .chqGantt__bar--light,.chqApple .chqGantt__legend i.l{background:var(--accImg) center/cover}
