@@ -721,3 +721,33 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqApple .chqSec.chqV7sea,.chqApple .chqSec.chqSec--cta{--bg:transparent;background:transparent;position:relative}
 .chqApple .chqSec.chqV7sea::before{content:"";position:absolute;left:0;right:0;top:0;height:40vh;background:linear-gradient(180deg,#000,rgba(0,0,0,0));pointer-events:none}
 .chqApple .chqSec.chqSec--cta::after{content:"";position:absolute;left:0;right:0;bottom:0;height:30vh;background:linear-gradient(180deg,rgba(0,0,0,0),#000);pointer-events:none}
+
+/* 한 장씩 넘겨 보세요: 애플식 가로 카드 넘김 (2026-11-27) */
+.chqApple .chqGal{overflow:hidden}
+.chqApple .chqGal .chqSec__head{text-align:left;justify-items:start;margin-bottom:0;margin-left:0;margin-right:0;max-width:none}
+.chqApple .chqGal .chqSec__title{max-width:none;margin-left:0;text-align:left;font-size:clamp(3.2rem,4vw,5.6rem)}
+.chqGal__track{list-style:none;margin:4.8rem calc(50% - 50vw) 0 0;padding:0 calc(50vw - 50%) .4rem 0;display:flex;gap:2.4rem;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-left:0;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+.chqGal__track::-webkit-scrollbar{display:none}
+.chqGal__card{flex:0 0 min(37vw,62rem);scroll-snap-align:start;display:flex;flex-direction:column}
+.chqGal__card:last-child{margin-right:0}
+.chqGal__fig{position:relative;display:block;aspect-ratio:6/5;border-radius:1.8rem;overflow:hidden;background:#f5f5f7}
+.chqGal__fig .chqPhoto,.chqGal__fig .chqXfade{position:absolute;inset:0;width:100%;height:100%}
+.chqGal__fig img.chqPhoto{display:block;width:100%;height:100%;object-fit:cover;border-radius:0;transform:scale(1);transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.chqGal__fig:hover img.chqPhoto{transform:scale(1.03)}
+.chqGal__fig .chqLogoCard{display:flex;background:#f5f5f7}
+.chqGal__fig .chqLogoCard img{object-fit:contain;width:min(50%,280px);height:auto}
+.chqGal__fig .chqLogoCard img:hover{transform:none}
+.chqGal__cap{margin:2.4rem 0 0;max-width:46rem;font-size:1.7rem;line-height:1.5;font-weight:500;letter-spacing:-.01em;color:var(--fg2)}
+.chqGal__cap b{font-weight:600;color:var(--fg)}
+.chqGal__more{margin-top:1.4rem;align-self:flex-start;font-size:1.5rem;font-weight:500;color:var(--fg);text-decoration:none}
+.chqGal__more i{font-style:normal;margin-left:.4rem;display:inline-block;transition:transform .3s ease}
+.chqGal__more:hover i{transform:translateX(3px)}
+.chqGal__foot{display:flex;align-items:center;justify-content:space-between;gap:2rem;margin-top:3.2rem}
+.chqGal__note{margin:0;font-size:1.2rem;color:var(--fg3)}
+.chqGal__nav{display:flex;gap:1.4rem}
+.chqGal__btn{width:3.6rem;height:3.6rem;border:0;border-radius:50%;padding:0;display:grid;place-items:center;background:rgba(210,210,215,.64);color:rgba(0,0,0,.56);cursor:pointer;transition:background .25s ease,color .25s ease,opacity .25s ease}
+.chqGal__btn svg{width:1.8rem;height:1.8rem}
+.chqGal__btn:hover:not(:disabled){background:rgba(223,223,227,.9);color:rgba(0,0,0,.72)}
+.chqGal__btn:disabled{opacity:.42;cursor:default}
+@media (max-width:1023px){.chqGal__card{flex-basis:min(78vw,52rem)}.chqGal__track{gap:1.6rem;margin-top:3.2rem}.chqGal__cap{font-size:1.5rem}}
+@media (max-width:600px){.chqGal__card{flex-basis:84vw}}
