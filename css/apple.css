@@ -767,6 +767,7 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 /* 2 갤러리 좌우 끝까지, 로고 간격 */
 .chqApple .chqGal{overflow:visible;overflow-x:clip}
 .chqApple .chqGal__track{margin:4.8rem calc(50% - 50vw) 0;padding:0 calc(50vw - 50%) .4rem;scroll-padding-left:calc(50vw - 50%)}
+.chqGal__track.is-start>:nth-child(-n+6){visibility:hidden}
 .chqApple .chqGal__fig .chqLogoCard{justify-content:center;gap:2.4rem;padding:0}
 /* 3 기본형 확장형 */
 .chqApple .chqGallery__item::after{content:"";position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.45));z-index:1;pointer-events:none}
