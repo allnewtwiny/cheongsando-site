@@ -165,6 +165,8 @@
           var to = (q + 1) / n - 0.001;
           /* 뒤로 갈 때는 거꾸로 지우지 않고 바로 그 장면으로. 1번으로 돌아오면 처음부터 다시 그린다 */
           if (to < mP) { cancelAnimationFrame(mRaf); mP = q === 0 ? 0 : to; render(mP); }
+          /* 1번에서 이전으로 6번처럼 여러 단계를 건너뛸 때는 사이 장면을 훑지 않고 그 단계 시작점에서 바로 그린다 */
+          else if (mP < q / n) { cancelAnimationFrame(mRaf); mP = q / n; render(mP); }
           mAnim(to, 800);
         };
         var phNext = function () {
@@ -179,10 +181,11 @@
           var tick = function (now) { var k = clamp((now - t0) / dur); render(k); if (k < 1) requestAnimationFrame(tick); };
           requestAnimationFrame(tick);
         };
-        /* data-nopin: 화면을 붙잡지 않고 그냥 지나간다. 단계는 앞뒤 버튼으로만 */
+        /* data-nohold: 화면 고정 없이 보이기 시작하면 애니메이션만 재생 */
         var nopin = pin.hasAttribute('data-nopin');
+        var nohold = pin.hasAttribute('data-nohold') || nopin;
         var trig = ST.create({
-          trigger: pin, start: nopin ? 'top 75%' : 'top top', end: nopin ? 'bottom top' : '+=' + (parseInt(pin.getAttribute('data-len'), 10) || n * 90) + '%', pin: nopin ? false : stage, scrub: nopin ? false : 0.4, anticipatePin: nopin ? 0 : 1,
+          trigger: pin, start: pin.getAttribute('data-start') || (nopin ? 'top 75%' : nohold ? 'top 70%' : 'top top'), end: nohold ? 'bottom top' : '+=' + (parseInt(pin.getAttribute('data-len'), 10) || n * 90) + '%', pin: nohold ? false : stage, scrub: nohold ? false : 0.4, anticipatePin: nohold ? 0 : 1,
           onUpdate: function (self) { if (manual) { if (!mGo && self.progress > 0) { mGo = true; mEnter(); } return; } if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); },
           onRefresh: function (self) { if (manual) { if (!mGo && self.progress > 0) { mGo = true; mEnter(); } return; } if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); },
           /* 구간 재생 장면은 위로 빠져나가면 처음 상태로, 다시 들어오면 서울부터 */
@@ -368,6 +371,95 @@
     });
   }
 
+  /* 11. 메인 첫 화면 고정 장면 (2026-11-26, 데스크톱 1024 이상).
+     사진은 그대로 두고 스크롤하면 좌하단 메뉴가 위로 빠지고, 흰 글씨 문장이 떠오른 뒤, 배경이 하얗게 바뀌며 15개의 섬으로 이어진다.
+     원래 문장 섹션(.homeHero + .chqSec--state)은 이 장면이 켜져 있을 때만 숨긴다. */
+  (function () {
+    var hero = document.querySelector('.homeHero');
+    var main = hero && hero.querySelector('.homeHero__main');
+    var orig = hero && hero.nextElementSibling;
+    if (!main || !orig || !orig.classList.contains('chqSec--state') || !gsap || !ST || reduce || typeof gsap.matchMedia !== 'function') return;
+    var txt0 = orig.querySelector('.chqState__txt'), sub0 = orig.querySelector('.chqState__sub');
+    if (!txt0) return;
+    var dim = document.createElement('div'); dim.className = 'chqHeroDim'; dim.setAttribute('aria-hidden', 'true');
+    var white = document.createElement('div'); white.className = 'chqHeroWhite'; white.setAttribute('aria-hidden', 'true');
+    var box = document.createElement('div'); box.className = 'chqHeroState';
+    box.innerHTML = '<div class="chqWrap"><div class="chqState"></div></div>';
+    var st = box.querySelector('.chqState');
+    var txt = txt0.cloneNode(true), sub = sub0 ? sub0.cloneNode(true) : null;
+    st.appendChild(txt); if (sub) st.appendChild(sub);
+    var em = txt.querySelector('em');
+    gsap.matchMedia().add('(min-width: 1024px)', function () {
+      main.appendChild(dim); main.appendChild(white); main.appendChild(box);
+      document.body.classList.add('chqHeroPinOn');
+      orig.style.display = 'none';
+      var next = orig.nextElementSibling;
+      if (next) next.classList.add('chqHeroNext');
+      window.__chqHeroHold = true;
+      var list = main.querySelector('.homeHero__list');
+      var fades = [main.querySelector('.homeHero__down'), main.querySelector('.chqHeroNote')].filter(Boolean);
+      gsap.set(box, { yPercent: -50 });
+      var tl = gsap.timeline({ defaults: { ease: 'none' } });
+      if (list) tl.to(list, { yPercent: -60, autoAlpha: 0, duration: 0.3 }, 0);
+      if (fades.length) tl.to(fades, { autoAlpha: 0, duration: 0.12 }, 0);
+      tl.to(dim, { opacity: 1, duration: 0.2 }, 0.05)
+        .fromTo(box, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power1.out' }, 0.32)
+        .to(box, { autoAlpha: 0, duration: 0.18, ease: 'none' }, 0.68)
+        .to(white, { opacity: 1, duration: 0.2 }, 0.68);
+      /* 2026-11-27 멈춤 구간 축소: 문장이 다 뜬 뒤 0.52 에서 0.68 까지만 멈춤 (전체 0.88, 이전 0.52~1.0 / 1.2) */
+      /* 다음 섹션(15개의 섬)은 미끄러져 올라오지 않고 제자리에서 나타나게:
+         고정 장면이 끝나는 순간 그 섹션의 고정 무대가 화면 맨 위에 오도록 겹쳐 두고, 숨겼다가 페이드인 */
+      var place = function () {
+        if (!next) return;
+        var inner = next.querySelector('.chqPin') || next;
+        var off = inner === next ? 0 : (inner.getBoundingClientRect().top - next.getBoundingClientRect().top);
+        next.style.marginTop = (-(hero.offsetHeight + off)) + 'px';
+      };
+      var showNext = function (on, quick) {
+        if (!next) return;
+        gsap.to(next, { autoAlpha: on ? 1 : 0, duration: quick ? 0 : (on ? 0.5 : 0.25), ease: 'power1.out', overwrite: true });
+      };
+      place(); showNext(false, true);
+      var bar = function (p) {
+        window.__chqHeroHold = p < 0.9;
+        document.body.classList.toggle('is-pastHero', (window.scrollY || window.pageYOffset) > 10 && !window.__chqHeroHold);
+      };
+      var autoGo = false;
+      var go = function (y) {
+        autoGo = true;
+        var done = function () { setTimeout(function () { autoGo = false; }, 150); };
+        var ln = window.__lenis || window.lenis;
+        if (ln && typeof ln.scrollTo === 'function') ln.scrollTo(y, { duration: 1.3, lock: true, force: true, easing: function (t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }, onComplete: done });
+        else { window.scrollTo({ top: y, behavior: 'smooth' }); setTimeout(done, 1300); }
+      };
+      var trig = ST.create({
+        trigger: hero, start: 'top top', end: '+=180%', pin: true, scrub: true, anticipatePin: 1,
+        animation: tl, refreshPriority: 10,
+        onUpdate: function (self) {
+          bar(self.progress);
+          /* 문장이 다 뜬 뒤 아래로 조금만 굴려도 흰 화면, 15개의 섬까지 자동으로 넘어간다 */
+          if (!autoGo && self.direction > 0 && self.progress > 0.76 && self.progress < 1) go(self.end + 4);
+        },
+        onLeave: function () { showNext(true); },
+        /* 15개의 섬에서 위로 올라오면 문장 화면으로 자동으로 돌아온다 */
+        onEnterBack: function (self) { showNext(false); if (!autoGo) go(self.start + (self.end - self.start) * 0.62); },
+        onRefreshInit: place,
+        onRefresh: function (self) { bar(self.progress); showNext(self.progress >= 1, true); }
+      });
+      ST.sort();
+      return function () {
+        trig.kill(); tl.kill();
+        if (next) { next.classList.remove('chqHeroNext'); next.style.marginTop = ''; gsap.set(next, { clearProps: 'opacity,visibility' }); }
+        gsap.set([list, box, dim, white, txt, em, sub].concat(fades).filter(Boolean), { clearProps: 'all' });
+        [dim, white, box].forEach(function (el) { if (el.parentNode) el.parentNode.removeChild(el); });
+        document.body.classList.remove('chqHeroPinOn');
+        orig.style.display = '';
+        window.__chqHeroHold = false;
+        document.body.classList.toggle('is-pastHero', (window.scrollY || window.pageYOffset) > 10);
+      };
+    });
+  })();
+
   /* 7. 이미지와 글꼴이 다 실린 뒤 위치 다시 계산 */
   if (ST) {
     window.addEventListener('load', function () { ST.refresh(); });
@@ -380,7 +472,7 @@
   /* v8 (2026-10-29): 하위 페이지(chqSub)도 같은 방식. 사진 배경 섹션도 어두운 쪽으로 본다 */
   var sub = document.body.classList.contains('chqSub');
   if (!sub && (document.body.getAttribute('data-page') !== 'home' || !document.querySelector('.homeHero'))) return;
-  var sel = '.chqSec--darkFixed,.chqSec.is-dark,.chqV7fade' + (sub ? ',.chqSec--photo,.chqHero--photo' : ''), raf = 0;
+  var sel = '.chqSec--darkFixed,.chqSec.is-dark,.chqV7fade,.chqPhotoHold' + (sub ? ',.chqSec--photo,.chqHero--photo' : ''), raf = 0;
   var check = function () {
     raf = 0;
     var on = Array.prototype.some.call(document.querySelectorAll(sel), function (el) {
@@ -525,4 +617,41 @@
   }
   window.addEventListener('scroll', function () { idleDone = false; morph(0); arm(); if (!posRaf) posRaf = requestAnimationFrame(place); }, { passive: true });
   arm();
+})();
+
+/* t13 취향섬 강조 그라데이션 스크롤 흐름, 머물 때는 내 집 슬라이드 */
+(function () {
+  var em = document.querySelector('.chqV8one .chqState__txt em');
+  if (em) {
+    var sec = em.closest('section'), raf = 0;
+    var upd = function () {
+      raf = 0;
+      var r = sec.getBoundingClientRect(), vh = innerHeight;
+      var k = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+      em.style.backgroundPosition = (k * 100).toFixed(1) + '% 50%';
+    };
+    addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
+    addEventListener('resize', upd); upd();
+  }
+  var p = document.querySelector('.chqSlide');
+  if (!p || !window.IntersectionObserver) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var a = p.querySelector('.chqSlide__a'), done = false;
+  var place = function () {
+    if (done) return;
+    a.style.transform = 'none';
+    var pr = (p.closest('.chqState') || p).getBoundingClientRect(), ar = a.getBoundingClientRect();
+    a.style.transform = 'translateX(' + ((pr.left + pr.width / 2) - (ar.left + ar.width / 2)).toFixed(1) + 'px)';
+  };
+  p.classList.add('is-armed'); place();
+  addEventListener('resize', place);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      setTimeout(function () { done = true; p.classList.add('is-play'); }, 500);
+    });
+  }, { threshold: 0.6 });
+  io.observe(p);
 })();
