@@ -274,7 +274,6 @@
     var bg = wrap.querySelector('.chqFade__img'), sec = wrap.querySelector('.chqFade__sec'), hero = wrap.querySelector('.chqFade__hero');
     if (!bg || !sec || !gsap || !ST) return;
     gsap.fromTo(bg, { opacity: 0 }, { opacity: 1, ease: 'none', scrollTrigger: { trigger: sec, start: 'top 100%', end: 'top 50%', scrub: true } });
-    if (hero) gsap.fromTo(hero, { opacity: 1 }, { opacity: 0, ease: 'none', scrollTrigger: { trigger: sec, start: 'top 95%', end: 'top 35%', scrub: true } });
   });
 
   /* 3-2. 카운트업 관찰 (고정 장면이 맡은 숫자는 건너뜀) */
