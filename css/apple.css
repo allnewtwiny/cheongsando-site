@@ -636,3 +636,11 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqApple .chqFade>.chqHero{background:transparent}
 /* 11-27 24년 섹션 이전 다음 화살표: 우측 다이어그램 오른쪽 선에 맞춤 */
 .chqApple .chqPinFix .chqPin__figs .chqPinNav{grid-column:1;justify-content:flex-end;margin-top:2.4rem}
+/* 11-27: 군도 문구 전부 흰색 */
+.chqApple .chqFade__sec .chqState__txt,.chqApple .chqFade__sec .chqState__txt em{color:#fff}
+/* 11-27: 24년 섹션. 초록 네모 숨김, 화살표는 동그라미 테두리 없이, 왼쪽 글 효과 끔 */
+.chqApple .chqPin[data-nopin] .chqMono i{display:none}
+.chqApple .chqPin[data-nopin] .chqPinNav button{border:0;border-radius:0;background:none;width:auto;height:auto;transition:none}
+.chqApple .chqPin[data-nopin] .chqPinNav button:hover{background:none;color:var(--fg)}
+.chqApple .chqPin[data-nopin] .chqPin__copy .chqR,.chqApple .chqPin[data-nopin] .chqPin__step{opacity:1;transform:none;transition:none}
+.chqApple .chqPin[data-nopin] .chqPin__step:not(.is-active){opacity:0;visibility:hidden}
