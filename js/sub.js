@@ -181,8 +181,10 @@
           var tick = function (now) { var k = clamp((now - t0) / dur); render(k); if (k < 1) requestAnimationFrame(tick); };
           requestAnimationFrame(tick);
         };
+        /* data-nohold: 화면 고정 없이 보이기 시작하면 애니메이션만 재생 */
+        var nohold = pin.hasAttribute('data-nohold');
         var trig = ST.create({
-          trigger: pin, start: 'top top', end: '+=' + (parseInt(pin.getAttribute('data-len'), 10) || n * 90) + '%', pin: stage, scrub: 0.4, anticipatePin: 1,
+          trigger: pin, start: nohold ? 'top 70%' : 'top top', end: nohold ? 'bottom top' : '+=' + (parseInt(pin.getAttribute('data-len'), 10) || n * 90) + '%', pin: nohold ? false : stage, scrub: nohold ? false : 0.4, anticipatePin: nohold ? 0 : 1,
           onUpdate: function (self) { if (manual) { if (!mGo && self.progress > 0) { mGo = true; mEnter(); } return; } if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); },
           onRefresh: function (self) { if (manual) { if (!mGo && self.progress > 0) { mGo = true; mEnter(); } return; } if (isNaN(auto)) render(self.progress); else if (self.progress > 0) play(); },
           /* 구간 재생 장면은 위로 빠져나가면 처음 상태로, 다시 들어오면 서울부터 */
