@@ -762,7 +762,7 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqGal__track img{-webkit-user-drag:none;user-select:none}
 
 /* t9 20261127 */
-.chqApple,.chqApple .chqSec{--accImg:url(../img/accent_grad_v2.jpg)}
+.chqApple,.chqApple .chqSec{--accImg:url(../img/accent_grad_v3.jpg)}
 /* 2 갤러리 좌우 끝까지, 로고 간격 */
 .chqApple .chqGal{overflow:visible;overflow-x:clip}
 .chqApple .chqGal__track{margin:4.8rem calc(50% - 50vw) 0;padding:0 calc(50vw - 50%) .4rem;scroll-padding-left:calc(50vw - 50%)}

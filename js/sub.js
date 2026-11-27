@@ -391,9 +391,9 @@
       if (fades.length) tl.to(fades, { autoAlpha: 0, duration: 0.12 }, 0);
       tl.to(dim, { opacity: 1, duration: 0.2 }, 0.05)
         .fromTo(box, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power1.out' }, 0.32)
-        .to(box, { autoAlpha: 0, duration: 0.18, ease: 'none' }, 1.0)
-        .to(white, { opacity: 1, duration: 0.2 }, 1.0);
-      /* 2026-11-26 문장이 다 뜬 뒤 0.52 에서 1.0 까지는 그대로 멈춰 있는 구간 (전체 1.2) */
+        .to(box, { autoAlpha: 0, duration: 0.18, ease: 'none' }, 0.68)
+        .to(white, { opacity: 1, duration: 0.2 }, 0.68);
+      /* 2026-11-27 멈춤 구간 축소: 문장이 다 뜬 뒤 0.52 에서 0.68 까지만 멈춤 (전체 0.88, 이전 0.52~1.0 / 1.2) */
       /* 다음 섹션(15개의 섬)은 미끄러져 올라오지 않고 제자리에서 나타나게:
          고정 장면이 끝나는 순간 그 섹션의 고정 무대가 화면 맨 위에 오도록 겹쳐 두고, 숨겼다가 페이드인 */
       var place = function () {
@@ -420,12 +420,12 @@
         else { window.scrollTo({ top: y, behavior: 'smooth' }); setTimeout(done, 1300); }
       };
       var trig = ST.create({
-        trigger: hero, start: 'top top', end: '+=260%', pin: true, scrub: true, anticipatePin: 1,
+        trigger: hero, start: 'top top', end: '+=180%', pin: true, scrub: true, anticipatePin: 1,
         animation: tl, refreshPriority: 10,
         onUpdate: function (self) {
           bar(self.progress);
           /* 문장이 다 뜬 뒤 아래로 조금만 굴려도 흰 화면, 15개의 섬까지 자동으로 넘어간다 */
-          if (!autoGo && self.direction > 0 && self.progress > 0.84 && self.progress < 1) go(self.end + 4);
+          if (!autoGo && self.direction > 0 && self.progress > 0.76 && self.progress < 1) go(self.end + 4);
         },
         onLeave: function () { showNext(true); },
         /* 15개의 섬에서 위로 올라오면 문장 화면으로 자동으로 돌아온다 */
