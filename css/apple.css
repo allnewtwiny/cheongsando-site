@@ -742,7 +742,7 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqGal__more{margin-top:1.4rem;align-self:flex-start;font-size:1.5rem;font-weight:500;color:var(--fg);text-decoration:none}
 .chqGal__more i{font-style:normal;margin-left:.4rem;display:inline-block;transition:transform .3s ease}
 .chqGal__more:hover i{transform:translateX(3px)}
-.chqGal__foot{display:flex;align-items:center;justify-content:space-between;gap:2rem;margin-top:3.2rem}
+.chqGal__foot{display:flex;align-items:center;justify-content:flex-end;margin-top:3.2rem}
 .chqGal__note{margin:0;font-size:1.2rem;color:var(--fg3)}
 .chqGal__nav{display:flex;gap:1.4rem}
 .chqGal__btn{width:3.6rem;height:3.6rem;border:0;border-radius:50%;padding:0;display:grid;place-items:center;background:rgba(210,210,215,.64);color:rgba(0,0,0,.56);cursor:pointer;transition:background .25s ease,color .25s ease,opacity .25s ease}
@@ -751,3 +751,12 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqGal__btn:disabled{opacity:.42;cursor:default}
 @media (max-width:1023px){.chqGal__card{flex-basis:min(78vw,52rem)}.chqGal__track{gap:1.6rem;margin-top:3.2rem}.chqGal__cap{font-size:1.5rem}}
 @media (max-width:600px){.chqGal__card{flex-basis:84vw}}
+
+/* 넘김 카드: 사진 안 렌더링 안내, 화살표 3번째 사진 좌측선 정렬, 마우스 끌어 넘기기 (2026-11-27) */
+.chqGal__badge{position:absolute;left:1.6rem;bottom:1.4rem;z-index:2;font-size:1.1rem;line-height:1.3;letter-spacing:-.01em;color:#fff;opacity:.62;text-shadow:0 1px 3px rgba(0,0,0,.35);pointer-events:none}
+@media (min-width:1024px){.chqGal__foot{justify-content:flex-start}.chqGal__nav{margin-left:calc(2 * (min(37vw,62rem) + 2.4rem))}}
+@media (hover:hover) and (pointer:fine){.chqGal__track{cursor:grab}}
+.chqGal__track.is-drag{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto;user-select:none;-webkit-user-select:none}
+.chqGal__track.is-drag a{cursor:grabbing}
+.chqGal__track.is-snap{scroll-snap-type:none}
+.chqGal__track img{-webkit-user-drag:none;user-select:none}
