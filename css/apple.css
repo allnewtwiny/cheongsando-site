@@ -817,3 +817,4 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqApple .chqPin[data-nopin] .chqMono{display:none}
 .chqApple .chqPin[data-nopin] .chqPin__copy .chqR,.chqApple .chqPin[data-nopin] .chqPin__step{opacity:1;transform:none;transition:none}
 .chqApple .chqPin[data-nopin] .chqPin__step:not(.is-active){opacity:0;visibility:hidden}
+.chqMono i{display:none!important}
