@@ -792,7 +792,7 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqApple .chqPhotoHold .chqChart__bar--acc .chqChart__fill,.chqApple .chqPhotoHold .chqChart__bar.is-hl .chqChart__fill{background-image:radial-gradient(circle at 1.5px 1.5px,var(--dot) 1.1px,transparent 1.7px);background-size:7px 7px}
 
 /* 스크롤 강조 연출 t13 */
-.chqApple .chqV8one .chqState__txt em{background-image:linear-gradient(90deg,#5a8fb8 0%,#4f9a9e 16%,#6aa53e 32%,#93b432 42%,#56a06e 56%,#6593ba 70%,#4f9c90 84%,#86ad3a 100%);background-size:500% 100%;background-position:0% 50%;background-repeat:no-repeat}
+.chqApple .chqV8one .chqState__txt em,.chqApple .chqEmFlow em{background-image:linear-gradient(90deg,#5a8fb8 0%,#4f9a9e 16%,#6aa53e 32%,#93b432 42%,#56a06e 56%,#6593ba 70%,#4f9c90 84%,#86ad3a 100%);background-size:500% 100%;background-position:0% 50%;background-repeat:no-repeat}
 .chqApple .chqSlide__a{display:inline-block;will-change:transform}
 .chqApple .chqSlide__c{color:#fff;-webkit-text-fill-color:#fff}
 .chqApple .chqSlide__b{display:inline-block;-webkit-mask-image:linear-gradient(90deg,#000 0 40%,transparent 60% 100%);mask-image:linear-gradient(90deg,#000 0 40%,transparent 60% 100%);-webkit-mask-size:250% 100%;mask-size:250% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:0 0;mask-position:0 0}

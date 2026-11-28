@@ -621,14 +621,18 @@
 
 /* t13 취향섬 강조 그라데이션 스크롤 흐름, 머물 때는 내 집 슬라이드 */
 (function () {
-  var em = document.querySelector('.chqV8one .chqState__txt em');
-  if (em) {
-    var sec = em.closest('section'), raf = 0;
+  /* 메인 하나의 섬 + 마스터플랜 강조 글(.chqEmFlow) 모두 스크롤 따라 색이 흐른다 */
+  var ems = [].slice.call(document.querySelectorAll('.chqV8one .chqState__txt em, .chqEmFlow em'));
+  if (ems.length) {
+    var raf = 0;
     var upd = function () {
       raf = 0;
-      var r = sec.getBoundingClientRect(), vh = innerHeight;
-      var k = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
-      em.style.backgroundPosition = (k * 100).toFixed(1) + '% 50%';
+      var vh = innerHeight;
+      ems.forEach(function (em) {
+        var r = em.closest('section').getBoundingClientRect();
+        var k = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+        em.style.backgroundPosition = (k * 100).toFixed(1) + '% 50%';
+      });
     };
     addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
     addEventListener('resize', upd); upd();
