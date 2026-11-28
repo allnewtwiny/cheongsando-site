@@ -779,7 +779,7 @@ a:hover .hhExtra .hhPlay path,a:focus-visible .hhExtra .hhPlay path{opacity:1;tr
 .chqApple .chqV7sea{--fg:#fff;--fg2:#fff;--fg3:#fff}
 .chqApple .chqV7sea,.chqApple .chqV7sea .chqSec__title,.chqApple .chqV7sea .chqStat__num,.chqApple .chqV7sea .chqStat__num small,.chqApple .chqV7sea .chqStat__lab,.chqApple .chqV7sea .chqPromo,.chqApple .chqV7sea .chqSmall,.chqApple .chqV7sea .chqFigNote,.chqApple .chqV7sea .chqFigNote--l{color:#fff}
 /* 5 마지막 CTA */
-.chqApple .chqSec--cta .chqSec__title span{background:linear-gradient(180deg,#fff 40%,#d2d2d7 100%);-webkit-background-clip:text;background-clip:text}
+.chqApple .chqSec--cta .chqSec__title span{background:none;color:#fff;-webkit-text-fill-color:#fff}
 .chqApple .chqSec--cta .chqBtn,.chqApple .chqSec--cta .chqBtn--fill{background:#fff;color:#000;border-color:#fff}
 .chqApple .chqSec--cta .chqBtn:hover,.chqApple .chqSec--cta .chqBtn--fill:hover{background:#000;color:#fff;border-color:#000}
 /* 6 강조 초록을 그라데이션 이미지 마스크로 */
